@@ -1,0 +1,6 @@
+audit/
+pnpm-lock.yaml
+dist/
+.tmp/
+# Helm templates are Go templates, not YAML (prettier cannot parse them); validated by helm lint + kubeconform.
+deploy/helm/**/templates/

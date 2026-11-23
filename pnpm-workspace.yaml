@@ -1,0 +1,9 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Build scripts that are allowed to run on install (pnpm 10 blocks lifecycle scripts by default).
+onlyBuiltDependencies:
+  - esbuild
+  - '@embedded-postgres/windows-x64'
+  - '@confluentinc/kafka-javascript'

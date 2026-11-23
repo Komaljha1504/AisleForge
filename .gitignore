@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+.tmp/
+*.log
+!audit/**/*.log
+.env
+.env.*
+!.env.example
+audit/prototypes/**/pgdata*/
+audit/prototypes/**/.venv/
+playwright-report/
+test-results/
+!audit/test-results/
+__pycache__/
