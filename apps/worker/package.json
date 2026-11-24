@@ -1,0 +1,20 @@
+{
+  "name": "@aisleforge/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@aisleforge/cache": "workspace:*",
+    "@aisleforge/database": "workspace:*",
+    "@aisleforge/domain": "workspace:*",
+    "@aisleforge/events": "workspace:*",
+    "@aisleforge/routing": "workspace:*",
+    "@aisleforge/shared": "workspace:*",
+    "@confluentinc/kafka-javascript": "1.11.0",
+    "pg": "^8.16.3",
+    "zod": "^4.6.7"
+  }
+}
