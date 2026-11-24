@@ -1,0 +1,19 @@
+{
+  "name": "@aisleforge/domain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@aisleforge/database": "workspace:*",
+    "@aisleforge/events": "workspace:*",
+    "@aisleforge/shared": "workspace:*",
+    "@node-rs/argon2": "^2.2.2",
+    "jose": "^6.2.18",
+    "pg": "^8.16.3",
+    "zod": "^4.6.7",
+    "@aisleforge/routing": "workspace:*"
+  }
+}
