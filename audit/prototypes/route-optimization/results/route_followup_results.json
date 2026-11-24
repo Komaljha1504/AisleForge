@@ -1,0 +1,90 @@
+{
+  "frozen_followup": [
+    {
+      "items": 25,
+      "zone_seq": {
+        "solved": 5,
+        "feasible_routes": 5,
+        "mean_distance_m": 442.4
+      },
+      "ort_cheapest_arc": {
+        "solved": 1,
+        "feasible_routes": 1,
+        "mean_distance_m": 446.0
+      },
+      "ort_local_cheapest_insertion": {
+        "solved": 1,
+        "feasible_routes": 1,
+        "mean_distance_m": 446.0
+      },
+      "ort_seeded_with_zone_seq": {
+        "solved": 5,
+        "feasible_routes": 5,
+        "mean_distance_m": 430.4
+      }
+    },
+    {
+      "items": 50,
+      "zone_seq": {
+        "solved": 5,
+        "feasible_routes": 5,
+        "mean_distance_m": 601.2
+      },
+      "ort_cheapest_arc": {
+        "solved": 0,
+        "feasible_routes": 0,
+        "mean_distance_m": null
+      },
+      "ort_local_cheapest_insertion": {
+        "solved": 0,
+        "feasible_routes": 0,
+        "mean_distance_m": null
+      },
+      "ort_seeded_with_zone_seq": {
+        "solved": 5,
+        "feasible_routes": 5,
+        "mean_distance_m": 586.8
+      }
+    },
+    {
+      "items": 100,
+      "zone_seq": {
+        "solved": 5,
+        "feasible_routes": 5,
+        "mean_distance_m": 897.2
+      },
+      "ort_cheapest_arc": {
+        "solved": 0,
+        "feasible_routes": 0,
+        "mean_distance_m": null
+      },
+      "ort_local_cheapest_insertion": {
+        "solved": 0,
+        "feasible_routes": 0,
+        "mean_distance_m": null
+      },
+      "ort_seeded_with_zone_seq": {
+        "solved": 5,
+        "feasible_routes": 5,
+        "mean_distance_m": 881.6
+      }
+    }
+  ],
+  "callback_vs_matrix": [
+    {
+      "items": 100,
+      "default_solve_python_callback_ms": 262.7,
+      "default_solve_transit_matrix_ms": 93.3
+    },
+    {
+      "items": 200,
+      "default_solve_python_callback_ms": 962.9,
+      "default_solve_transit_matrix_ms": 471.8
+    },
+    {
+      "items": 400,
+      "default_solve_python_callback_ms": 3580.0,
+      "default_solve_transit_matrix_ms": 1945.6
+    }
+  ]
+}

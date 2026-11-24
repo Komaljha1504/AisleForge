@@ -1,0 +1,208 @@
+{
+  "env": {
+    "postgres": "PostgreSQL 18.7 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit",
+    "node": "v24.11.1",
+    "cpus": 8,
+    "cpuModel": "11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz",
+    "ramGB": 7.7,
+    "platform": "win32 10.0.26300",
+    "note": "Single laptop; client and DB on same host; fsync on (default durability)."
+  },
+  "tests": {
+    "T1_oversell": [
+      {
+        "strategy": "naive_read_then_write",
+        "stock": 1,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "ok": 50,
+          "insufficient": 150
+        },
+        "reservationsCreated": 50,
+        "finalReservedCounter": 1,
+        "oversold": 49,
+        "counterMismatch": true,
+        "elapsedMs": 202
+      },
+      {
+        "strategy": "serializable_read_then_write",
+        "stock": 1,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "40001": 49,
+          "ok": 1,
+          "insufficient": 150
+        },
+        "reservationsCreated": 1,
+        "finalReservedCounter": 1,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 113.5
+      },
+      {
+        "strategy": "serializable_with_retry",
+        "stock": 1,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "insufficient": 199,
+          "ok": 1
+        },
+        "reservationsCreated": 1,
+        "finalReservedCounter": 1,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 117.3,
+        "totalSerializationRetries": 49
+      },
+      {
+        "strategy": "atomic_conditional_update",
+        "stock": 1,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "insufficient": 199,
+          "ok": 1
+        },
+        "reservationsCreated": 1,
+        "finalReservedCounter": 1,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 120.1
+      },
+      {
+        "strategy": "naive_read_then_write",
+        "stock": 10,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "ok": 195,
+          "insufficient": 5
+        },
+        "reservationsCreated": 195,
+        "finalReservedCounter": 2,
+        "oversold": 185,
+        "counterMismatch": true,
+        "elapsedMs": 368.3
+      },
+      {
+        "strategy": "serializable_read_then_write",
+        "stock": 10,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "40001": 193,
+          "ok": 7
+        },
+        "reservationsCreated": 7,
+        "finalReservedCounter": 7,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 137.3
+      },
+      {
+        "strategy": "serializable_with_retry",
+        "stock": 10,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "ok": 10,
+          "insufficient": 190
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 421.2,
+        "totalSerializationRetries": 308
+      },
+      {
+        "strategy": "atomic_conditional_update",
+        "stock": 10,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "ok": 10,
+          "insufficient": 190
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 129.5
+      },
+      {
+        "strategy": "naive_read_then_write",
+        "stock": 10,
+        "attempts": 500,
+        "poolMax": 50,
+        "outcomes": {
+          "ok": 465,
+          "insufficient": 35
+        },
+        "reservationsCreated": 465,
+        "finalReservedCounter": 6,
+        "oversold": 455,
+        "counterMismatch": true,
+        "elapsedMs": 761
+      },
+      {
+        "strategy": "serializable_read_then_write",
+        "stock": 10,
+        "attempts": 500,
+        "poolMax": 50,
+        "outcomes": {
+          "40001": 419,
+          "ok": 10,
+          "insufficient": 71
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 286.2
+      },
+      {
+        "strategy": "serializable_with_retry",
+        "stock": 10,
+        "attempts": 500,
+        "poolMax": 50,
+        "outcomes": {
+          "insufficient": 490,
+          "ok": 10
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 540.1,
+        "totalSerializationRetries": 490
+      },
+      {
+        "strategy": "atomic_conditional_update",
+        "stock": 10,
+        "attempts": 500,
+        "poolMax": 50,
+        "outcomes": {
+          "insufficient": 490,
+          "ok": 10
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 244.4
+      }
+    ],
+    "T4_deadlocks": [],
+    "T5_conn_exhaustion": {
+      "attemptedConnections": 120,
+      "outcomes": {
+        "53300": 15,
+        "ok": 105
+      }
+    }
+  }
+}

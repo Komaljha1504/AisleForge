@@ -1,0 +1,412 @@
+{
+  "env": {
+    "postgres": "PostgreSQL 18.7 on x86_64-windows, compiled by msvc-19.44.35229, 64-bit",
+    "node": "v24.11.1",
+    "cpus": 8,
+    "cpuModel": "11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz",
+    "ramGB": 7.7,
+    "platform": "win32 10.0.26300",
+    "note": "Single laptop; client and DB on same host; fsync on (default durability)."
+  },
+  "tests": {
+    "T1_oversell": [
+      {
+        "strategy": "naive_read_then_write",
+        "stock": 1,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "ok": 1,
+          "insufficient": 199
+        },
+        "reservationsCreated": 1,
+        "finalReservedCounter": 1,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 4563.3
+      },
+      {
+        "strategy": "serializable_read_then_write",
+        "stock": 1,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "40001": 49,
+          "ok": 1,
+          "insufficient": 150
+        },
+        "reservationsCreated": 1,
+        "finalReservedCounter": 1,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 69.2
+      },
+      {
+        "strategy": "atomic_conditional_update",
+        "stock": 1,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "insufficient": 199,
+          "ok": 1
+        },
+        "reservationsCreated": 1,
+        "finalReservedCounter": 1,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 114.7
+      },
+      {
+        "strategy": "naive_read_then_write",
+        "stock": 10,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "ok": 10,
+          "insufficient": 190
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 3496.2
+      },
+      {
+        "strategy": "serializable_read_then_write",
+        "stock": 10,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "40001": 194,
+          "ok": 6
+        },
+        "reservationsCreated": 6,
+        "finalReservedCounter": 6,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 78.3
+      },
+      {
+        "strategy": "atomic_conditional_update",
+        "stock": 10,
+        "attempts": 200,
+        "poolMax": 50,
+        "outcomes": {
+          "insufficient": 190,
+          "ok": 10
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 77.7
+      },
+      {
+        "strategy": "naive_read_then_write",
+        "stock": 10,
+        "attempts": 500,
+        "poolMax": 50,
+        "outcomes": {
+          "ok": 10,
+          "insufficient": 490
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 3239.9
+      },
+      {
+        "strategy": "serializable_read_then_write",
+        "stock": 10,
+        "attempts": 500,
+        "poolMax": 50,
+        "outcomes": {
+          "40001": 444,
+          "ok": 10,
+          "insufficient": 46
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 175.4
+      },
+      {
+        "strategy": "atomic_conditional_update",
+        "stock": 10,
+        "attempts": 500,
+        "poolMax": 50,
+        "outcomes": {
+          "insufficient": 490,
+          "ok": 10
+        },
+        "reservationsCreated": 10,
+        "finalReservedCounter": 10,
+        "oversold": 0,
+        "counterMismatch": false,
+        "elapsedMs": 143.9
+      }
+    ],
+    "T2_idempotency": {
+      "outcomes": {
+        "ok": 1,
+        "duplicate": 99
+      },
+      "reservations": 1,
+      "reservedCounter": 2,
+      "outboxRows": 1
+    },
+    "T3_throughput": [
+      {
+        "scenario": "A",
+        "concurrentClients": 10,
+        "products": 500,
+        "distribution": "uniform",
+        "ops": 2000,
+        "throughputTxPerSec": 1701,
+        "p50ms": 3.43,
+        "p95ms": 5.48,
+        "p99ms": 7.99,
+        "poolWaitP50ms": 0.01,
+        "poolWaitP95ms": 0.03,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "A",
+        "concurrentClients": 10,
+        "products": 500,
+        "distribution": "hot_1pct_gets_80pct",
+        "ops": 2000,
+        "throughputTxPerSec": 1620,
+        "p50ms": 3.31,
+        "p95ms": 7.5,
+        "p99ms": 18.45,
+        "poolWaitP50ms": 0.01,
+        "poolWaitP95ms": 0.03,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "A",
+        "concurrentClients": 10,
+        "products": 500,
+        "distribution": "single_hot_sku",
+        "ops": 2000,
+        "throughputTxPerSec": 957,
+        "p50ms": 5.91,
+        "p95ms": 19.25,
+        "p99ms": 53.05,
+        "poolWaitP50ms": 0.02,
+        "poolWaitP95ms": 0.03,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "B",
+        "concurrentClients": 50,
+        "products": 5000,
+        "distribution": "uniform",
+        "ops": 4000,
+        "throughputTxPerSec": 1565,
+        "p50ms": 22.51,
+        "p95ms": 50.81,
+        "p99ms": 188.38,
+        "poolWaitP50ms": 15.89,
+        "poolWaitP95ms": 34.67,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "B",
+        "concurrentClients": 50,
+        "products": 5000,
+        "distribution": "hot_1pct_gets_80pct",
+        "ops": 4000,
+        "throughputTxPerSec": 1534,
+        "p50ms": 20.18,
+        "p95ms": 37.3,
+        "p99ms": 188.17,
+        "poolWaitP50ms": 15.25,
+        "poolWaitP95ms": 29.26,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "B",
+        "concurrentClients": 50,
+        "products": 5000,
+        "distribution": "single_hot_sku",
+        "ops": 4000,
+        "throughputTxPerSec": 965,
+        "p50ms": 38.89,
+        "p95ms": 77.23,
+        "p99ms": 217.36,
+        "poolWaitP50ms": 29.67,
+        "poolWaitP95ms": 36.82,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "C",
+        "concurrentClients": 200,
+        "products": 20000,
+        "distribution": "uniform",
+        "ops": 6000,
+        "throughputTxPerSec": 1704,
+        "p50ms": 106.03,
+        "p95ms": 158.22,
+        "p99ms": 292.36,
+        "poolWaitP50ms": 95.88,
+        "poolWaitP95ms": 148.37,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "C",
+        "concurrentClients": 200,
+        "products": 20000,
+        "distribution": "hot_1pct_gets_80pct",
+        "ops": 6000,
+        "throughputTxPerSec": 1523,
+        "p50ms": 109.25,
+        "p95ms": 187.66,
+        "p99ms": 404.31,
+        "poolWaitP50ms": 102.18,
+        "poolWaitP95ms": 173.95,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "C",
+        "concurrentClients": 200,
+        "products": 20000,
+        "distribution": "single_hot_sku",
+        "ops": 6000,
+        "throughputTxPerSec": 967,
+        "p50ms": 185.9,
+        "p95ms": 349.68,
+        "p99ms": 403.98,
+        "poolWaitP50ms": 174.45,
+        "poolWaitP95ms": 307.59,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "D",
+        "concurrentClients": 500,
+        "products": 50000,
+        "distribution": "uniform",
+        "ops": 8000,
+        "throughputTxPerSec": 1922,
+        "p50ms": 244.18,
+        "p95ms": 347.83,
+        "p99ms": 471.97,
+        "poolWaitP50ms": 236.96,
+        "poolWaitP95ms": 337.49,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "D",
+        "concurrentClients": 500,
+        "products": 50000,
+        "distribution": "hot_1pct_gets_80pct",
+        "ops": 8000,
+        "throughputTxPerSec": 1876,
+        "p50ms": 247.61,
+        "p95ms": 322.65,
+        "p99ms": 505.94,
+        "poolWaitP50ms": 240.02,
+        "poolWaitP95ms": 318.29,
+        "errors": 0,
+        "invariantHolds": true
+      },
+      {
+        "scenario": "D",
+        "concurrentClients": 500,
+        "products": 50000,
+        "distribution": "single_hot_sku",
+        "ops": 8000,
+        "throughputTxPerSec": 1187,
+        "p50ms": 406.31,
+        "p95ms": 513.7,
+        "p99ms": 551.76,
+        "poolWaitP50ms": 391.76,
+        "poolWaitP95ms": 496.4,
+        "errors": 0,
+        "invariantHolds": true
+      }
+    ],
+    "T4_deadlocks": [
+      {
+        "lockOrder": "arbitrary",
+        "ordersAttempted": 227,
+        "elapsedSec": 139.7,
+        "outcomes": {
+          "ok": 55,
+          "40P01": 172
+        },
+        "deadlocksDetected": 172,
+        "committedOrdersPerSec": 0.4,
+        "p50ms": 42677.36,
+        "p99ms": 136721.09,
+        "maxMs": 139692.54
+      },
+      {
+        "lockOrder": "sorted_by_sku",
+        "ordersAttempted": 1000,
+        "elapsedSec": 6.7,
+        "outcomes": {
+          "ok": 1000
+        },
+        "deadlocksDetected": 0,
+        "committedOrdersPerSec": 150,
+        "p50ms": 46.13,
+        "p99ms": 6002.24,
+        "maxMs": 6644.98
+      }
+    ],
+    "T5_conn_exhaustion": {
+      "attemptedConnections": 120,
+      "outcomes": {
+        "ok": 33,
+        "Connection terminated due to connection ": 87
+      }
+    },
+    "T6_outbox_watermark": {
+      "published": [
+        "B_fast_tx"
+      ],
+      "watermark": 2,
+      "everCommitted": [
+        {
+          "id": "1",
+          "event_type": "A_slow_tx"
+        },
+        {
+          "id": "2",
+          "event_type": "B_fast_tx"
+        }
+      ],
+      "lostEvents": [
+        "A_slow_tx"
+      ]
+    },
+    "T7_release_race": [
+      {
+        "stateTransition": "read_then_update",
+        "trials": 500,
+        "corruptedFinalStates": 0,
+        "checkConstraintRejections": 497
+      },
+      {
+        "stateTransition": "guarded_compare_and_set",
+        "trials": 500,
+        "corruptedFinalStates": 0,
+        "checkConstraintRejections": 0
+      }
+    ]
+  }
+}
