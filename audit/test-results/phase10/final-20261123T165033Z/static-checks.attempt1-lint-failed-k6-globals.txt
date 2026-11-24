@@ -1,0 +1,58 @@
+=== typecheck
+
+> aisleforge@ typecheck C:\Users\komal\OneDrive\Desktop\RetailFlow
+> tsc -p tsconfig.json --noEmit && tsc -p tests/e2e/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit
+
+--- typecheck: exit 0 (40 s)
+=== lint
+
+> aisleforge@ lint C:\Users\komal\OneDrive\Desktop\RetailFlow
+> eslint .
+
+
+C:\Users\komal\OneDrive\Desktop\RetailFlow\load-tests\k6\aisleforge.js
+   26:14  error  '__ENV' is not defined  no-undef
+   27:15  error  '__ENV' is not defined  no-undef
+   32:23  error  '__ENV' is not defined  no-undef
+   33:14  error  '__ENV' is not defined  no-undef
+   34:18  error  '__ENV' is not defined  no-undef
+   35:26  error  '__ENV' is not defined  no-undef
+   36:26  error  '__ENV' is not defined  no-undef
+   37:22  error  '__ENV' is not defined  no-undef
+  259:17  error  '__ENV' is not defined  no-undef
+
+✖ 9 problems (9 errors, 0 warnings)
+
+ ELIFECYCLE  Command failed with exit code 1.
+--- lint: exit 1 (21 s)
+=== format:check
+
+> aisleforge@ format:check C:\Users\komal\OneDrive\Desktop\RetailFlow
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+--- format:check: exit 0 (18 s)
+=== pnpm audit --prod --audit-level high
+2 vulnerabilities found
+Severity: 2 moderate
+--- pnpm audit --prod --audit-level high: exit 0 (6 s)
+=== helm lint (prod values)
+==> Linting deploy/helm/aisleforge
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+--- helm lint (prod values): exit 0 (0 s)
+=== helm lint (local values)
+==> Linting deploy/helm/aisleforge
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+--- helm lint (local values): exit 0 (0 s)
+=== kubeconform (k8s 1.31, strict)
+Summary: 24 resources found in 2 files - Valid: 24, Invalid: 0, Errors: 0, Skipped: 0
+--- kubeconform (k8s 1.31, strict): exit 0 (9 s)
+=== actionlint 1.7.4
+--- actionlint 1.7.4: exit 0 (4 s)
+=== docker compose config
+--- docker compose config: exit 0 (2 s)

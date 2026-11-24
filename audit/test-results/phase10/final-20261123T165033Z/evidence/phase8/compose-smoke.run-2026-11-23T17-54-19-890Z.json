@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-11-23T17:54:19.968Z",
+  "base": "http://localhost:8088",
+  "pass": false,
+  "steps": [
+    {
+      "step": "front door serves the PWA shell (+ service worker, security headers)",
+      "ok": true,
+      "ms": 211
+    },
+    {
+      "step": "API readiness through the proxy",
+      "ok": true,
+      "ms": 755
+    },
+    {
+      "step": "customer login",
+      "ok": true,
+      "ms": 390
+    },
+    {
+      "step": "place order (PostgreSQL reserves stock)",
+      "ok": true,
+      "ms": 246
+    },
+    {
+      "step": "picker login",
+      "ok": true,
+      "ms": 114
+    },
+    {
+      "step": "worker (container) consumed order.placed from Kafka and created the pick task",
+      "ok": false,
+      "ms": 60194,
+      "detail": "Error: timed out: pick task"
+    }
+  ]
+}

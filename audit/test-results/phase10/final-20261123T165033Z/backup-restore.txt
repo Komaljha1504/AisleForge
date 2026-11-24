@@ -1,0 +1,53 @@
+﻿NOTICE:  database "aisleforge_restore_check" does not exist, skipping
+{
+ "recordedAt": "2026-11-23T18:12:42.454Z",
+ "backupFile": "C:\\Users\\komal\\AppData\\Local\\Temp\\aisleforge-backups/aisleforge-20261123T181146Z.dump",
+ "backupBytes": 16917933,
+ "backupMs": 10236,
+ "restoreMs": 38494,
+ "tables": 22,
+ "mismatchedTables": [],
+ "restoredInvariants": [
+  {
+   "id": "I1",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I2",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I3",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I4",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I5",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I6",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I7",
+   "status": "PASS",
+   "violations": 0
+  }
+ ],
+ "liveOverwriteRefusedWithoutForce": true,
+ "refusalMessage": "refusing to overwrite the live database 'aisleforge' without --force and CONFIRM_RESTORE=yes",
+ "pass": true,
+ "note": "worker_status is excluded from the comparison (live snapshots change every few seconds)."
+}
+evidence: C:\Users\komal\OneDrive\Desktop\RetailFlow\audit\test-results\phase8\backup-restore.run-2026-11-23T18-12-42-468Z.json
+exit 0; 71 s

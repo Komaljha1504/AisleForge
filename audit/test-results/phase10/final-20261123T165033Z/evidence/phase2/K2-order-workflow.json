@@ -1,0 +1,45 @@
+{
+  "recordedAt": "2026-11-23T17:13:52.406Z",
+  "databaseKind": "embedded-postgres",
+  "placedToTasks": {
+    "orders": 30,
+    "endToEndMs": 2404,
+    "algorithms": {
+      "s_shape": 30
+    },
+    "lagAfterwards": 0
+  },
+  "cancelOrdering": {
+    "cancelled": 10,
+    "activeTasksForCancelledOrders": 0,
+    "cancelledEventOutcomes": [
+      {
+        "outcome": "applied",
+        "n": 10
+      }
+    ]
+  },
+  "redelivery": {
+    "subscribedEventsRedelivered": 60,
+    "duplicatesSkipped": 60,
+    "tasksBefore": 50,
+    "tasksAfter": 50
+  },
+  "staleEvent": {
+    "outcome": "stale"
+  },
+  "routing": {
+    "unplanned": "no_store_layout",
+    "infeasible": "cold-chain exposure policy cannot be met (1 violation(s)); split or escalate",
+    "fallback": "s_shape"
+  },
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:PASS",
+    "I7:PASS"
+  ]
+}

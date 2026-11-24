@@ -1,0 +1,131 @@
+{
+  "recordedAt": "2026-11-23T18:11:15.553Z",
+  "experiment": "E3 on Docker Compose (Linux worker container): docker compose kill -s SIGKILL worker",
+  "kills": [
+    {
+      "at": "2026-11-23T18:08:14.140Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:08:27.800Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:08:41.960Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:08:53.227Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:09:06.867Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:09:20.672Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:09:33.599Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:09:44.767Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:09:56.947Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    },
+    {
+      "at": "2026-11-23T18:10:10.137Z",
+      "runningBefore": true,
+      "sameProcessSinceLastStart": true,
+      "exitCodeAfterKill": 137
+    }
+  ],
+  "load": {
+    "placed": 645,
+    "errors": 0
+  },
+  "drainAfterLoadMs": 47436,
+  "unconsumedAfterDrain": 0,
+  "orders": 5092,
+  "tasks": 5092,
+  "duplicateTasks": 0,
+  "killExitCodes": [
+    137,
+    137,
+    137,
+    137,
+    137,
+    137,
+    137,
+    137,
+    137,
+    137
+  ],
+  "workerDiedOrRestartedOnItsOwn": 0,
+  "finalWorkerState": {
+    "running": true,
+    "startedAt": "2026-11-23T18:10:13.314365476Z",
+    "exitCode": 0
+  },
+  "invariants": [
+    {
+      "id": "I1",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I2",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I3",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I4",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I5",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I6",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I7",
+      "status": "PASS",
+      "violations": 0
+    }
+  ],
+  "pass": true
+}

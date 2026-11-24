@@ -1,0 +1,80 @@
+﻿ Container aisleforge-kafka-1 Running 
+ Container aisleforge-redis-1 Running 
+ Container aisleforge-migrate-1 Recreate 
+ Container aisleforge-migrate-1 Recreated 
+ Container aisleforge-api-1 Recreate 
+ Container aisleforge-worker-1 Recreate 
+ Container aisleforge-api-1 Recreated 
+ Container aisleforge-web-1 Recreate 
+ Container aisleforge-worker-1 Recreated 
+ Container aisleforge-web-1 Recreated 
+ Container aisleforge-postgres-1 Starting 
+ Container aisleforge-kafka-1 Waiting 
+ Container aisleforge-kafka-1 Healthy 
+ Container aisleforge-postgres-1 Started 
+ Container aisleforge-postgres-1 Waiting 
+ Container aisleforge-postgres-1 Healthy 
+ Container aisleforge-migrate-1 Starting 
+ Container aisleforge-migrate-1 Started 
+ Container aisleforge-migrate-1 Waiting 
+ Container aisleforge-migrate-1 Exited 
+ Container aisleforge-api-1 Starting 
+ Container aisleforge-worker-1 Starting 
+ Container aisleforge-api-1 Started 
+ Container aisleforge-api-1 Waiting 
+ Container aisleforge-worker-1 Started 
+ Container aisleforge-api-1 Healthy 
+ Container aisleforge-web-1 Starting 
+ Container aisleforge-web-1 Started 
+api Up 22 seconds (healthy)
+kafka Up 38 minutes (healthy)
+postgres Up 33 seconds (healthy)
+redis Up 35 minutes (healthy)
+web Up 14 seconds (healthy)
+worker Up 21 seconds (healthy)
+PASS front door serves the PWA shell (+ service worker, security headers)
+PASS API readiness through the proxy
+PASS customer login
+PASS place order (PostgreSQL reserves stock)
+PASS picker login
+FAIL worker (container) consumed order.placed from Kafka and created the pick task Error: timed out: pick task
+evidence: C:\Users\komal\OneDrive\Desktop\RetailFlow\audit\test-results\phase10\final-20261123T165033Z\evidence\phase8\compose-smoke.run-2026-11-23T17-50-12-433Z.json
+smoke exit 1
+
+=== smoke attempt 2 (after the stale-reservation expiry backlog drained; attempt 1 timed out at step 6)
+PASS front door serves the PWA shell (+ service worker, security headers)
+PASS API readiness through the proxy
+PASS customer login
+PASS place order (PostgreSQL reserves stock)
+PASS picker login
+FAIL worker (container) consumed order.placed from Kafka and created the pick task Error: timed out: pick task
+evidence: C:\Users\komal\OneDrive\Desktop\RetailFlow\audit\test-results\phase10\final-20261123T165033Z\evidence\phase8\compose-smoke.run-2026-11-23T17-54-19-890Z.json
+smoke exit 1
+
+=== smoke attempt 3 (smoke tool fixed: looks up the new task newest-first; attempts 1-2 failed on the tool's FIFO page, not the stack)
+PASS front door serves the PWA shell (+ service worker, security headers)
+PASS API readiness through the proxy
+PASS customer login
+PASS place order (PostgreSQL reserves stock)
+PASS picker login
+PASS worker (container) consumed order.placed from Kafka and created the pick task
+PASS claim task (lease)
+PASS sync picks + completion (idempotent op log)
+PASS order reaches picked
+FAIL admin diagnostics show a reporting worker with Kafka state Error: worker status {"connected":true,"lastAckAt":"2026-11-22T13:42:21.595Z","lastError":null,"sentMessages":153}
+evidence: C:\Users\komal\OneDrive\Desktop\RetailFlow\audit\test-results\phase10\final-20261123T165033Z\evidence\phase8\compose-smoke.run-2026-11-23T17-56-05-222Z.json
+smoke exit 1
+
+=== smoke attempt 4 (smoke tool fixed: requires a live, non-stale worker; attempt 3 read a stale row left by an earlier SIGKILL)
+PASS front door serves the PWA shell (+ service worker, security headers)
+PASS API readiness through the proxy
+PASS customer login
+PASS place order (PostgreSQL reserves stock)
+PASS picker login
+PASS worker (container) consumed order.placed from Kafka and created the pick task
+PASS claim task (lease)
+PASS sync picks + completion (idempotent op log)
+PASS order reaches picked
+PASS admin diagnostics show a reporting worker with Kafka state
+evidence: C:\Users\komal\OneDrive\Desktop\RetailFlow\audit\test-results\phase10\final-20261123T165033Z\evidence\phase8\compose-smoke.run-2026-11-23T17-57-19-058Z.json
+smoke exit 0

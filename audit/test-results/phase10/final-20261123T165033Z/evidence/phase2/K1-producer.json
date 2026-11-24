@@ -1,0 +1,24 @@
+{
+  "recordedAt": "2026-11-23T17:13:58.592Z",
+  "databaseKind": "embedded-postgres",
+  "roundtrip": {
+    "messages": 40,
+    "ackMsForTwoBatches": 328,
+    "partitionsUsed": [
+      0,
+      2
+    ],
+    "keyToPartition": {
+      "order-a": 2,
+      "order-c": 2,
+      "order-d": 2,
+      "order-b": 0,
+      "order-e": 0
+    }
+  },
+  "unacknowledgeable": {
+    "rejected": true,
+    "elapsedMs": 4227,
+    "error": "KafkaJSError: Local: Message timed out"
+  }
+}

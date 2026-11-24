@@ -1,0 +1,9 @@
+﻿PASS images present in the kind node (local builds loaded, public images pulled by the node)
+PASS helm install (local values, in-cluster dependencies with PVCs, generated secrets)
+PASS all workloads rolled out and ready (startup/readiness probes passed)
+PASS end-to-end through the web Service: order → reserve → outbox → Kafka → worker → pick task
+PASS picker claims and completes via /sync; order reaches picked
+PASS worker pod deleted → replacement pod resumes Kafka consumption
+PASS Redis interruption (scaled to 0): login and catalog still served; restored afterwards
+FAIL rolling update under traffic (helm upgrade changes config → new pods), zero failed requests Error: failed requests during rollout: {"ok":144,"failed":1,"statuses":{"200":144,"503":1},"byPath":{"/health/ready":73,"/api/v1/stores/1/catalog":72},"failures":["2026-11-23T18:26:03.070Z /health/ready 503"]}
+evidence: C:\Users\komal\OneDrive\Desktop\RetailFlow\audit\test-results\phase9\kind-verify.run-2026-11-23T18-26-10-510Z.json

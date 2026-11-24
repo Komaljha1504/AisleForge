@@ -1,0 +1,15 @@
+﻿{
+    "startedAt":  "2026-11-23T16:50:45.5637649Z",
+    "ramFreeGB":  0.37,
+    "commitGB":  18.1,
+    "commitLimitGB":  23.2,
+    "lastBoot":  "2026-11-23T22:09:15.5000000+05:30",
+    "oneDriveRunning":  true,
+    "oneDrivePrivateMB":  38,
+    "docker":  "29.9.3",
+    "node":  "v24.11.1",
+    "pnpm":  "10.34.9",
+    "git":  "initialized, no commits (commits only on the user instruction)",
+    "testIO":  "embedded PG data + worker logs in %TEMP%; evidence JSON under evidence/ here",
+    "hashedAuditFiles":  277
+}

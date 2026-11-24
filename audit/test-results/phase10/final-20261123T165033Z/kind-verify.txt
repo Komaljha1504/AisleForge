@@ -1,0 +1,13 @@
+﻿PASS images present in the kind node (local builds loaded, public images pulled by the node)
+PASS helm install (local values, in-cluster dependencies with PVCs, generated secrets)
+PASS all workloads rolled out and ready (startup/readiness probes passed)
+PASS end-to-end through the web Service: order → reserve → outbox → Kafka → worker → pick task
+PASS picker claims and completes via /sync; order reaches picked
+PASS worker pod deleted → replacement pod resumes Kafka consumption
+PASS Redis interruption (scaled to 0): login and catalog still served; restored afterwards
+PASS rolling update under traffic (helm upgrade changes config → new pods), zero failed requests
+PASS rollback to the previous revision restores the previous configuration
+PASS PostgreSQL pod deleted → data persists on its PVC
+PASS in-cluster backup (pg_dump) and restore into a separate database
+PASS final pod state (restarts, readiness)
+evidence: C:\Users\komal\OneDrive\Desktop\RetailFlow\audit\test-results\phase9\kind-verify.run-2026-11-23T18-30-20-107Z.json

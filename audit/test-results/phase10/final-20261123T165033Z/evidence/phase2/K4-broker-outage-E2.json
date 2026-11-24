@@ -1,0 +1,218 @@
+{
+  "recordedAt": "2026-11-23T17:12:11.455Z",
+  "databaseKind": "embedded-postgres",
+  "outageMs": 60000,
+  "stopCommandMs": 10316,
+  "duringOutage": {
+    "ordersPlaced": 457,
+    "orderErrors": 0,
+    "placeLatencyMs": {
+      "p50": 21.33,
+      "p95": 32.91,
+      "p99": 69.98
+    },
+    "publisherFailedBatches": 9,
+    "publisherLastError": "Local: Message timed out",
+    "rowsMarkedPublishedWhileDown": 0,
+    "unpublishedAtEnd": 1371,
+    "backlogSamples": [
+      {
+        "t": 1,
+        "unpublished": 30
+      },
+      {
+        "t": 3,
+        "unpublished": 60
+      },
+      {
+        "t": 4,
+        "unpublished": 90
+      },
+      {
+        "t": 5,
+        "unpublished": 120
+      },
+      {
+        "t": 6,
+        "unpublished": 150
+      },
+      {
+        "t": 8,
+        "unpublished": 180
+      },
+      {
+        "t": 9,
+        "unpublished": 210
+      },
+      {
+        "t": 10,
+        "unpublished": 240
+      },
+      {
+        "t": 12,
+        "unpublished": 270
+      },
+      {
+        "t": 13,
+        "unpublished": 300
+      },
+      {
+        "t": 14,
+        "unpublished": 330
+      },
+      {
+        "t": 16,
+        "unpublished": 360
+      },
+      {
+        "t": 17,
+        "unpublished": 390
+      },
+      {
+        "t": 18,
+        "unpublished": 420
+      },
+      {
+        "t": 20,
+        "unpublished": 450
+      },
+      {
+        "t": 21,
+        "unpublished": 480
+      },
+      {
+        "t": 22,
+        "unpublished": 510
+      },
+      {
+        "t": 24,
+        "unpublished": 540
+      },
+      {
+        "t": 25,
+        "unpublished": 570
+      },
+      {
+        "t": 26,
+        "unpublished": 600
+      },
+      {
+        "t": 27,
+        "unpublished": 630
+      },
+      {
+        "t": 29,
+        "unpublished": 660
+      },
+      {
+        "t": 30,
+        "unpublished": 690
+      },
+      {
+        "t": 31,
+        "unpublished": 720
+      },
+      {
+        "t": 33,
+        "unpublished": 750
+      },
+      {
+        "t": 34,
+        "unpublished": 780
+      },
+      {
+        "t": 35,
+        "unpublished": 810
+      },
+      {
+        "t": 37,
+        "unpublished": 840
+      },
+      {
+        "t": 38,
+        "unpublished": 870
+      },
+      {
+        "t": 39,
+        "unpublished": 900
+      },
+      {
+        "t": 41,
+        "unpublished": 930
+      },
+      {
+        "t": 42,
+        "unpublished": 960
+      },
+      {
+        "t": 43,
+        "unpublished": 990
+      },
+      {
+        "t": 45,
+        "unpublished": 1020
+      },
+      {
+        "t": 46,
+        "unpublished": 1050
+      },
+      {
+        "t": 47,
+        "unpublished": 1080
+      },
+      {
+        "t": 49,
+        "unpublished": 1110
+      },
+      {
+        "t": 50,
+        "unpublished": 1140
+      },
+      {
+        "t": 51,
+        "unpublished": 1170
+      },
+      {
+        "t": 52,
+        "unpublished": 1200
+      },
+      {
+        "t": 54,
+        "unpublished": 1230
+      },
+      {
+        "t": 55,
+        "unpublished": 1260
+      },
+      {
+        "t": 56,
+        "unpublished": 1290
+      },
+      {
+        "t": 58,
+        "unpublished": 1320
+      },
+      {
+        "t": 59,
+        "unpublished": 1350
+      }
+    ]
+  },
+  "recovery": {
+    "brokerReachableAfterMs": 55882,
+    "outboxDrainedAfterMs": 69065,
+    "allTasksCreatedAfterMs": 81292,
+    "orders": 477,
+    "tasks": 477,
+    "duplicateDeliveriesSkipped": 0,
+    "invariants": [
+      "I1:PASS",
+      "I2:PASS",
+      "I3:PASS",
+      "I4:PASS",
+      "I5:PASS",
+      "I6:PASS",
+      "I7:PASS"
+    ]
+  }
+}

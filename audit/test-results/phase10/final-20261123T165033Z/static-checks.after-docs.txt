@@ -1,0 +1,17 @@
+=== format:check (after the reports were finalized)
+
+> aisleforge@ format:check C:\Users\komal\OneDrive\Desktop\RetailFlow
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+--- exit 0
+=== lint
+> aisleforge@ lint C:\Users\komal\OneDrive\Desktop\RetailFlow
+> eslint .
+
+--- exit 0
+=== typecheck
+> tsc -p tsconfig.json --noEmit && tsc -p tests/e2e/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit
+
+--- exit 0

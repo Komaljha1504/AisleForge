@@ -1,0 +1,39 @@
+{
+  "recordedAt": "2026-11-23T17:19:12.566Z",
+  "opsAfterSync": [
+    {
+      "op_type": "pick.confirm",
+      "status": "applied"
+    },
+    {
+      "op_type": "pick.confirm",
+      "status": "applied"
+    },
+    {
+      "op_type": "task.complete",
+      "status": "applied"
+    }
+  ],
+  "orderStatus": "picked",
+  "lines": [
+    {
+      "sku": "MILK-1L",
+      "picked_qty": 1,
+      "short_qty": 2
+    },
+    {
+      "sku": "PASTA-500",
+      "picked_qty": 2,
+      "short_qty": 0
+    }
+  ],
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:PASS",
+    "I7:PASS"
+  ]
+}

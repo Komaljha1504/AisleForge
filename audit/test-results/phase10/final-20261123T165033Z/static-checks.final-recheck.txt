@@ -1,0 +1,48 @@
+=== typecheck
+
+> aisleforge@ typecheck C:\Users\komal\OneDrive\Desktop\RetailFlow
+> tsc -p tsconfig.json --noEmit && tsc -p tests/e2e/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit
+
+--- typecheck: exit 0 (33 s)
+=== lint
+
+> aisleforge@ lint C:\Users\komal\OneDrive\Desktop\RetailFlow
+> eslint .
+
+--- lint: exit 0 (17 s)
+=== format:check
+
+> aisleforge@ format:check C:\Users\komal\OneDrive\Desktop\RetailFlow
+> prettier --check .
+
+Checking formatting...
+[[33mwarn[39m] docs/deployment/KUBERNETES.md
+[[33mwarn[39m] docs/reports/FAILURE_INJECTION_REPORT.md
+[[33mwarn[39m] docs/reports/PERFORMANCE_REPORT.md
+[[33mwarn[39m] FINAL_VALIDATION_REPORT.md
+[[33mwarn[39m] Code style issues found in 4 files. Run Prettier with --write to fix.
+ ELIFECYCLE  Command failed with exit code 1.
+--- format:check: exit 1 (13 s)
+=== pnpm audit --prod --audit-level high
+2 vulnerabilities found
+Severity: 2 moderate
+--- pnpm audit --prod --audit-level high: exit 0 (4 s)
+=== helm lint (prod values)
+==> Linting deploy/helm/aisleforge
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+--- helm lint (prod values): exit 0 (1 s)
+=== helm lint (local values)
+==> Linting deploy/helm/aisleforge
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+--- helm lint (local values): exit 0 (1 s)
+=== kubeconform (k8s 1.31, strict)
+Summary: 24 resources found in 2 files - Valid: 24, Invalid: 0, Errors: 0, Skipped: 0
+--- kubeconform (k8s 1.31, strict): exit 0 (13 s)
+=== actionlint 1.7.4
+--- actionlint 1.7.4: exit 0 (4 s)
+=== docker compose config
+--- docker compose config: exit 0 (2 s)

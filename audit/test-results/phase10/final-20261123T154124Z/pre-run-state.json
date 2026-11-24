@@ -1,0 +1,17 @@
+﻿{
+    "startedAt":  "2026-11-23T15:41:29.8076905Z",
+    "ramFreeGB":  0.24,
+    "commitGB":  21.9,
+    "commitLimitGB":  23.2,
+    "lastBoot":  "2026-11-23T13:15:45.5000000+05:30",
+    "oneDriveRunning":  true,
+    "oneDriveMB":  460,
+    "docker":  "29.9.3",
+    "node":  "v24.11.1",
+    "pnpm":  "10.34.9",
+    "gitHead":  {
+
+                },
+    "gitNote":  "repository initialized, no commits (commits only on the user instruction)",
+    "evidenceOutsideOneDrive":  "test logs and embedded PG data in %TEMP%; evidence JSON in this directory"
+}

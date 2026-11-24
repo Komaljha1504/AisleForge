@@ -1,0 +1,21 @@
+{
+  "recordedAt": "2026-11-23T17:03:42.008Z",
+  "databaseKind": "embedded-postgres",
+  "applyAndReplay": {
+    "first": [
+      "applied",
+      "applied",
+      "applied"
+    ],
+    "replay": "duplicate×3"
+  },
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:PASS",
+    "I7:PASS"
+  ]
+}

@@ -1,0 +1,55 @@
+﻿seed: {"profile":"B","seededMs":1945,"employees":50,"products":5000,"stores":2,"customers":200} 4543 ms
+{
+ "recordedAt": "2026-11-23T18:07:13.245Z",
+ "profile": "B",
+ "shape": "steady",
+ "label": "final-phase10",
+ "windowMin": 3,
+ "k6ExitCode": 0,
+ "k6WallMs": 248948,
+ "backlogDrainAfterRunMs": 2276,
+ "unconsumedAfterDrain": 0,
+ "invariants": [
+  {
+   "id": "I1",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I2",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I3",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I4",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I5",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I6",
+   "status": "PASS",
+   "violations": 0
+  },
+  {
+   "id": "I7",
+   "status": "PASS",
+   "violations": 0
+  }
+ ],
+ "note": "Profile arrival rates preserved; window shortened to windowMin (machine/time budget). See docs/reports/PERFORMANCE_REPORT.md.",
+ "scriptErrors": 0,
+ "ordersCreated": 257,
+ "valid": true
+}
+evidence: C:\Users\komal\OneDrive\Desktop\RetailFlow\audit\test-results\phase6\runs\B-steady-final-phase10-2026-11-23T18-02-44-920Z
+exit 0; 273 s

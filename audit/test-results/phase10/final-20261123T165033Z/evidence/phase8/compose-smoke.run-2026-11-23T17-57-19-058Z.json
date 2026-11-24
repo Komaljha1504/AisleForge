@@ -1,0 +1,57 @@
+{
+  "recordedAt": "2026-11-23T17:57:19.068Z",
+  "base": "http://localhost:8088",
+  "pass": true,
+  "steps": [
+    {
+      "step": "front door serves the PWA shell (+ service worker, security headers)",
+      "ok": true,
+      "ms": 200
+    },
+    {
+      "step": "API readiness through the proxy",
+      "ok": true,
+      "ms": 630
+    },
+    {
+      "step": "customer login",
+      "ok": true,
+      "ms": 415
+    },
+    {
+      "step": "place order (PostgreSQL reserves stock)",
+      "ok": true,
+      "ms": 170
+    },
+    {
+      "step": "picker login",
+      "ok": true,
+      "ms": 133
+    },
+    {
+      "step": "worker (container) consumed order.placed from Kafka and created the pick task",
+      "ok": true,
+      "ms": 819
+    },
+    {
+      "step": "claim task (lease)",
+      "ok": true,
+      "ms": 92
+    },
+    {
+      "step": "sync picks + completion (idempotent op log)",
+      "ok": true,
+      "ms": 336
+    },
+    {
+      "step": "order reaches picked",
+      "ok": true,
+      "ms": 33
+    },
+    {
+      "step": "admin diagnostics show a reporting worker with Kafka state",
+      "ok": true,
+      "ms": 246
+    }
+  ]
+}

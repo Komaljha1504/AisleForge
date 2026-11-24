@@ -1,0 +1,68 @@
+{
+  "recordedAt": "2026-11-23T17:01:48.893Z",
+  "databaseKind": "embedded-postgres",
+  "rounds": 5,
+  "seedersPerRound": 6,
+  "results": [
+    {
+      "rejected": [],
+      "balances": 24,
+      "duplicates": 0,
+      "openingLedgerRows": 24
+    },
+    {
+      "rejected": [],
+      "balances": 24,
+      "duplicates": 0,
+      "openingLedgerRows": 24
+    },
+    {
+      "rejected": [],
+      "balances": 24,
+      "duplicates": 0,
+      "openingLedgerRows": 24
+    },
+    {
+      "rejected": [],
+      "balances": 24,
+      "duplicates": 0,
+      "openingLedgerRows": 24
+    },
+    {
+      "rejected": [],
+      "balances": 24,
+      "duplicates": 0,
+      "openingLedgerRows": 24
+    }
+  ],
+  "invariants": [
+    {
+      "invariant": "I1",
+      "description": "No negative on_hand; reserved within [0, on_hand]",
+      "status": "PASS",
+      "violations": 0,
+      "sample": []
+    },
+    {
+      "invariant": "I2",
+      "description": "reserved = SUM(active reservation qty) per store/sku",
+      "status": "PASS",
+      "violations": 0,
+      "sample": []
+    },
+    {
+      "invariant": "I3",
+      "description": "Ledger reproduces on_hand and reserved; exactly one opening movement per balance",
+      "status": "PASS",
+      "violations": 0,
+      "sample": []
+    },
+    {
+      "invariant": "I4",
+      "description": "One order per (principal, idempotency key), owned by that principal",
+      "status": "PASS",
+      "violations": 0,
+      "sample": []
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+﻿
+> aisleforge@ test:e2e C:\Users\komal\OneDrive\Desktop\RetailFlow
+> pnpm --filter @aisleforge/web build && playwright test
+
+
+> @aisleforge/web@0.1.0 build C:\Users\komal\OneDrive\Desktop\RetailFlow\apps\web
+> vite build
+
+vite v6.0.7 building for production...
+transforming...
+✓ 50 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/manifest.webmanifest                          0.33 kB
+dist/index.html                                    0.62 kB │ gzip:  0.38 kB
+dist/assets/index-qPp1LJQE.css                    19.70 kB │ gzip:  4.32 kB
+dist/assets/workbox-window.prod.es5-DpW6Ehka.js    5.80 kB │ gzip:  2.41 kB │ map:  13.68 kB
+dist/assets/index-z-W8fGNq.js                    238.24 kB │ gzip: 74.75 kB │ map: 923.89 kB
+✓ built in 37.73s
+
+PWA v0.21.1
+mode      generateSW
+precache  7 entries (258.45 KiB)
+files generated
+  dist/sw.js.map
+  dist/sw.js
+  dist/workbox-d8ed3718.js.map
+  dist/workbox-d8ed3718.js
+
+Running 8 tests using 1 worker
+
+(node:28048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › auth.spec.ts:9:1 › refresh cookie flags, HttpOnly, rotation on reload, CSRF and reuse detection in a real browser (7.2s)
+  ok 2 [chromium] › offline.spec.ts:55:1 › offline picking survives a real browser restart and synchronizes exactly once (21.7s)
+  ok 3 [chromium] › offline.spec.ts:138:1 › a task reassigned while the picker was offline: the pick is rejected, shown to picker and supervisor (8.1s)
+  ok 4 [chromium] › offline.spec.ts:184:1 › shared device: queued work stays with its employee and is never sent by another (14.0s)
+  ok 5 [chromium] › offline.spec.ts:246:1 › two tabs reconnecting at once upload the queue exactly once (16.4s)
+  ok 6 [chromium] › ui.spec.ts:7:1 › customer: shop → place order (stock reserved) → order visible → cancel → task cancelled by the worker (7.9s)
+  ok 7 [chromium] › ui.spec.ts:67:1 › supervisor: store overview, inventory restock reaches the ledger (5.0s)
+  ok 8 [chromium] › ui.spec.ts:87:1 › admin: diagnostics show the live worker and Kafka state; dead letters and users pages load (2.5s)
+Error: EBUSY: resource busy or locked, rmdir 'C:\Users\komal\AppData\Local\Temp\aisleforge-e2e\run-1795454241672\pgdata'
+
+  Slow test file: [chromium] › offline.spec.ts (1.0m)
+  Slow test file: [chromium] › ui.spec.ts (15.3s)
+  Consider splitting slow test files to speed up parallel execution
+  8 passed (2.9m)
+  1 error was not a part of any test, see above for details
+SYNCHRONOUS TERMINATION NOTICE: When explicitly exiting the process via process.exit or via a parent process, asynchronous tasks in your exitHooks will not run. Either remove these tasks, use gracefulExit() instead of process.exit(), or ensure your parent process sends a SIGINT to the process running this code.
+ ELIFECYCLE  Command failed with exit code 1.
+exit 1; 300 s

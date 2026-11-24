@@ -1,0 +1,11 @@
+{
+  "recordedAt": "2026-11-23T16:59:01.361Z",
+  "databaseKind": "embedded-postgres",
+  "attempted": 150,
+  "outcomes": {
+    "40P01": 72,
+    "55P03": 74,
+    "ok": 4
+  },
+  "deadlocksDetected": 72
+}
