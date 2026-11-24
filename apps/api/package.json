@@ -1,0 +1,25 @@
+{
+  "name": "@aisleforge/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^7.1.4"
+  },
+  "dependencies": {
+    "@aisleforge/cache": "workspace:*",
+    "@aisleforge/database": "workspace:*",
+    "@aisleforge/domain": "workspace:*",
+    "@aisleforge/shared": "workspace:*",
+    "@aisleforge/validation": "workspace:*",
+    "cookie": "^2.0.2",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "zod": "^4.1.12"
+  }
+}
