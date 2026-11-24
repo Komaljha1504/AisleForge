@@ -1,0 +1,183 @@
+# AisleForge local stack. Phase 2: infrastructure (PostgreSQL, Kafka KRaft). Later phases add Redis and the
+# application services. Memory limits are sized for a 4 GiB Docker Desktop VM (docs/deployment/CONNECTION_BUDGET.md).
+#
+#   docker compose up -d kafka            # broker only (integration tests use embedded PostgreSQL)
+#   docker compose up -d postgres kafka   # infrastructure for running api/worker on the host
+#
+# Ports bind to 127.0.0.1 only. Credentials come from .env (see .env.example); nothing secret is hard-coded here.
+name: aisleforge
+
+services:
+  postgres:
+    image: postgres:18.1-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-aisleforge}
+      POSTGRES_USER: ${POSTGRES_USER:-aisleforge}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    command:
+      - postgres
+      - -c
+      - max_connections=120
+      - -c
+      - shared_buffers=128MB
+      - -c
+      - io_method=worker
+      - -c
+      - log_lock_waits=on
+      - -c
+      - deadlock_timeout=200ms
+    ports: ['127.0.0.1:${POSTGRES_PORT:-5432}:5432']
+    volumes: [pg-data:/var/lib/postgresql]
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    mem_limit: 512m
+    cpus: 1.5
+    stop_grace_period: 30s
+
+  kafka:
+    image: apache/kafka:4.1.1
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      # HOST = clients on the Windows host (tests, tsx); INTERNAL = containers on the compose network.
+      KAFKA_LISTENERS: HOST://:9092,INTERNAL://:29092,CONTROLLER://:9093
+      # 127.0.0.1, not localhost: on Windows `localhost` resolves to ::1 first and the port is bound to IPv4 only.
+      KAFKA_ADVERTISED_LISTENERS: HOST://127.0.0.1:${KAFKA_HOST_PORT:-9092},INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: HOST:PLAINTEXT,INTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      # Single broker: replication factor 1 everywhere. Topics are created explicitly by the worker
+      # (ensureTopics); auto-creation is off so a typo cannot silently create a topic.
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_HEAP_OPTS: -Xms384m -Xmx384m
+    ports: ['127.0.0.1:${KAFKA_HOST_PORT:-9092}:9092']
+    volumes: [kafka-data:/var/lib/kafka/data]
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'KAFKA_HEAP_OPTS=-Xmx64m /opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 > /dev/null 2>&1',
+        ]
+      interval: 15s
+      # The check starts a JVM; on a memory-constrained laptop that alone was measured to exceed 10 s.
+      timeout: 25s
+      retries: 18
+      start_period: 20s
+    mem_limit: 900m
+    cpus: 1.5
+    stop_grace_period: 30s
+
+  # Redis: cache + shared rate limits only (NOT a source of truth; PostgreSQL decides every reservation).
+  # No persistence: losing it costs cache warmth and in-flight throttle counters, never business data.
+  redis:
+    image: redis:7.4.1-alpine
+    command:
+      [
+        'redis-server',
+        '--save',
+        '',
+        '--appendonly',
+        'no',
+        '--maxmemory',
+        '64mb',
+        '--maxmemory-policy',
+        'allkeys-lru',
+      ]
+    ports: ['127.0.0.1:${REDIS_HOST_PORT:-6379}:6379']
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    mem_limit: 128m
+    cpus: 0.5
+
+  # ---- application (profile "app"): docker compose --profile app up -d ---------------------------------------
+  # Build the images first: docker compose --profile app build   (or the docker build commands in docs/deployment).
+  migrate:
+    profiles: [app]
+    image: aisleforge/api:${AISLEFORGE_TAG:-dev}
+    build: { context: ., target: api }
+    command: ['node', 'init-db.mjs']
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-aisleforge}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-aisleforge}
+      SEED_PASSWORD: ${SEED_PASSWORD:-}
+    depends_on:
+      postgres: { condition: service_healthy }
+    restart: 'no'
+    mem_limit: 256m
+
+  api:
+    profiles: [app]
+    image: aisleforge/api:${AISLEFORGE_TAG:-dev}
+    build: { context: ., target: api }
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      PORT: 8080
+      DATABASE_URL: postgres://${POSTGRES_USER:-aisleforge}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-aisleforge}
+      # No default: the API refuses to start without a >= 32 character secret.
+      JWT_SECRET: ${JWT_SECRET:-}
+      CORS_ORIGINS: ${PUBLIC_ORIGIN:-http://localhost:8088}
+      COOKIE_SECURE: 'true'
+      TRUST_PROXY: 'true'
+      REDIS_URL: ${REDIS_URL:-}
+      # Defaults are the production values; load tests raise the per-IP login limit (one k6 container logs in
+      # hundreds of accounts) and the token TTL via environment, see tools/load/run-profile.ts.
+      LOGIN_IP_MAX_ATTEMPTS: ${LOGIN_IP_MAX_ATTEMPTS:-30}
+      ACCESS_TOKEN_TTL_SECONDS: ${ACCESS_TOKEN_TTL_SECONDS:-600}
+      PG_ORDERS_POOL_MAX: ${PG_ORDERS_POOL_MAX:-10}
+      PG_SYNC_POOL_MAX: ${PG_SYNC_POOL_MAX:-5}
+    depends_on:
+      postgres: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    restart: unless-stopped
+    mem_limit: 384m
+    cpus: 1.0
+    stop_grace_period: 30s
+
+  worker:
+    profiles: [app]
+    image: aisleforge/worker:${AISLEFORGE_TAG:-dev}
+    build: { context: ., target: worker }
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      DATABASE_URL: postgres://${POSTGRES_USER:-aisleforge}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-aisleforge}
+      KAFKA_BROKERS: kafka:29092
+      WORKER_STATUS_PORT: 8081
+      REDIS_URL: ${REDIS_URL:-}
+    depends_on:
+      kafka: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+    # Supervision: a crashed worker is restarted (outbox + consumer dedupe make that safe; see D-K5).
+    restart: unless-stopped
+    mem_limit: 384m
+    cpus: 1.0
+    stop_grace_period: 30s
+
+  web:
+    profiles: [app]
+    image: aisleforge/web:${AISLEFORGE_TAG:-dev}
+    build: { context: ., target: web }
+    environment:
+      API_UPSTREAM: api:8080
+    ports: ['127.0.0.1:${WEB_PORT:-8088}:8080']
+    depends_on:
+      api: { condition: service_healthy }
+    restart: unless-stopped
+    mem_limit: 64m
+    cpus: 0.5
+
+volumes:
+  pg-data:
+  kafka-data:

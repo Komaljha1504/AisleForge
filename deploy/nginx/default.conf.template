@@ -1,0 +1,44 @@
+# Serves the PWA and reverse-proxies the API on the SAME origin, so the SameSite=Strict refresh cookie
+# (Path=/api/v1/auth) and the API's CSRF Origin check work without CORS. ${API_UPSTREAM} is substituted at start.
+#
+# add_header is declared ONLY at server level: any add_header inside a location would drop every inherited header
+# (nginx inheritance rule) — the compose smoke test caught exactly that (index.html served without CSP).
+# Per-path caching therefore comes from this map instead of per-location add_header.
+map $uri $af_cache_control {
+    /sw.js          "no-cache";
+    /index.html     "no-cache";
+    ~^/assets/      "public, max-age=31536000, immutable";
+    default         "no-cache";
+}
+
+server {
+    listen 8080;
+    server_name _;
+    root /usr/share/nginx/html;
+
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy no-referrer always;
+    add_header X-Frame-Options DENY always;
+    add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'" always;
+    add_header Cache-Control $af_cache_control always;
+
+    location = /healthz { access_log off; return 200 "ok\n"; }
+
+    # Re-resolve the API at request time (TTL 10 s). With a literal upstream nginx resolves ONCE at start, so an
+    # API restart (new container IP) made every API call fail with 502 until nginx restarted — found by the E3
+    # experiment. NGINX_LOCAL_RESOLVERS comes from the container's /etc/resolv.conf (Docker DNS / cluster DNS).
+    resolver ${NGINX_LOCAL_RESOLVERS} valid=10s ipv6=off;
+    set $af_api http://${API_UPSTREAM};
+
+    location ~ ^/(api|internal|health)/ {
+        proxy_pass $af_api;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 30s;
+    }
+
+    # SPA routes fall back to the app shell.
+    location / { try_files $uri $uri/ /index.html; }
+}

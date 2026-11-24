@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+.git
+.tmp
+audit
+!audit/load-tests/invariants.sql
+docs
+**/*.log
+.env
+.env.*
+playwright-report
+test-results
+coverage
