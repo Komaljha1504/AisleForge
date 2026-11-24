@@ -1,0 +1,184 @@
+# AisleForge CI. Every job runs the REAL dependencies (PostgreSQL, Kafka, Redis, Chromium) — no mocks.
+# Images are built with immutable tags (the commit SHA) and scanned; they are pushed ONLY on a manual run with
+# push=true (publishing requires an explicit decision; see docs/deployment/CI_CD.md).
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      push:
+        description: 'Push images to GHCR (immutable sha tags)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '22.12.0'
+  PNPM_VERSION: '10.34.9'
+
+jobs:
+  static:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: '${{ env.PNPM_VERSION }}' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '${{ env.NODE_VERSION }}', cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm format:check
+      - name: Dependency vulnerability audit (high and critical fail the build)
+        run: pnpm audit --prod --audit-level high
+
+  helm:
+    # Static chart validation. The live deployment checks (kind) run locally with tools/k8s/verify-kind.ts.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      HELM_VERSION: v3.16.3
+      HELM_SHA256: f5355c79190951eed23c5432a3b920e071f4c00a64f75e077de0dd4cb7b294ea
+      KUBECONFORM_VERSION: v0.6.7
+      KUBECONFORM_SHA256: 95f14e87aa28c09d5941f11bd024c1d02fdc0303ccaa23f61cef67bc92619d73
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned helm and kubeconform (checksums pinned in this file)
+        run: |
+          set -euo pipefail
+          curl -fsSLo helm.tgz "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz"
+          echo "${HELM_SHA256}  helm.tgz" | sha256sum -c -
+          curl -fsSLo kubeconform.tgz "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz"
+          echo "${KUBECONFORM_SHA256}  kubeconform.tgz" | sha256sum -c -
+          mkdir -p "$HOME/bin"
+          tar -xzf helm.tgz -C "$HOME/bin" --strip-components=1 linux-amd64/helm
+          tar -xzf kubeconform.tgz -C "$HOME/bin" kubeconform
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+      - run: helm lint deploy/helm/aisleforge --set image.tag=ci
+      - run: helm lint deploy/helm/aisleforge -f deploy/helm/aisleforge/values-local.yaml --set image.tag=ci
+      - name: Render (production and local values) and validate against Kubernetes 1.31 schemas
+        run: |
+          set -euo pipefail
+          helm template af deploy/helm/aisleforge -n aisleforge --set image.tag=ci > prod.yaml
+          helm template af deploy/helm/aisleforge -n aisleforge -f deploy/helm/aisleforge/values-local.yaml \
+            --set image.tag=ci --set secrets.values.JWT_SECRET=ci > local.yaml
+          kubeconform -strict -summary -kubernetes-version 1.31.0 prod.yaml local.yaml
+
+  unit-db:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:18.1-alpine
+        env: { POSTGRES_USER: ci, POSTGRES_PASSWORD: ci-only-password, POSTGRES_DB: aisleforge_test }
+        options: >-
+          --health-cmd "pg_isready -U ci" --health-interval 5s --health-timeout 3s --health-retries 20
+        ports: ['5432:5432']
+    env:
+      TEST_DATABASE_URL: postgres://ci:ci-only-password@127.0.0.1:5432/aisleforge_test
+      AISLEFORGE_EVIDENCE_ROOT: ci-evidence
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: '${{ env.PNPM_VERSION }}' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '${{ env.NODE_VERSION }}', cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: evidence-unit-db, path: ci-evidence, if-no-files-found: ignore }
+
+  containers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: postgres:18.1-alpine
+        env: { POSTGRES_USER: ci, POSTGRES_PASSWORD: ci-only-password, POSTGRES_DB: aisleforge_test }
+        options: >-
+          --health-cmd "pg_isready -U ci" --health-interval 5s --health-timeout 3s --health-retries 20
+        ports: ['5432:5432']
+    env:
+      TEST_DATABASE_URL: postgres://ci:ci-only-password@127.0.0.1:5432/aisleforge_test
+      POSTGRES_PASSWORD: compose-interpolation-only
+      KAFKA_BROKERS: 127.0.0.1:9092
+      REDIS_URL: redis://127.0.0.1:6379
+      AISLEFORGE_EVIDENCE_ROOT: ci-evidence
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: '${{ env.PNPM_VERSION }}' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '${{ env.NODE_VERSION }}', cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Start Kafka (KRaft) and Redis
+        run: docker compose up -d --wait kafka redis
+      - name: Kafka + Redis integration and failure tests (real broker; K4 stops/starts it)
+        run: pnpm test:kafka
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: evidence-containers, path: ci-evidence, if-no-files-found: ignore }
+
+  e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      POSTGRES_PASSWORD: compose-interpolation-only
+      AISLEFORGE_EVIDENCE_ROOT: ci-evidence
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: '${{ env.PNPM_VERSION }}' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '${{ env.NODE_VERSION }}', cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: docker compose up -d --wait kafka
+      - name: Browser tests against the real stack (embedded PostgreSQL, API, worker, built PWA)
+        run: pnpm test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: evidence-e2e, path: ci-evidence, if-no-files-found: ignore }
+
+  images:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    needs: [static]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build images (immutable tag = commit SHA)
+        run: |
+          for t in api worker web; do
+            docker build --target "$t" -t "ghcr.io/${{ github.repository_owner }}/aisleforge-$t:${{ github.sha }}" .
+          done
+      - name: Scan images (critical vulnerabilities fail the build)
+        run: |
+          for t in api worker web; do
+            docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:0.58.1 image \
+              --exit-code 1 --severity CRITICAL --ignore-unfixed --no-progress \
+              "ghcr.io/${{ github.repository_owner }}/aisleforge-$t:${{ github.sha }}"
+          done
+      - name: Verify non-root users
+        run: |
+          for t in api worker; do test "$(docker run --rm --entrypoint id ghcr.io/${{ github.repository_owner }}/aisleforge-$t:${{ github.sha }} -u)" != 0; done
+          test "$(docker run --rm --entrypoint id ghcr.io/${{ github.repository_owner }}/aisleforge-web:${{ github.sha }} -u)" != 0
+      - name: Push (manual opt-in only)
+        if: github.event_name == 'workflow_dispatch' && inputs.push
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          for t in api worker web; do docker push "ghcr.io/${{ github.repository_owner }}/aisleforge-$t:${{ github.sha }}"; done
