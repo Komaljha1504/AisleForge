@@ -1,0 +1,50 @@
+{
+  "recordedAt": "2026-11-22T17:40:15.730Z",
+  "cluster": "kind-aisleforge",
+  "pass": false,
+  "steps": [
+    {
+      "step": "images present in the kind node (local builds loaded, public images pulled by the node)",
+      "ok": true,
+      "ms": 5274,
+      "detail": {
+        "localImages": {
+          "aisleforge/api:dev": {
+            "local": "sha256:b42a777085e027a64de5a0632f75a810bffc793c0cbf88448e8b933bc68008c5",
+            "nodeBefore": "sha256:b42a777085e027a64de5a0632f75a810bffc793c0cbf88448e8b933bc68008c5",
+            "imported": false
+          },
+          "aisleforge/worker:dev": {
+            "local": "sha256:eb4252d2afdc66d6d380d5fd959a92dbd629931adffc5e14710d0936c07e0ae1",
+            "nodeBefore": "sha256:eb4252d2afdc66d6d380d5fd959a92dbd629931adffc5e14710d0936c07e0ae1",
+            "imported": false
+          },
+          "aisleforge/web:dev": {
+            "local": "sha256:8cd4faf86a936355388fb6cb0b78e329fdc7fa584cd40fbc49f1f3d4484e9b89",
+            "nodeBefore": "sha256:8cd4faf86a936355388fb6cb0b78e329fdc7fa584cd40fbc49f1f3d4484e9b89",
+            "imported": false
+          }
+        },
+        "pulled": []
+      }
+    },
+    {
+      "step": "helm install (local values, in-cluster dependencies with PVCs, generated secrets)",
+      "ok": true,
+      "ms": 163215,
+      "detail": "Release \"af\" does not exist. Installing it now. | NAME: af | LAST DEPLOYED: Sun Nov 22 23:07:53 2026 | NAMESPACE: aisleforge | STATUS: deployed | REVISION: 1"
+    },
+    {
+      "step": "all workloads rolled out and ready (startup/readiness probes passed)",
+      "ok": true,
+      "ms": 841,
+      "detail": "NAME                        READY   RESTARTS   PHASE\naf-api-569c6f8875-pjrfv     true    0          Running\naf-api-569c6f8875-trxn2     true    0          Running\naf-kafka-0                  true    0          Running\naf-postgres-0               true    0          Running\naf-redis-6bf5b9cd9c-8m4bz   true    0          Running\naf-web-78488ddbb5-6527l     true    0          Running\naf-worker-65c9c8bb8-nf796   true    1          Running"
+    },
+    {
+      "step": "end-to-end through the web Service: order → reserve → outbox → Kafka → worker → pick task",
+      "ok": false,
+      "ms": 2063,
+      "detail": "SyntaxError: Unexpected token '<', \"<html>\r\n<h\"... is not valid JSON"
+    }
+  ]
+}

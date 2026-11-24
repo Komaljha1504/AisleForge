@@ -1,0 +1,51 @@
+﻿
+> aisleforge@ test C:\Users\komal\OneDrive\Desktop\RetailFlow
+> vitest run
+
+
+ RUN  v3.2.7 C:/Users/komal/OneDrive/Desktop/RetailFlow
+
+ ✓ |unit| tests/unit/login-throttle.test.ts (9 tests) 22ms
+ ✓ |unit| tests/unit/events-and-shared.test.ts (7 tests) 42ms
+ ✓ |unit| tests/unit/orders-normalize.test.ts (10 tests) 61ms
+ ✓ |unit| tests/unit/routing.test.ts (18 tests) 1011ms
+   ✓ warehouse graph shortest paths > reproduces the Python prototype distance matrices exactly (cross-implementation check)  429ms
+ ✓ |unit| tests/unit/api-config-and-ratelimit.test.ts (6 tests) 19ms
+ ✓ |db| tests/concurrency/t4-deadlock.test.ts (2 tests) 67520ms
+   ✓ T4 multi-line deadlock prevention > 1000 orders × 5 lines over 20 hot SKUs at concurrency 100: zero deadlocks, all committed  14384ms
+   ✓ T4 multi-line deadlock prevention > NEGATIVE CONTROL: arbitrary lock order with the same harness does deadlock  48309ms
+ ✓ |db| tests/concurrency/property-inventory.test.ts (1 test) 55539ms
+   ✓ property: inventory invariants survive arbitrary concurrent operation sequences > holds for 100 random programs (seed 20261121)  55380ms
+ ✓ |db| tests/concurrency/t1-last-unit.test.ts (3 tests) 8773ms
+   ✓ T1 last-unit race through placeOrder() > stock=1 attempts=200 → exactly `stock` orders succeed, no oversell  6238ms
+   ✓ T1 last-unit race through placeOrder() > stock=10 attempts=200 → exactly `stock` orders succeed, no oversell  882ms
+   ✓ T1 last-unit race through placeOrder() > stock=10 attempts=500 → exactly `stock` orders succeed, no oversell  1314ms
+ ✓ |db| tests/concurrency/t7-expiry-vs-pick.test.ts (1 test) 7682ms
+   ✓ T7 expiry vs pick confirmation > 300 races: exactly one transition wins each, never a double decrement  2899ms
+ ✓ |db| tests/integration/inventory-orders.test.ts (18 tests) 6798ms
+   ✓ order placement > reserves all lines atomically and records ledger + outbox in the same transaction  343ms
+   ✓ order placement > is all-or-nothing: one short line reserves nothing and returns 409 with shortages  380ms
+   ✓ reservation state machine > release returns quantity to available exactly once  498ms
+   ✓ reservation state machine > expiry only applies once expires_at has passed  494ms
+   ✓ reservation state machine > full pick decrements on_hand and reserved and moves the order to picked  591ms
+   ✓ reservation state machine > short pick is first-class: recorded separately and removed from on_hand pending recount  421ms
+   ✓ reservation state machine > cancel releases active reservations; cancelled orders cannot be cancelled again  578ms
+   ✓ stock movements > restock is idempotent per source id  436ms
+   ✓ stock movements > adjustment cannot drop on_hand below reserved  557ms
+   ✓ database-level defences (last line, independent of application code) > ledger is append-only  536ms
+   ✓ database-level defences (last line, independent of application code) > ledger movement shape is enforced  431ms
+ ✓ |db| tests/concurrency/t2-idempotency.test.ts (2 tests) 5708ms
+ ✓ |db| tests/security/lockout-abuse.test.ts (5 tests) 2804ms
+   ✓ lockout abuse > an attacker hammering one account from one IP cannot lock out the real user on another IP  570ms
+   ✓ lockout abuse > a distributed attack (many IPs) slows new sources but not a source the user already logged in from  1470ms
+ ✓ |db| tests/security/authentication.test.ts (23 tests) 1383ms
+ ✓ |db| tests/security/authorization.test.ts (61 tests) 1638ms
+ ✓ |db| tests/concurrency/t6-outbox.test.ts (4 tests) 1269ms
+   ✓ T6 transactional outbox publisher > publishes a late-committing event that was allocated a LOWER id than an already-published one  818ms
+ ✓ |db| tests/integration/api-orders.test.ts (10 tests) 1032ms
+
+ Test Files  16 passed (16)
+      Tests  180 passed (180)
+   Start at  00:24:30
+   Duration  182.81s (transform 3.60s, setup 0ms, collect 16.04s, tests 161.30s, environment 2ms, prepare 3.40s)
+

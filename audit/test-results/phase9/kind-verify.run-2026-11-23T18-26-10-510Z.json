@@ -1,0 +1,106 @@
+{
+  "recordedAt": "2026-11-23T18:26:10.510Z",
+  "cluster": "kind-aisleforge",
+  "pass": false,
+  "steps": [
+    {
+      "step": "images present in the kind node (local builds loaded, public images pulled by the node)",
+      "ok": true,
+      "ms": 5723,
+      "detail": {
+        "localImages": {
+          "aisleforge/api:dev": {
+            "local": "sha256:90c2e9ce660a65bd2182710722a8f89bb7f9ba411056f0b14c68c9506a4ca6a0",
+            "nodeBefore": "sha256:90c2e9ce660a65bd2182710722a8f89bb7f9ba411056f0b14c68c9506a4ca6a0",
+            "imported": false
+          },
+          "aisleforge/worker:dev": {
+            "local": "sha256:d085641d35d60edeab8cdef0aab69eeab0db87fefbbc842ca3cbf68e8d1609d9",
+            "nodeBefore": "sha256:d085641d35d60edeab8cdef0aab69eeab0db87fefbbc842ca3cbf68e8d1609d9",
+            "imported": false
+          },
+          "aisleforge/web:dev": {
+            "local": "sha256:a413ef1c6862f1368631a88f63a97ad7a14224bf0b0ea0df032fef87af5a8aea",
+            "nodeBefore": "sha256:a413ef1c6862f1368631a88f63a97ad7a14224bf0b0ea0df032fef87af5a8aea",
+            "imported": false
+          }
+        },
+        "pulled": []
+      }
+    },
+    {
+      "step": "helm install (local values, in-cluster dependencies with PVCs, generated secrets)",
+      "ok": true,
+      "ms": 74504,
+      "detail": "Release \"af\" does not exist. Installing it now. | NAME: af | LAST DEPLOYED: Mon Nov 23 23:54:44 2026 | NAMESPACE: aisleforge | STATUS: deployed | REVISION: 1"
+    },
+    {
+      "step": "all workloads rolled out and ready (startup/readiness probes passed)",
+      "ok": true,
+      "ms": 1190,
+      "detail": {
+        "pods": "NAME                         READY   RESTARTS   PHASE\naf-api-6f6c7cc4dd-5x9mh      true    0          Running\naf-api-6f6c7cc4dd-tng7m      true    0          Running\naf-kafka-0                   true    0          Running\naf-postgres-0                true    0          Running\naf-redis-6bf5b9cd9c-b4fbr    true    0          Running\naf-web-7fb64c4899-np69c      true    0          Running\naf-worker-86cf9fcdb5-jxgj5   true    1          Running",
+        "lastTerminations": [
+          {
+            "pod": "af-worker-86cf9fcdb5-jxgj5",
+            "container": "worker",
+            "restarts": 1,
+            "last": {
+              "containerID": "containerd://659cbdf48b1f62965a695d26ea3abf66c8cf40b9e65cc646e4c309b42bcd4180",
+              "exitCode": 1,
+              "finishedAt": "2026-11-23T18:25:21Z",
+              "reason": "Error",
+              "startedAt": "2026-11-23T18:25:10Z"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "step": "end-to-end through the web Service: order → reserve → outbox → Kafka → worker → pick task",
+      "ok": true,
+      "ms": 1127,
+      "detail": {
+        "orderId": "01a209a8-0002-73d9-8465-05139513607f",
+        "taskMs": 621
+      }
+    },
+    {
+      "step": "picker claims and completes via /sync; order reaches picked",
+      "ok": true,
+      "ms": 892,
+      "detail": {
+        "syncResults": [
+          "applied",
+          "applied"
+        ],
+        "order": "picked"
+      }
+    },
+    {
+      "step": "worker pod deleted → replacement pod resumes Kafka consumption",
+      "ok": true,
+      "ms": 7031,
+      "detail": {
+        "deleted": "af-worker-86cf9fcdb5-jxgj5",
+        "replacement": "af-worker-86cf9fcdb5-xldjc",
+        "taskCreatedAfterMs": 538
+      }
+    },
+    {
+      "step": "Redis interruption (scaled to 0): login and catalog still served; restored afterwards",
+      "ok": true,
+      "ms": 5016,
+      "detail": {
+        "loginAndCatalogMs": 85,
+        "xCache": "MISS"
+      }
+    },
+    {
+      "step": "rolling update under traffic (helm upgrade changes config → new pods), zero failed requests",
+      "ok": false,
+      "ms": 22154,
+      "detail": "Error: failed requests during rollout: {\"ok\":144,\"failed\":1,\"statuses\":{\"200\":144,\"503\":1},\"byPath\":{\"/health/ready\":73,\"/api/v1/stores/1/catalog\":72},\"failures\":[\"2026-11-23T18:26:03.070Z /health/ready 503\"]}"
+    }
+  ]
+}

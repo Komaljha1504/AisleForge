@@ -1,0 +1,17 @@
+{
+  "recordedAt": "2026-11-22T11:41:44.454Z",
+  "databaseKind": "embedded-postgres",
+  "replay": {
+    "firstReplay": "applied",
+    "secondReplay": "duplicate_skipped",
+    "auditRecords": 2
+  },
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:PASS"
+  ]
+}

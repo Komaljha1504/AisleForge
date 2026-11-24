@@ -1,0 +1,671 @@
+[
+  {
+    "at": "2026-11-22T14:15:59.530Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 2,
+        "idle": 2,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "aisleforge-api-1": {
+        "cpu": "0.81%",
+        "mem": "49.05MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "0.00%",
+        "mem": "4.695MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "5.08%",
+        "mem": "43.05MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "1.45%",
+        "mem": "215.7MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "103.86%",
+        "mem": "533.5MiB / 900MiB"
+      },
+      "elastic_visvesvaraya": {
+        "cpu": "181.11%",
+        "mem": "74.24MiB / 3.825GiB"
+      }
+    },
+    "hostFreeMB": 74
+  },
+  {
+    "at": "2026-11-22T14:16:15.878Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 2,
+        "idle": 1,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "10.45%",
+        "mem": "153.5MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "68.90%",
+        "mem": "70.53MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "0.63%",
+        "mem": "4.723MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "18.85%",
+        "mem": "43.13MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "14.80%",
+        "mem": "218.4MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "20.10%",
+        "mem": "524.1MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 177
+  },
+  {
+    "at": "2026-11-22T14:16:37.171Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 3,
+        "idle": 2,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "5.28%",
+        "mem": "161.8MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "85.15%",
+        "mem": "55.87MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "1.44%",
+        "mem": "4.754MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "4.20%",
+        "mem": "43.14MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "22.52%",
+        "mem": "220.8MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "136.50%",
+        "mem": "591.5MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 37
+  },
+  {
+    "at": "2026-11-22T14:16:56.595Z",
+    "pgActiveByWait": {
+      "CPU/none:-": 1
+    },
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 3,
+        "idle": 2,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "5.17%",
+        "mem": "170.9MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "75.66%",
+        "mem": "76.08MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "2.20%",
+        "mem": "4.777MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "9.75%",
+        "mem": "43.19MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "31.83%",
+        "mem": "248.4MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "143.61%",
+        "mem": "565.6MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 117
+  },
+  {
+    "at": "2026-11-22T14:17:18.935Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 3,
+        "idle": 3,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "6.12%",
+        "mem": "179MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "91.47%",
+        "mem": "69.11MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "1.09%",
+        "mem": "4.781MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "3.84%",
+        "mem": "43.2MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "8.72%",
+        "mem": "246.5MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "44.55%",
+        "mem": "524.4MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 90
+  },
+  {
+    "at": "2026-11-22T14:17:38.114Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 3,
+        "idle": 3,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "7.96%",
+        "mem": "188.2MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "92.61%",
+        "mem": "64.11MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "1.88%",
+        "mem": "4.777MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "79.39%",
+        "mem": "51.19MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "37.86%",
+        "mem": "246.6MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "110.73%",
+        "mem": "596.5MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 75
+  },
+  {
+    "at": "2026-11-22T14:17:59.397Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 3,
+        "idle": 2,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "7.21%",
+        "mem": "190.1MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "67.74%",
+        "mem": "63.58MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "1.73%",
+        "mem": "4.793MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "12.68%",
+        "mem": "43.29MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "9.09%",
+        "mem": "246.7MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "28.00%",
+        "mem": "524.2MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 109
+  },
+  {
+    "at": "2026-11-22T14:18:15.768Z",
+    "pgActiveByWait": {
+      "IO:WalSync": 1
+    },
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 3,
+        "idle": 3,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "7.70%",
+        "mem": "191.7MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "73.87%",
+        "mem": "76.35MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "1.52%",
+        "mem": "4.797MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "3.62%",
+        "mem": "43.29MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "9.36%",
+        "mem": "246.8MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "133.09%",
+        "mem": "608.2MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 18
+  },
+  {
+    "at": "2026-11-22T14:18:31.408Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 273,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 10,
+        "idle": 0,
+        "waiting": 27
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 2,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 2,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "39.90%",
+        "mem": "576.6MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "33.30%",
+        "mem": "71.75MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "6.66%",
+        "mem": "15.83MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "24.68%",
+        "mem": "43.97MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "76.26%",
+        "mem": "275.1MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "76.83%",
+        "mem": "549.3MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 37
+  },
+  {
+    "at": "2026-11-22T14:19:05.759Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 903,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 10,
+        "idle": 0,
+        "waiting": 42
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 5,
+        "idle": 3,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 15,
+    "consumerLag": 17,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "62.35%",
+        "mem": "712.3MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "47.05%",
+        "mem": "74.07MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "27.53%",
+        "mem": "21.49MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "45.69%",
+        "mem": "57.13MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "41.49%",
+        "mem": "282MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "53.72%",
+        "mem": "555.4MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 24
+  },
+  {
+    "at": "2026-11-22T14:19:44.454Z",
+    "pgActiveByWait": {
+      "CPU/none:-": 1
+    },
+    "lockWaiters": 0,
+    "longestOpenTxMs": 8098,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 10,
+        "idle": 0,
+        "waiting": 13
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 5,
+        "idle": 2,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 20,
+    "consumerLag": 11,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "78.27%",
+        "mem": "1.11GiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "49.32%",
+        "mem": "85.37MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "14.74%",
+        "mem": "30.43MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "20.29%",
+        "mem": "53.09MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "99.35%",
+        "mem": "266.3MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "76.73%",
+        "mem": "503.6MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 46
+  },
+  {
+    "at": "2026-11-22T14:21:00.553Z",
+    "error": "SyntaxError: Unexpected token '<', \"<html>\r\n<h\"... is not valid JSON"
+  },
+  {
+    "at": "2026-11-22T14:22:43.395Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 163,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 10,
+        "idle": 10,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 5,
+        "idle": 3,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 24,
+    "consumerLag": 243,
+    "containers": {
+      "elastic_visvesvaraya": {
+        "cpu": "70.54%",
+        "mem": "533.4MiB / 3.825GiB"
+      },
+      "aisleforge-api-1": {
+        "cpu": "1.01%",
+        "mem": "62.98MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "10.04%",
+        "mem": "5.906MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "51.95%",
+        "mem": "42.55MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "120.80%",
+        "mem": "263.6MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "90.95%",
+        "mem": "531.5MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 85
+  },
+  {
+    "at": "2026-11-22T14:23:10.424Z",
+    "pgActiveByWait": {},
+    "lockWaiters": 0,
+    "longestOpenTxMs": 0,
+    "apiPools": [
+      {
+        "name": "orders",
+        "max": 10,
+        "total": 2,
+        "idle": 2,
+        "waiting": 0
+      },
+      {
+        "name": "sync",
+        "max": 5,
+        "total": 0,
+        "idle": 0,
+        "waiting": 0
+      }
+    ],
+    "outboxUnpublished": 0,
+    "consumerLag": 0,
+    "containers": {
+      "aisleforge-api-1": {
+        "cpu": "0.64%",
+        "mem": "62.94MiB / 384MiB"
+      },
+      "aisleforge-web-1": {
+        "cpu": "0.00%",
+        "mem": "4.777MiB / 64MiB"
+      },
+      "aisleforge-worker-1": {
+        "cpu": "3.06%",
+        "mem": "47.43MiB / 384MiB"
+      },
+      "aisleforge-postgres-1": {
+        "cpu": "1.95%",
+        "mem": "270.8MiB / 512MiB"
+      },
+      "aisleforge-kafka-1": {
+        "cpu": "33.41%",
+        "mem": "523MiB / 900MiB"
+      }
+    },
+    "hostFreeMB": 65
+  }
+]

@@ -1,0 +1,72 @@
+{
+  "hypothesis": "native worker crash when starting against a broker whose group coordinator is still loading",
+  "label": "fixed-delayed20",
+  "iterations": 4,
+  "observeSeconds": 90,
+  "workerExtraEnv": null,
+  "startDelayAfterBrokerReadyS": 20,
+  "workerImage": "aisleforge/worker:dev",
+  "gdb": false,
+  "iterationsWithNativeCrash": 0,
+  "sigsegvTotal": 0,
+  "startupFailuresTotal": 0,
+  "images": {
+    "worker": "sha256:017aebd51c28d7b446e7d77e7f3fff50a3ce7739e0081ace01201204b9f77dc9",
+    "kafka": "apache/kafka:4.1.1"
+  },
+  "results": [
+    {
+      "iteration": 1,
+      "brokerReadyMs": 22256,
+      "exits": [],
+      "nativeCrashes": 0,
+      "sigsegv": 0,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 1,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 148823
+    },
+    {
+      "iteration": 2,
+      "brokerReadyMs": 21294,
+      "exits": [],
+      "nativeCrashes": 0,
+      "sigsegv": 0,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 1,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 138583
+    },
+    {
+      "iteration": 3,
+      "brokerReadyMs": 21097,
+      "exits": [],
+      "nativeCrashes": 0,
+      "sigsegv": 0,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 1,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 137097
+    },
+    {
+      "iteration": 4,
+      "brokerReadyMs": 29782,
+      "exits": [],
+      "nativeCrashes": 0,
+      "sigsegv": 0,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 1,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 147932
+    }
+  ],
+  "finishedAt": "2026-11-23T15:40:22.319Z"
+}

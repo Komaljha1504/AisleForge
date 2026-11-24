@@ -1,0 +1,113 @@
+﻿
+> aisleforge@ test C:\Users\komal\OneDrive\Desktop\RetailFlow
+> vitest run --project unit --project db
+
+
+ RUN  v3.2.7 C:/Users/komal/OneDrive/Desktop/RetailFlow
+
+ ✓ |unit| tests/unit/login-throttle.test.ts (9 tests) 18ms
+ ✓ |unit| tests/unit/events-and-shared.test.ts (7 tests) 53ms
+ ✓ |unit| tests/unit/routing.test.ts (18 tests) 1147ms
+   ✓ warehouse graph shortest paths > reproduces the Python prototype distance matrices exactly (cross-implementation check)  582ms
+ ✓ |unit| tests/unit/orders-normalize.test.ts (10 tests) 55ms
+ ✓ |unit| tests/unit/worker-config.test.ts (4 tests) 25ms
+ ✓ |unit| tests/unit/api-config-and-ratelimit.test.ts (6 tests) 25ms
+ ✓ |db| tests/concurrency/t4-deadlock.test.ts (2 tests) 71555ms
+   ✓ T4 multi-line deadlock prevention > 1000 orders × 5 lines over 20 hot SKUs at concurrency 100: zero deadlocks, all committed  9415ms
+   ✓ T4 multi-line deadlock prevention > NEGATIVE CONTROL: arbitrary lock order with the same harness does deadlock  51230ms
+ ✓ |db| tests/concurrency/property-inventory.test.ts (1 test) 50940ms
+   ✓ property: inventory invariants survive arbitrary concurrent operation sequences > holds for 100 random programs (seed 20261121)  50681ms
+ ❯ |db| tests/concurrency/t1-last-unit.test.ts (3 tests | 1 failed) 17402ms
+   × T1 last-unit race through placeOrder() > stock=1 attempts=200 → exactly `stock` orders succeed, no oversell 12245ms
+     → expected 45 to be 50 // Object.is equality
+   ✓ T1 last-unit race through placeOrder() > stock=10 attempts=200 → exactly `stock` orders succeed, no oversell  2509ms
+   ✓ T1 last-unit race through placeOrder() > stock=10 attempts=500 → exactly `stock` orders succeed, no oversell  2019ms
+ ❯ |db| tests/concurrency/t7-expiry-vs-pick.test.ts (1 test | 1 skipped) 588748ms
+   ↓ T7 expiry vs pick confirmation > 300 races: exactly one transition wins each, never a double decrement
+ ✓ |db| tests/concurrency/t2-idempotency.test.ts (2 tests) 31858ms
+   ✓ T2 idempotency under concurrency > 100 concurrent identical requests create exactly one order and all callers get the original response  7161ms
+ ✓ |db| tests/integration/inventory-orders.test.ts (18 tests) 12853ms
+   ✓ order placement > reserves all lines atomically and records ledger + outbox in the same transaction  690ms
+   ✓ order placement > is all-or-nothing: one short line reserves nothing and returns 409 with shortages  1476ms
+   ✓ order placement > replays a recorded business failure for the same key (no re-evaluation after restock)  331ms
+   ✓ order placement > rejects an idempotency key reused with a different payload  366ms
+   ✓ order placement > scopes idempotency keys to the principal  343ms
+   ✓ reservation state machine > release returns quantity to available exactly once  663ms
+   ✓ reservation state machine > expiry only applies once expires_at has passed  1072ms
+   ✓ reservation state machine > full pick decrements on_hand and reserved and moves the order to picked  813ms
+   ✓ reservation state machine > short pick is first-class: recorded separately and removed from on_hand pending recount  1271ms
+   ✓ reservation state machine > rejects pickedQty outside [0, qty] without changing state  669ms
+   ✓ reservation state machine > cancel releases active reservations; cancelled orders cannot be cancelled again  983ms
+   ✓ stock movements > restock is idempotent per source id  684ms
+   ✓ stock movements > restock/adjust of a balance that does not exist is a typed NOT_FOUND, not a raw SQL error  330ms
+   ✓ stock movements > adjustment cannot drop on_hand below reserved  716ms
+   ✓ database-level defences (last line, independent of application code) > CHECK constraint rejects over-reservation even from raw SQL  359ms
+   ✓ database-level defences (last line, independent of application code) > ledger is append-only  959ms
+   ✓ database-level defences (last line, independent of application code) > ledger movement shape is enforced  615ms
+ ✓ |db| tests/security/lockout-abuse.test.ts (5 tests) 4991ms
+   ✓ lockout abuse > an attacker hammering one account from one IP cannot lock out the real user on another IP  648ms
+   ✓ lockout abuse > a distributed attack (many IPs) slows new sources but not a source the user already logged in from  2265ms
+   ✓ lockout abuse > an admin can clear the throttles for an account (recovery path), and it is audited  602ms
+   ✓ lockout abuse > without TRUST_PROXY, X-Forwarded-For is ignored (clients cannot spoof their way out of a throttle)  382ms
+ ✓ |db| tests/security/authorization.test.ts (61 tests) 2913ms
+   ✓ RBAC × store matrix > GET /internal/status as admin → 200  400ms
+   ✓ injection probes are rejected by validation before reaching SQL > inventory invariants hold after the whole authorization suite  475ms
+ ✓ |db| tests/concurrency/t6-outbox.test.ts (4 tests) 5347ms
+   ✓ T6 transactional outbox publisher > publishes a late-committing event that was allocated a LOWER id than an already-published one  2031ms
+   ✓ T6 transactional outbox publisher > never marks rows published when the broker fails; they are retried later  2761ms
+ ✓ |db| tests/security/authentication.test.ts (23 tests) 2158ms
+   ✓ registration > stores passwords as Argon2id with the configured cost, never in plaintext  379ms
+ ✓ |db| tests/integration/api-orders.test.ts (10 tests) 1686ms
+node.exe : 
+At C:\Users\komal\AppData\Roaming\npm\pnpm.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.cjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |db| tests/concurrency/t7-expiry-vs-pick.test.ts [ tests/concurrency/t7-expiry-vs-pick.test.ts ]
+Error: timeout exceeded when trying to connect
+ ❯ node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.1/node_modules/pg-pool/index.js:45:11
+ ❯ warmPool tests/support/db.ts:32:3
+     30| /** Opens `n` connections concurrently so a burst test measures conten…
+     31| export async function warmPool(pool: PgPool, n: number): Promise<void>…
+     32|   await Promise.all(Array.from({ length: n }, () => pool.query('SELECT…
+       |   ^
+     33| }
+     34| 
+ ❯ tests/concurrency/t7-expiry-vs-pick.test.ts:29:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |db| tests/concurrency/t1-last-unit.test.ts > T1 last-unit race through placeOrder() > stock=1 attempts=200 → 
+exactly `stock` orders succeed, no oversell
+AssertionError: expected 45 to be 50 // Object.is equality
+
+- Expected
++ Received
+
+- 50
++ 45
+
+ ❯ tests/concurrency/t1-last-unit.test.ts:47:31
+     45| 
+     46|       await warmPool(pool, POOL);
+     47|       expect(pool.totalCount).toBe(POOL); // the race window is real: …
+       |                               ^
+     48| 
+     49|       let peakWaiting = 0;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 15 passed (17)
+      Tests  1 failed | 182 passed | 1 skipped (184)
+   Start at  16:53:07
+   Duration  832.47s (transform 11.86s, setup 0ms, collect 33.88s, tests 791.77s, environment 3ms, prepare 4.27s)
+
+ ELIFECYCLE  Test failed. See above for more details.

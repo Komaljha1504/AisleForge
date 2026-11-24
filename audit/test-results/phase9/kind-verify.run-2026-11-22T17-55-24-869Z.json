@@ -1,0 +1,112 @@
+{
+  "recordedAt": "2026-11-22T17:55:24.909Z",
+  "cluster": "kind-aisleforge",
+  "pass": false,
+  "steps": [
+    {
+      "step": "images present in the kind node (local builds loaded, public images pulled by the node)",
+      "ok": true,
+      "ms": 11902,
+      "detail": {
+        "localImages": {
+          "aisleforge/api:dev": {
+            "local": "sha256:b42a777085e027a64de5a0632f75a810bffc793c0cbf88448e8b933bc68008c5",
+            "nodeBefore": "sha256:b42a777085e027a64de5a0632f75a810bffc793c0cbf88448e8b933bc68008c5",
+            "imported": false
+          },
+          "aisleforge/worker:dev": {
+            "local": "sha256:eb4252d2afdc66d6d380d5fd959a92dbd629931adffc5e14710d0936c07e0ae1",
+            "nodeBefore": "sha256:eb4252d2afdc66d6d380d5fd959a92dbd629931adffc5e14710d0936c07e0ae1",
+            "imported": false
+          },
+          "aisleforge/web:dev": {
+            "local": "sha256:8cd4faf86a936355388fb6cb0b78e329fdc7fa584cd40fbc49f1f3d4484e9b89",
+            "nodeBefore": "sha256:8cd4faf86a936355388fb6cb0b78e329fdc7fa584cd40fbc49f1f3d4484e9b89",
+            "imported": false
+          }
+        },
+        "pulled": []
+      }
+    },
+    {
+      "step": "helm install (local values, in-cluster dependencies with PVCs, generated secrets)",
+      "ok": true,
+      "ms": 175294,
+      "detail": "Release \"af\" does not exist. Installing it now. | NAME: af | LAST DEPLOYED: Sun Nov 22 23:21:26 2026 | NAMESPACE: aisleforge | STATUS: deployed | REVISION: 1"
+    },
+    {
+      "step": "all workloads rolled out and ready (startup/readiness probes passed)",
+      "ok": true,
+      "ms": 3747,
+      "detail": {
+        "pods": "NAME                         READY   RESTARTS   PHASE\naf-api-5787f9f448-hwcz6      true    0          Running\naf-api-5787f9f448-jn7tp      true    0          Running\naf-kafka-0                   true    0          Running\naf-postgres-0                true    0          Running\naf-redis-6bf5b9cd9c-l4wkh    true    0          Running\naf-web-894745fc-8wmtq        true    0          Running\naf-worker-5fccc9999f-gzzbr   true    0          Running",
+        "lastTerminations": [
+          {
+            "pod": "af-api-5787f9f448-hwcz6",
+            "container": "migrate",
+            "restarts": 1,
+            "last": null
+          },
+          {
+            "pod": "af-api-5787f9f448-jn7tp",
+            "container": "migrate",
+            "restarts": 1,
+            "last": null
+          },
+          {
+            "pod": "af-worker-5fccc9999f-gzzbr",
+            "container": "migrate",
+            "restarts": 1,
+            "last": null
+          }
+        ]
+      }
+    },
+    {
+      "step": "end-to-end through the web Service: order → reserve → outbox → Kafka → worker → pick task",
+      "ok": true,
+      "ms": 10469,
+      "detail": {
+        "orderId": "01a20464-cfbc-764b-b21e-e2dbc3a3b964",
+        "taskMs": 6761
+      }
+    },
+    {
+      "step": "picker claims and completes via /sync; order reaches picked",
+      "ok": true,
+      "ms": 6434,
+      "detail": {
+        "syncResults": [
+          "applied",
+          "applied"
+        ],
+        "order": "picked"
+      }
+    },
+    {
+      "step": "worker pod deleted → replacement pod resumes Kafka consumption",
+      "ok": true,
+      "ms": 12301,
+      "detail": {
+        "deleted": "af-worker-5fccc9999f-gzzbr",
+        "replacement": "af-worker-5fccc9999f-crwgs",
+        "taskCreatedAfterMs": 847
+      }
+    },
+    {
+      "step": "Redis interruption (scaled to 0): login and catalog still served; restored afterwards",
+      "ok": true,
+      "ms": 8072,
+      "detail": {
+        "loginAndCatalogMs": 100,
+        "xCache": "MISS"
+      }
+    },
+    {
+      "step": "rolling update under traffic (helm upgrade changes config → new pods), zero failed requests",
+      "ok": false,
+      "ms": 45321,
+      "detail": "Error: failed requests during rollout: {\"ok\":234,\"failed\":1,\"statuses\":{\"200\":234,\"503\":1},\"byPath\":{\"/health/ready\":118,\"/api/v1/stores/1/catalog\":117}}"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+k6 exit 99; summary written: true. See k6-console.txt.
+RECLASSIFIED 2026-11-22: the only 'error' was k6's thresholds-crossed message (exit 99) - a measured saturation result. Real script errors: 0. Valid: True.

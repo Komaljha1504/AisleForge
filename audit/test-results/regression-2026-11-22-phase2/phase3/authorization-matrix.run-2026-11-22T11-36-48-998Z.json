@@ -1,0 +1,289 @@
+{
+  "recordedAt": "2026-11-22T11:36:48.998Z",
+  "databaseKind": "embedded-postgres",
+  "cases": 47,
+  "results": [
+    {
+      "case": "GET store-1 inventory",
+      "role": "anon",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "GET store-1 inventory",
+      "role": "cust1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "GET store-1 inventory",
+      "role": "pick1",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "GET store-1 inventory",
+      "role": "sup1",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "GET store-1 inventory",
+      "role": "pick2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "GET store-1 inventory",
+      "role": "sup2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "GET store-1 inventory",
+      "role": "admin",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "POST store-1 inventory adjustment",
+      "role": "anon",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "POST store-1 inventory adjustment",
+      "role": "cust1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST store-1 inventory adjustment",
+      "role": "pick1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST store-1 inventory adjustment",
+      "role": "sup1",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "POST store-1 inventory adjustment",
+      "role": "pick2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST store-1 inventory adjustment",
+      "role": "sup2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST store-1 inventory adjustment",
+      "role": "admin",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "POST store-1 restock",
+      "role": "anon",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "POST store-1 restock",
+      "role": "cust1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST store-1 restock",
+      "role": "pick1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST store-1 restock",
+      "role": "sup1",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "POST store-1 restock",
+      "role": "pick2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST store-1 restock",
+      "role": "sup2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST store-1 restock",
+      "role": "admin",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "POST place order",
+      "role": "anon",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "POST place order",
+      "role": "cust1",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "POST place order",
+      "role": "pick1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST place order",
+      "role": "sup1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST place order",
+      "role": "pick2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST place order",
+      "role": "sup2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST place order",
+      "role": "admin",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "GET store-1 order",
+      "role": "anon",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "GET store-1 order",
+      "role": "cust1",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "GET store-1 order",
+      "role": "cust2",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "case": "GET store-1 order",
+      "role": "pick1",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "GET store-1 order",
+      "role": "sup1",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "GET store-1 order",
+      "role": "pick2",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "case": "GET store-1 order",
+      "role": "sup2",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "case": "GET store-1 order",
+      "role": "admin",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "case": "POST admin create user",
+      "role": "anon",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "POST admin create user",
+      "role": "cust1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST admin create user",
+      "role": "pick1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST admin create user",
+      "role": "sup1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST admin create user",
+      "role": "sup2",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "POST admin create user",
+      "role": "admin",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "case": "GET /internal/status",
+      "role": "anon",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "case": "GET /internal/status",
+      "role": "cust1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "GET /internal/status",
+      "role": "pick1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "GET /internal/status",
+      "role": "sup1",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "case": "GET /internal/status",
+      "role": "admin",
+      "expected": 200,
+      "actual": 200
+    }
+  ]
+}

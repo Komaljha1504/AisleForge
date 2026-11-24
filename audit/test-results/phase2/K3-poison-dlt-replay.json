@@ -1,0 +1,50 @@
+{
+  "recordedAt": "2026-11-22T11:20:12.043Z",
+  "databaseKind": "embedded-postgres",
+  "deadLetters": [
+    {
+      "kind": "invalid_message",
+      "attempts": 1,
+      "error": "invalid JSON: Unexpected token 'o', \"{\"this is\": not json\" is not valid JSON"
+    },
+    {
+      "kind": "invalid_message",
+      "attempts": 1,
+      "error": "invalid envelope: schemaVersion: Invalid input: expected number, received undefined; aggregateType: Invalid input: expected string, received undefined; aggregateId: Invalid input: expected string, received undefined; aggregateVersion: Invalid input: expected number, received undefined; occurredAt: Invalid input: expected string, received undefined"
+    },
+    {
+      "kind": "unknown_event_type",
+      "attempts": 1,
+      "error": "unknown event type 'order.teleported'"
+    },
+    {
+      "kind": "invalid_message",
+      "attempts": 1,
+      "error": "invalid order.placed payload: customerId: Invalid input: expected string, received undefined; lines: Invalid input: expected array, received undefined; reservationExpiresAt: Invalid input: expected string, received undefined"
+    },
+    {
+      "kind": "handler_failed",
+      "attempts": 1,
+      "error": "order 01a202fb-f1a1-72da-b093-f2ea6fcb33e3 does not exist"
+    },
+    {
+      "kind": "handler_failed",
+      "attempts": 3,
+      "error": "DB_TIMEOUT: Database contention; retry later {\"sqlstate\":\"55P03\",\"attempts\":4} (cause: canceling statement due to lock timeout)"
+    }
+  ],
+  "dltTopicMessages": 6,
+  "replay": {
+    "firstReplay": "applied",
+    "secondReplay": "duplicate_skipped",
+    "auditRecords": 2
+  },
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:PASS"
+  ]
+}

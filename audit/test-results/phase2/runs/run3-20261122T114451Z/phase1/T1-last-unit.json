@@ -1,0 +1,49 @@
+{
+  "recordedAt": "2026-11-22T11:46:14.231Z",
+  "databaseKind": "embedded-postgres",
+  "poolMax": 50,
+  "runs": [
+    {
+      "stock": 10,
+      "attempts": 200,
+      "outcomes": {
+        "201": 10,
+        "409": 190
+      },
+      "final": {
+        "reserved": 10,
+        "on_hand": 10,
+        "reservations": 10
+      },
+      "peakPoolWaiting": 150,
+      "elapsedMs": 855,
+      "invariants": [
+        "I1:PASS",
+        "I2:PASS",
+        "I3:PASS",
+        "I4:PASS"
+      ]
+    },
+    {
+      "stock": 10,
+      "attempts": 500,
+      "outcomes": {
+        "201": 10,
+        "409": 490
+      },
+      "final": {
+        "reserved": 10,
+        "on_hand": 10,
+        "reservations": 10
+      },
+      "peakPoolWaiting": 450,
+      "elapsedMs": 1212,
+      "invariants": [
+        "I1:PASS",
+        "I2:PASS",
+        "I3:PASS",
+        "I4:PASS"
+      ]
+    }
+  ]
+}

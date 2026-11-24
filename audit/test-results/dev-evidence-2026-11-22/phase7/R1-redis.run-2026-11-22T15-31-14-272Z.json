@@ -1,0 +1,92 @@
+{
+  "recordedAt": "2026-11-22T15:31:14.272Z",
+  "databaseKind": "embedded-postgres",
+  "sharedIpLimit": {
+    "withRedis": [
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      429,
+      429
+    ],
+    "withoutRedisTwoInstances": [
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401
+    ]
+  },
+  "sharedThrottle": {
+    "lockedViaA_refusedOnB": 429,
+    "adminUnlockClearedShared": true
+  },
+  "catalog": {
+    "first": "MISS",
+    "second": "HIT",
+    "afterRestock": "MISS with new value",
+    "redisStatus": {
+      "configured": true,
+      "connected": true,
+      "state": "ready",
+      "pingMs": 11.21,
+      "stats": {
+        "hits": 5,
+        "misses": 2,
+        "errors": 0,
+        "fallbacks": 0,
+        "invalidations": 0,
+        "hitRatio": 0.714
+      },
+      "lastError": null,
+      "lastErrorAt": null
+    }
+  },
+  "neverAuthoritative": {
+    "cachedAvailable": 5,
+    "databaseAvailable": 0,
+    "orderStatus": 409
+  },
+  "outage": {
+    "loginStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "loginMs": [
+      88,
+      70,
+      87,
+      70,
+      81
+    ],
+    "catalogMsDuringOutage": 16,
+    "deadLettersDuringOutage": 0,
+    "redisStatusDuringOutage": {
+      "connected": false,
+      "fallbacks": 19
+    },
+    "recoveredAfterMs": 1722
+  },
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:PASS",
+    "I7:PASS"
+  ]
+}

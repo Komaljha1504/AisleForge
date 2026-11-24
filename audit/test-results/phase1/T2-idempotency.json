@@ -1,0 +1,25 @@
+{
+  "recordedAt": "2026-11-21T16:24:06.983Z",
+  "databaseKind": "embedded-postgres",
+  "concurrentRequests": 100,
+  "statusCodes": {
+    "201": 100
+  },
+  "replayed": {
+    "true": 99,
+    "false": 1
+  },
+  "distinctOrderIds": 1,
+  "db": {
+    "orders": 1,
+    "reservations": 2,
+    "order_events": 1,
+    "reserved_a": 2
+  },
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS"
+  ]
+}

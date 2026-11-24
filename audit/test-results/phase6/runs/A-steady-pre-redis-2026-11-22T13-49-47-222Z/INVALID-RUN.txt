@@ -1,0 +1,1 @@
+k6 failed to initialise (non-integer arrival-rate target); NO load was applied. Kept as evidence of the harness defect; superseded.

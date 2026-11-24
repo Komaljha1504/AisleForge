@@ -1,0 +1,54 @@
+﻿{
+    "recordedAt":  "2026-11-22T14:12:15.999Z",
+    "profile":  "C",
+    "shape":  "steady",
+    "label":  "pre-redis",
+    "windowMin":  3,
+    "k6ExitCode":  99,
+    "k6WallMs":  301969,
+    "backlogDrainAfterRunMs":  14991,
+    "unconsumedAfterDrain":  0,
+    "invariants":  [
+                       {
+                           "id":  "I1",
+                           "status":  "PASS",
+                           "violations":  0
+                       },
+                       {
+                           "id":  "I2",
+                           "status":  "PASS",
+                           "violations":  0
+                       },
+                       {
+                           "id":  "I3",
+                           "status":  "PASS",
+                           "violations":  0
+                       },
+                       {
+                           "id":  "I4",
+                           "status":  "PASS",
+                           "violations":  0
+                       },
+                       {
+                           "id":  "I5",
+                           "status":  "PASS",
+                           "violations":  0
+                       },
+                       {
+                           "id":  "I6",
+                           "status":  "PASS",
+                           "violations":  0
+                       },
+                       {
+                           "id":  "I7",
+                           "status":  "PASS",
+                           "violations":  0
+                       }
+                   ],
+    "note":  "Profile arrival rates preserved; window shortened to windowMin (machine/time budget). See docs/reports/PERFORMANCE_REPORT.md.",
+    "scriptErrors":  0,
+    "ordersCreated":  729,
+    "valid":  true,
+    "summaryWritten":  true,
+    "originalVerdict":  "invalid (guard counted the k6 threshold-crossed message as a script error)"
+}

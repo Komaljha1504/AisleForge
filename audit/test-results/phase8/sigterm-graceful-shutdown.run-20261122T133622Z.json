@@ -1,0 +1,19 @@
+﻿{
+    "api":  {
+                "exit":  "0 oom=false",
+                "log":  [
+                            "shutdown started SIGTERM ",
+                            "shutdown complete  "
+                        ],
+                "stopSeconds":  6.6
+            },
+    "worker":  {
+                   "exit":  "0 oom=false",
+                   "log":  [
+                               "shutdown started SIGTERM ",
+                               "worker stopped  ",
+                               "process exiting  0"
+                           ],
+                   "stopSeconds":  2.8
+               }
+}

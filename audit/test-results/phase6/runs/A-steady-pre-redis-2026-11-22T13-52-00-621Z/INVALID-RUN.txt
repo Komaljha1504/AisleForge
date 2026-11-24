@@ -1,0 +1,1 @@
+Every order/pick iteration threw ReferenceError (crypto not defined in k6 0.55); k6 still exited 0. No orders were placed: NOT a baseline. Kept as evidence of the harness defect; superseded.

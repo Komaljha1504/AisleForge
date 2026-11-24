@@ -1,0 +1,17 @@
+﻿{
+    "staticChecks":  {
+                         "typecheck":  0,
+                         "formatCheck":  0,
+                         "lint":  0
+                     },
+    "unitDb":  {
+                   "exit":  1,
+                   "seconds":  240
+               },
+    "kafka":  {
+                  "exit":  1,
+                  "seconds":  289
+              },
+    "auditFilesChanged":  0,
+    "tempDir":  "C:\\Users\\komal\\AppData\\Local\\Temp\\aisleforge-run3-20261122T114451Z"
+}

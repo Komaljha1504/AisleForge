@@ -1,0 +1,76 @@
+{
+  "recordedAt": "2026-11-22T16:45:51.311Z",
+  "backupFile": "C:\\Users\\komal\\AppData\\Local\\Temp\\aisleforge-backups/aisleforge-20261122T164407Z.dump",
+  "backupBytes": 15040167,
+  "backupMs": 33446,
+  "restoreMs": 65755,
+  "tables": 22,
+  "rowsBefore": {
+    "auth_audit_log": 3334,
+    "consumer_aggregate_versions": 4186,
+    "dead_letters": 0,
+    "devices": 547,
+    "idempotency_keys": 4186,
+    "inventory_balances": 500024,
+    "inventory_ledger": 517188,
+    "order_lines": 9850,
+    "orders": 4186,
+    "outbox": 30781,
+    "pick_tasks": 4186,
+    "processed_events": 21252,
+    "products": 50012,
+    "refresh_tokens": 3334,
+    "reservations": 9850,
+    "schema_migrations": 4,
+    "sku_locations": 500024,
+    "store_layouts": 10,
+    "stores": 10,
+    "sync_ops": 5804,
+    "users": 1505,
+    "worker_status": 29
+  },
+  "mismatchedTables": [
+    "processed_events"
+  ],
+  "restoredInvariants": [
+    {
+      "id": "I1",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I2",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I3",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I4",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I5",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I6",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I7",
+      "status": "PASS",
+      "violations": 0
+    }
+  ],
+  "liveOverwriteRefusedWithoutForce": true,
+  "refusalMessage": "refusing to overwrite the live database 'aisleforge' without --force and CONFIRM_RESTORE=yes",
+  "pass": false,
+  "note": "worker_status is excluded from the comparison (live snapshots change every few seconds)."
+}

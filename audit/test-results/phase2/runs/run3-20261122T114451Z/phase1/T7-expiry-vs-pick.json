@@ -1,0 +1,17 @@
+{
+  "recordedAt": "2026-11-22T11:45:52.263Z",
+  "databaseKind": "embedded-postgres",
+  "trials": 300,
+  "winners": {
+    "expire": 223,
+    "pick": 77
+  },
+  "anomalies": 0,
+  "sample": [],
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS"
+  ]
+}

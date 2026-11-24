@@ -1,0 +1,19 @@
+ ✓  unit  tests/unit/login-throttle.test.ts (9 tests) 16ms
+ ✓  unit  tests/unit/events-and-shared.test.ts (7 tests) 107ms
+ ✓  unit  tests/unit/orders-normalize.test.ts (10 tests) 126ms
+ ✓  unit  tests/unit/routing.test.ts (18 tests) 1815ms
+ ✓  unit  tests/unit/api-config-and-ratelimit.test.ts (6 tests) 39ms
+ ✓  db  tests/concurrency/property-inventory.test.ts (1 test) 62136ms
+ ✓  db  tests/concurrency/t4-deadlock.test.ts (2 tests) 66325ms
+ ✓  db  tests/concurrency/t7-expiry-vs-pick.test.ts (1 test) 11627ms
+ ✓  db  tests/concurrency/t1-last-unit.test.ts (3 tests) 12442ms
+ ✓  db  tests/integration/inventory-orders.test.ts (18 tests) 10890ms
+ ✓  db  tests/concurrency/t2-idempotency.test.ts (2 tests) 7464ms
+ ✓  db  tests/security/lockout-abuse.test.ts (5 tests) 4745ms
+ ✓  db  tests/security/authorization.test.ts (61 tests) 2561ms
+ ✓  db  tests/security/authentication.test.ts (23 tests) 2602ms
+ ✓  db  tests/concurrency/t6-outbox.test.ts (4 tests) 2037ms
+ ✓  db  tests/integration/api-orders.test.ts (10 tests) 1421ms
+ Test Files  16 passed (16)
+      Tests  180 passed (180)
+   Duration  220.67s (transform 7.67s, setup 0ms, collect 22.72s, tests 186.35s, environment 3ms, prepare 4.20s)

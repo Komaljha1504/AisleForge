@@ -1,0 +1,27 @@
+{
+  "recordedAt": "2026-11-22T11:03:28.466Z",
+  "databaseKind": "embedded-postgres",
+  "orders": 1000,
+  "linesPerOrder": 5,
+  "hotSkus": 20,
+  "concurrency": 100,
+  "poolMax": 50,
+  "outcomes": {
+    "201": 1000
+  },
+  "deadlocksDetected": 0,
+  "transientRetries": {},
+  "committedOrdersPerSec": 52.2,
+  "latencyMs": {
+    "p50": 1031.61,
+    "p95": 5626.5,
+    "p99": 9782.81,
+    "max": 17288.22
+  },
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS"
+  ]
+}

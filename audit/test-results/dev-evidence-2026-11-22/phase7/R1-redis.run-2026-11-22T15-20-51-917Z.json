@@ -1,0 +1,62 @@
+{
+  "recordedAt": "2026-11-22T15:20:51.917Z",
+  "databaseKind": "embedded-postgres",
+  "catalog": {
+    "first": "MISS",
+    "second": "HIT",
+    "afterRestock": "MISS with new value",
+    "redisStatus": {
+      "configured": true,
+      "connected": true,
+      "state": "ready",
+      "pingMs": 3.34,
+      "stats": {
+        "hits": 5,
+        "misses": 2,
+        "errors": 0,
+        "fallbacks": 2,
+        "invalidations": 0,
+        "hitRatio": 0.714
+      },
+      "lastError": null,
+      "lastErrorAt": null
+    }
+  },
+  "neverAuthoritative": {
+    "cachedAvailable": 5,
+    "databaseAvailable": 0,
+    "orderStatus": 409
+  },
+  "outage": {
+    "loginStatuses": [
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "loginMs": [
+      55,
+      49,
+      39,
+      41,
+      44
+    ],
+    "catalogMsDuringOutage": 13,
+    "deadLettersDuringOutage": 0,
+    "redisStatusDuringOutage": {
+      "connected": false,
+      "fallbacks": 21
+    },
+    "recoveredAfterMs": 1643
+  },
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:PASS",
+    "I7:PASS"
+  ]
+}

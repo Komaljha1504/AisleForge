@@ -1,0 +1,145 @@
+{
+  "recordedAt": "2026-11-23T18:30:20.141Z",
+  "cluster": "kind-aisleforge",
+  "pass": true,
+  "steps": [
+    {
+      "step": "images present in the kind node (local builds loaded, public images pulled by the node)",
+      "ok": true,
+      "ms": 4636,
+      "detail": {
+        "localImages": {
+          "aisleforge/api:dev": {
+            "local": "sha256:90c2e9ce660a65bd2182710722a8f89bb7f9ba411056f0b14c68c9506a4ca6a0",
+            "nodeBefore": "sha256:90c2e9ce660a65bd2182710722a8f89bb7f9ba411056f0b14c68c9506a4ca6a0",
+            "imported": false
+          },
+          "aisleforge/worker:dev": {
+            "local": "sha256:d085641d35d60edeab8cdef0aab69eeab0db87fefbbc842ca3cbf68e8d1609d9",
+            "nodeBefore": "sha256:d085641d35d60edeab8cdef0aab69eeab0db87fefbbc842ca3cbf68e8d1609d9",
+            "imported": false
+          },
+          "aisleforge/web:dev": {
+            "local": "sha256:a413ef1c6862f1368631a88f63a97ad7a14224bf0b0ea0df032fef87af5a8aea",
+            "nodeBefore": "sha256:a413ef1c6862f1368631a88f63a97ad7a14224bf0b0ea0df032fef87af5a8aea",
+            "imported": false
+          }
+        },
+        "pulled": []
+      }
+    },
+    {
+      "step": "helm install (local values, in-cluster dependencies with PVCs, generated secrets)",
+      "ok": true,
+      "ms": 65006,
+      "detail": "Release \"af\" does not exist. Installing it now. | NAME: af | LAST DEPLOYED: Mon Nov 23 23:58:25 2026 | NAMESPACE: aisleforge | STATUS: deployed | REVISION: 1"
+    },
+    {
+      "step": "all workloads rolled out and ready (startup/readiness probes passed)",
+      "ok": true,
+      "ms": 1150,
+      "detail": {
+        "pods": "NAME                         READY   RESTARTS   PHASE\naf-api-5f9688679f-qphjm      true    0          Running\naf-api-5f9688679f-r7pw9      true    0          Running\naf-kafka-0                   true    0          Running\naf-postgres-0                true    0          Running\naf-redis-6bf5b9cd9c-jw779    true    0          Running\naf-web-7fb64c4899-rh8fd      true    0          Running\naf-worker-5765f4c97d-q7s9j   true    0          Running",
+        "lastTerminations": []
+      }
+    },
+    {
+      "step": "end-to-end through the web Service: order → reserve → outbox → Kafka → worker → pick task",
+      "ok": true,
+      "ms": 2085,
+      "detail": {
+        "orderId": "01a209ab-311d-729b-acc2-265d2a03842c",
+        "taskMs": 885
+      }
+    },
+    {
+      "step": "picker claims and completes via /sync; order reaches picked",
+      "ok": true,
+      "ms": 1030,
+      "detail": {
+        "syncResults": [
+          "applied",
+          "applied"
+        ],
+        "order": "picked"
+      }
+    },
+    {
+      "step": "worker pod deleted → replacement pod resumes Kafka consumption",
+      "ok": true,
+      "ms": 7143,
+      "detail": {
+        "deleted": "af-worker-5765f4c97d-q7s9j",
+        "replacement": "af-worker-5765f4c97d-fgrz4",
+        "taskCreatedAfterMs": 556
+      }
+    },
+    {
+      "step": "Redis interruption (scaled to 0): login and catalog still served; restored afterwards",
+      "ok": true,
+      "ms": 3999,
+      "detail": {
+        "loginAndCatalogMs": 133,
+        "xCache": "MISS"
+      }
+    },
+    {
+      "step": "rolling update under traffic (helm upgrade changes config → new pods), zero failed requests",
+      "ok": true,
+      "ms": 20190,
+      "detail": {
+        "ok": 141,
+        "failed": 0,
+        "statuses": {
+          "200": 141
+        },
+        "byPath": {
+          "/health/ready": 71,
+          "/api/v1/stores/1/catalog": 70
+        },
+        "failures": [],
+        "rolloutMs": 19374,
+        "revision": 2,
+        "apiPodsAfter": "af-api-5f9688679f-qphjm af-api-5f9688679f-r7pw9 af-api-748975ff4-4745h af-api-748975ff4-j96qz"
+      }
+    },
+    {
+      "step": "rollback to the previous revision restores the previous configuration",
+      "ok": true,
+      "ms": 16378,
+      "detail": {
+        "logLevel": "info",
+        "history": [
+          "1:superseded:Install complete",
+          "2:superseded:Upgrade complete",
+          "3:deployed:Rollback to 1"
+        ]
+      }
+    },
+    {
+      "step": "PostgreSQL pod deleted → data persists on its PVC",
+      "ok": true,
+      "ms": 10001,
+      "detail": {
+        "ordersBefore": 2,
+        "ordersAfter": 2
+      }
+    },
+    {
+      "step": "in-cluster backup (pg_dump) and restore into a separate database",
+      "ok": true,
+      "ms": 15904,
+      "detail": {
+        "dumpBytes": 68790,
+        "liveOrdersLedger": "2/27",
+        "restoredOrdersLedger": "2/27"
+      }
+    },
+    {
+      "step": "final pod state (restarts, readiness)",
+      "ok": true,
+      "ms": 549,
+      "detail": "NAME                         READY   RESTARTS\naf-api-5f9688679f-kj6q2      true    0\naf-api-5f9688679f-v9jwg      true    0\naf-kafka-0                   true    0\naf-postgres-0                true    0\naf-redis-6bf5b9cd9c-tp46g    true    0\naf-web-7fb64c4899-rh8fd      true    0\naf-worker-5765f4c97d-kvdpr   true    0"
+    }
+  ]
+}

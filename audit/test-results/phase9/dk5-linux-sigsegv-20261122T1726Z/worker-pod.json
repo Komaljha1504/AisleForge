@@ -1,0 +1,363 @@
+﻿{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "checksum/config": "0bfadfee4ac0ae8c6a3f247ad97caf04fd50c5b6f80f376c70845fc7eef3e8fa"
+        },
+        "creationTimestamp": "2026-11-22T17:24:14Z",
+        "generateName": "af-worker-8446548f4d-",
+        "labels": {
+            "app.kubernetes.io/component": "worker",
+            "app.kubernetes.io/instance": "af",
+            "app.kubernetes.io/part-of": "aisleforge",
+            "app.kubernetes.io/version": "dev",
+            "helm.sh/chart": "aisleforge-0.1.0",
+            "pod-template-hash": "8446548f4d"
+        },
+        "name": "af-worker-8446548f4d-klvbl",
+        "namespace": "aisleforge",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "af-worker-8446548f4d",
+                "uid": "9e857e1f-c803-41e1-b761-96061b8658e3"
+            }
+        ],
+        "resourceVersion": "2692",
+        "uid": "27b6748c-d443-4a4f-8085-d51b2c973a74"
+    },
+    "spec": {
+        "containers": [
+            {
+                "envFrom": [
+                    {
+                        "configMapRef": {
+                            "name": "af-config"
+                        }
+                    },
+                    {
+                        "secretRef": {
+                            "name": "aisleforge-secrets"
+                        }
+                    }
+                ],
+                "image": "aisleforge/worker:dev",
+                "imagePullPolicy": "IfNotPresent",
+                "livenessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health/live",
+                        "port": "status",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                },
+                "name": "worker",
+                "ports": [
+                    {
+                        "containerPort": 8081,
+                        "name": "status",
+                        "protocol": "TCP"
+                    }
+                ],
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health/ready",
+                        "port": "status",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "1",
+                        "memory": "384Mi"
+                    },
+                    "requests": {
+                        "cpu": "200m",
+                        "memory": "192Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true
+                },
+                "startupProbe": {
+                    "failureThreshold": 60,
+                    "httpGet": {
+                        "path": "/health/live",
+                        "port": "status",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 2,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-jjhh5",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "initContainers": [
+            {
+                "command": [
+                    "node",
+                    "init-db.mjs"
+                ],
+                "env": [
+                    {
+                        "name": "DATABASE_URL",
+                        "valueFrom": {
+                            "secretKeyRef": {
+                                "key": "DATABASE_URL",
+                                "name": "aisleforge-secrets"
+                            }
+                        }
+                    },
+                    {
+                        "name": "SEED_PASSWORD",
+                        "valueFrom": {
+                            "secretKeyRef": {
+                                "key": "SEED_PASSWORD",
+                                "name": "aisleforge-secrets"
+                            }
+                        }
+                    }
+                ],
+                "image": "aisleforge/worker:dev",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "migrate",
+                "resources": {
+                    "limits": {
+                        "cpu": "500m",
+                        "memory": "192Mi"
+                    },
+                    "requests": {
+                        "cpu": "50m",
+                        "memory": "64Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-jjhh5",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "nodeName": "aisleforge-control-plane",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "runAsGroup": 1000,
+            "runAsNonRoot": true,
+            "runAsUser": 1000,
+            "seccompProfile": {
+                "type": "RuntimeDefault"
+            }
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "name": "kube-api-access-jjhh5",
+                "projected": {
+                    "defaultMode": 420,
+                    "sources": [
+                        {
+                            "serviceAccountToken": {
+                                "expirationSeconds": 3607,
+                                "path": "token"
+                            }
+                        },
+                        {
+                            "configMap": {
+                                "items": [
+                                    {
+                                        "key": "ca.crt",
+                                        "path": "ca.crt"
+                                    }
+                                ],
+                                "name": "kube-root-ca.crt"
+                            }
+                        },
+                        {
+                            "downwardAPI": {
+                                "items": [
+                                    {
+                                        "fieldRef": {
+                                            "apiVersion": "v1",
+                                            "fieldPath": "metadata.namespace"
+                                        },
+                                        "path": "namespace"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:24:20Z",
+                "status": "True",
+                "type": "PodReadyToStartContainers"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:26:06Z",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:26:35Z",
+                "status": "True",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:26:35Z",
+                "status": "True",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:24:14Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://4570d407d9b0d263003ca03c4adcd803b4e2bea7985f8ccbc244bff1e7534b3f",
+                "image": "docker.io/aisleforge/worker:dev",
+                "imageID": "docker.io/library/import-2026-11-22@sha256:dad7741048c3e3fbba473390797896a11d5f5bb96677060f9f840a3ea3b34522",
+                "lastState": {
+                    "terminated": {
+                        "containerID": "containerd://cae0ce599988063053b6dd443839ddf1a24946b31c4a802b96b195b76cf511f4",
+                        "exitCode": 139,
+                        "finishedAt": "2026-11-22T17:26:20Z",
+                        "reason": "Error",
+                        "startedAt": "2026-11-22T17:26:06Z"
+                    }
+                },
+                "name": "worker",
+                "ready": true,
+                "restartCount": 1,
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-11-22T17:26:22Z"
+                    }
+                },
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-jjhh5",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    }
+                ]
+            }
+        ],
+        "hostIP": "172.19.0.2",
+        "hostIPs": [
+            {
+                "ip": "172.19.0.2"
+            }
+        ],
+        "initContainerStatuses": [
+            {
+                "containerID": "containerd://fc3eb4d7500ad4cd63d307b3f12c5631be9cb98bd2ff941b88dc12a777e288b6",
+                "image": "docker.io/aisleforge/worker:dev",
+                "imageID": "docker.io/library/import-2026-11-22@sha256:dad7741048c3e3fbba473390797896a11d5f5bb96677060f9f840a3ea3b34522",
+                "lastState": {},
+                "name": "migrate",
+                "ready": true,
+                "restartCount": 4,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://fc3eb4d7500ad4cd63d307b3f12c5631be9cb98bd2ff941b88dc12a777e288b6",
+                        "exitCode": 0,
+                        "finishedAt": "2026-11-22T17:26:06Z",
+                        "reason": "Completed",
+                        "startedAt": "2026-11-22T17:26:03Z"
+                    }
+                },
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-jjhh5",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    }
+                ]
+            }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.0.18",
+        "podIPs": [
+            {
+                "ip": "10.244.0.18"
+            }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-11-22T17:24:15Z"
+    }
+}

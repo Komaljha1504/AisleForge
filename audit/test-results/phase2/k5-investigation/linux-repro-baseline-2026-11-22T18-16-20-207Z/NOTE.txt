@@ -1,0 +1,5 @@
+ABORTED harness design (not a result). The first version of tools/failure/dk5-linux-repro.ts started the worker once,
+at the same moment as a fresh broker. The worker failed fast with exit code 1 ("process exiting", ~12 s: broker not
+listening yet) in iterations 1-2, which is the designed start-up behaviour, so it never reached the window in which
+the kind deployments crashed (after an orchestrator restart, while the broker was loading). The harness now acts as
+a supervisor (restarts the worker on every exit within the window, like Kubernetes/Compose) and records every exit.

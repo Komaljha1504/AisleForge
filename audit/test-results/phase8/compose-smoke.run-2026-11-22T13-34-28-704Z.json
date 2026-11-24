@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-11-22T13:34:28.708Z",
+  "base": "http://localhost:8088",
+  "pass": false,
+  "steps": [
+    {
+      "step": "front door serves the PWA shell (+ service worker, security headers)",
+      "ok": false,
+      "ms": 125,
+      "detail": "Error: no CSP header"
+    }
+  ]
+}

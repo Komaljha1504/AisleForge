@@ -1,0 +1,1 @@
+﻿{"migrations":{"applied":[],"alreadyApplied":["0001_core_schema.sql","0002_auth.sql","0003_events_and_pick_tasks.sql","0004_offline_sync.sql"]},"seeded":true,"accounts":{"customer":"customer@demo.aisleforge.test","picker":"picker@demo.aisleforge.test","picker2":"picker2@demo.aisleforge.test","supervisor":"supervisor@demo.aisleforge.test","admin":"admin@demo.aisleforge.test"}}

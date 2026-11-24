@@ -1,0 +1,363 @@
+﻿{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "annotations": {
+            "checksum/config": "c0de5391063807df67b5fbbbd4cb2cd9048437a3dca2807a8cba2513dd96a560"
+        },
+        "creationTimestamp": "2026-11-22T17:47:48Z",
+        "generateName": "af-worker-76cdcd4756-",
+        "labels": {
+            "app.kubernetes.io/component": "worker",
+            "app.kubernetes.io/instance": "af",
+            "app.kubernetes.io/part-of": "aisleforge",
+            "app.kubernetes.io/version": "dev",
+            "helm.sh/chart": "aisleforge-0.1.0",
+            "pod-template-hash": "76cdcd4756"
+        },
+        "name": "af-worker-76cdcd4756-v8bxv",
+        "namespace": "aisleforge",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "ReplicaSet",
+                "name": "af-worker-76cdcd4756",
+                "uid": "8c898c0d-947b-4245-8674-5c02fa322991"
+            }
+        ],
+        "resourceVersion": "6328",
+        "uid": "e991bd42-58b8-46a6-a4c3-659d89ddb714"
+    },
+    "spec": {
+        "containers": [
+            {
+                "envFrom": [
+                    {
+                        "configMapRef": {
+                            "name": "af-config"
+                        }
+                    },
+                    {
+                        "secretRef": {
+                            "name": "aisleforge-secrets"
+                        }
+                    }
+                ],
+                "image": "aisleforge/worker:dev",
+                "imagePullPolicy": "IfNotPresent",
+                "livenessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health/live",
+                        "port": "status",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                },
+                "name": "worker",
+                "ports": [
+                    {
+                        "containerPort": 8081,
+                        "name": "status",
+                        "protocol": "TCP"
+                    }
+                ],
+                "readinessProbe": {
+                    "failureThreshold": 3,
+                    "httpGet": {
+                        "path": "/health/ready",
+                        "port": "status",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                },
+                "resources": {
+                    "limits": {
+                        "cpu": "1",
+                        "memory": "384Mi"
+                    },
+                    "requests": {
+                        "cpu": "200m",
+                        "memory": "192Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    },
+                    "readOnlyRootFilesystem": true
+                },
+                "startupProbe": {
+                    "failureThreshold": 60,
+                    "httpGet": {
+                        "path": "/health/live",
+                        "port": "status",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 2,
+                    "successThreshold": 1,
+                    "timeoutSeconds": 1
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-vc6tv",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "initContainers": [
+            {
+                "command": [
+                    "node",
+                    "init-db.mjs"
+                ],
+                "env": [
+                    {
+                        "name": "DATABASE_URL",
+                        "valueFrom": {
+                            "secretKeyRef": {
+                                "key": "DATABASE_URL",
+                                "name": "aisleforge-secrets"
+                            }
+                        }
+                    },
+                    {
+                        "name": "SEED_PASSWORD",
+                        "valueFrom": {
+                            "secretKeyRef": {
+                                "key": "SEED_PASSWORD",
+                                "name": "aisleforge-secrets"
+                            }
+                        }
+                    }
+                ],
+                "image": "aisleforge/worker:dev",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "migrate",
+                "resources": {
+                    "limits": {
+                        "cpu": "500m",
+                        "memory": "192Mi"
+                    },
+                    "requests": {
+                        "cpu": "50m",
+                        "memory": "64Mi"
+                    }
+                },
+                "securityContext": {
+                    "allowPrivilegeEscalation": false,
+                    "capabilities": {
+                        "drop": [
+                            "ALL"
+                        ]
+                    }
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-vc6tv",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "nodeName": "aisleforge-control-plane",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+            "runAsGroup": 1000,
+            "runAsNonRoot": true,
+            "runAsUser": 1000,
+            "seccompProfile": {
+                "type": "RuntimeDefault"
+            }
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "name": "kube-api-access-vc6tv",
+                "projected": {
+                    "defaultMode": 420,
+                    "sources": [
+                        {
+                            "serviceAccountToken": {
+                                "expirationSeconds": 3607,
+                                "path": "token"
+                            }
+                        },
+                        {
+                            "configMap": {
+                                "items": [
+                                    {
+                                        "key": "ca.crt",
+                                        "path": "ca.crt"
+                                    }
+                                ],
+                                "name": "kube-root-ca.crt"
+                            }
+                        },
+                        {
+                            "downwardAPI": {
+                                "items": [
+                                    {
+                                        "fieldRef": {
+                                            "apiVersion": "v1",
+                                            "fieldPath": "metadata.namespace"
+                                        },
+                                        "path": "namespace"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:47:54Z",
+                "status": "True",
+                "type": "PodReadyToStartContainers"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:49:07Z",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:49:25Z",
+                "status": "True",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:49:25Z",
+                "status": "True",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2026-11-22T17:47:48Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://1df078ee494e15607aa3c32254028b1892209b8a8c429c5e9f8ebc93262c2e05",
+                "image": "docker.io/aisleforge/worker:dev",
+                "imageID": "sha256:b526bd120b13c5c31aa593ac1d379c45693a2865b7d34d5445a251224cb88a42",
+                "lastState": {
+                    "terminated": {
+                        "containerID": "containerd://38b4a845eedcefef073061f122b47e8d99eeb68c11cdc6d8226099ba94f4d48e",
+                        "exitCode": 139,
+                        "finishedAt": "2026-11-22T17:49:21Z",
+                        "reason": "Error",
+                        "startedAt": "2026-11-22T17:49:08Z"
+                    }
+                },
+                "name": "worker",
+                "ready": true,
+                "restartCount": 1,
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2026-11-22T17:49:22Z"
+                    }
+                },
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-vc6tv",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    }
+                ]
+            }
+        ],
+        "hostIP": "172.19.0.2",
+        "hostIPs": [
+            {
+                "ip": "172.19.0.2"
+            }
+        ],
+        "initContainerStatuses": [
+            {
+                "containerID": "containerd://242019cd7ea08cac8652eda4112ead4dd7c4864c0352baf90c04ec18aa26abbc",
+                "image": "docker.io/aisleforge/worker:dev",
+                "imageID": "sha256:b526bd120b13c5c31aa593ac1d379c45693a2865b7d34d5445a251224cb88a42",
+                "lastState": {},
+                "name": "migrate",
+                "ready": true,
+                "restartCount": 0,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://242019cd7ea08cac8652eda4112ead4dd7c4864c0352baf90c04ec18aa26abbc",
+                        "exitCode": 0,
+                        "finishedAt": "2026-11-22T17:49:06Z",
+                        "reason": "Completed",
+                        "startedAt": "2026-11-22T17:47:53Z"
+                    }
+                },
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-vc6tv",
+                        "readOnly": true,
+                        "recursiveReadOnly": "Disabled"
+                    }
+                ]
+            }
+        ],
+        "phase": "Running",
+        "podIP": "10.244.0.58",
+        "podIPs": [
+            {
+                "ip": "10.244.0.58"
+            }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2026-11-22T17:47:48Z"
+    }
+}

@@ -1,0 +1,23 @@
+﻿{
+    "at":  "2026-11-22T11:44:53.4233466Z",
+    "freePhysicalGB":  0.75,
+    "totalPhysicalGB":  7.74,
+    "committedGB":  18.95,
+    "commitLimitGB":  23.74,
+    "oneDriveProcesses":  [
+                              {
+                                  "id":  548,
+                                  "started":  "2026-11-22T17:08:37.5830004+05:30",
+                                  "privateMB":  17
+                              }
+                          ],
+    "containers":  [
+                       {
+                           "name":  "aisleforge-kafka-1",
+                           "mem":  "405.7MiB / 900MiB",
+                           "cpu":  "3.48%"
+                       }
+                   ],
+    "nodeProcesses":  0,
+    "postgresProcesses":  0
+}

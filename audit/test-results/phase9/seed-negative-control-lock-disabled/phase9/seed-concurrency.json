@@ -1,0 +1,40 @@
+{
+  "recordedAt": "2026-11-22T17:29:52.967Z",
+  "databaseKind": "embedded-postgres",
+  "seeders": 4,
+  "rejected": [],
+  "balances": 24,
+  "duplicateBalances": 0,
+  "openingLedgerRows": 24,
+  "users": 5,
+  "invariants": [
+    {
+      "invariant": "I1",
+      "description": "No negative on_hand; reserved within [0, on_hand]",
+      "status": "PASS",
+      "violations": 0,
+      "sample": []
+    },
+    {
+      "invariant": "I2",
+      "description": "reserved = SUM(active reservation qty) per store/sku",
+      "status": "PASS",
+      "violations": 0,
+      "sample": []
+    },
+    {
+      "invariant": "I3",
+      "description": "Ledger reproduces on_hand and reserved; exactly one opening movement per balance",
+      "status": "PASS",
+      "violations": 0,
+      "sample": []
+    },
+    {
+      "invariant": "I4",
+      "description": "One order per (principal, idempotency key), owned by that principal",
+      "status": "PASS",
+      "violations": 0,
+      "sample": []
+    }
+  ]
+}

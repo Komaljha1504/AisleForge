@@ -1,0 +1,5 @@
+{"level":"info","time":"2026-11-23T15:34:00.782Z","service":"aisleforge-worker","role":"worker","topics":["aisleforge.order.events","aisleforge.inventory.events","aisleforge.order.events.dlt","aisleforge.inventory.events.dlt"],"message":"created kafka topics"}
+{"level":"info","time":"2026-11-23T15:34:01.331Z","service":"aisleforge-worker","role":"worker","workerId":"dk5-2","roles":["publisher","order-workflow","catalog-cache","sweeper","replayer"],"message":"worker started"}
+{"level":"info","time":"2026-11-23T15:34:01.357Z","service":"aisleforge-worker","role":"worker","component":"outbox-publisher","message":"outbox publisher leadership acquired"}
+(node:1) MaxListenersExceededWarning: Possible EventTarget memory leak detected. 11 abort listeners added to [AbortSignal]. MaxListeners is 10. Use events.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)

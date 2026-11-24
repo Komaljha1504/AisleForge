@@ -1,0 +1,94 @@
+﻿
+> aisleforge@ test C:\Users\komal\OneDrive\Desktop\RetailFlow
+> vitest run --project unit --project db
+
+
+ RUN  v3.2.7 C:/Users/komal/OneDrive/Desktop/RetailFlow
+
+ ✓ |unit| tests/unit/login-throttle.test.ts (9 tests) 18ms
+ ✓ |unit| tests/unit/events-and-shared.test.ts (7 tests) 54ms
+ ✓ |unit| tests/unit/orders-normalize.test.ts (10 tests) 106ms
+ ✓ |unit| tests/unit/routing.test.ts (18 tests) 1240ms
+   ✓ warehouse graph shortest paths > reproduces the Python prototype distance matrices exactly (cross-implementation check)  622ms
+ ✓ |unit| tests/unit/worker-config.test.ts (4 tests) 22ms
+ ✓ |unit| tests/unit/api-config-and-ratelimit.test.ts (6 tests) 18ms
+ ✓ |db| tests/concurrency/t7-expiry-vs-pick.test.ts (1 test) 10589ms
+   ✓ T7 expiry vs pick confirmation > 300 races: exactly one transition wins each, never a double decrement  2345ms
+ ❯ |db| tests/concurrency/t1-last-unit.test.ts (3 tests | 1 failed) 21796ms
+   × T1 last-unit race through placeOrder() > stock=1 attempts=200 → exactly `stock` orders succeed, no oversell 13711ms
+     → expected 36 to be 50 // Object.is equality
+   ✓ T1 last-unit race through placeOrder() > stock=10 attempts=200 → exactly `stock` orders succeed, no oversell  5849ms
+   ✓ T1 last-unit race through placeOrder() > stock=10 attempts=500 → exactly `stock` orders succeed, no oversell  1854ms
+ ✓ |db| tests/concurrency/t4-deadlock.test.ts (2 tests) 73027ms
+   ✓ T4 multi-line deadlock prevention > 1000 orders × 5 lines over 20 hot SKUs at concurrency 100: zero deadlocks, all committed  13119ms
+   ✓ T4 multi-line deadlock prevention > NEGATIVE CONTROL: arbitrary lock order with the same harness does deadlock  50191ms
+ ✓ |db| tests/concurrency/property-inventory.test.ts (1 test) 62951ms
+   ✓ property: inventory invariants survive arbitrary concurrent operation sequences > holds for 100 random programs (seed 20261121)  62510ms
+ ✓ |db| tests/concurrency/t2-idempotency.test.ts (2 tests) 10991ms
+   ✓ T2 idempotency under concurrency > 100 concurrent identical requests create exactly one order and all callers get the original response  507ms
+ ✓ |db| tests/integration/inventory-orders.test.ts (18 tests) 7110ms
+   ✓ order placement > reserves all lines atomically and records ledger + outbox in the same transaction  416ms
+   ✓ order placement > is all-or-nothing: one short line reserves nothing and returns 409 with shortages  364ms
+   ✓ reservation state machine > release returns quantity to available exactly once  441ms
+   ✓ reservation state machine > expiry only applies once expires_at has passed  406ms
+   ✓ reservation state machine > full pick decrements on_hand and reserved and moves the order to picked  344ms
+   ✓ reservation state machine > short pick is first-class: recorded separately and removed from on_hand pending recount  468ms
+   ✓ reservation state machine > cancel releases active reservations; cancelled orders cannot be cancelled again  442ms
+   ✓ stock movements > restock is idempotent per source id  477ms
+   ✓ stock movements > restock/adjust of a balance that does not exist is a typed NOT_FOUND, not a raw SQL error  364ms
+   ✓ stock movements > adjustment cannot drop on_hand below reserved  655ms
+   ✓ database-level defences (last line, independent of application code) > CHECK constraint rejects over-reservation even from raw SQL  345ms
+   ✓ database-level defences (last line, independent of application code) > ledger is append-only  731ms
+   ✓ database-level defences (last line, independent of application code) > ledger movement shape is enforced  344ms
+ ✓ |db| tests/concurrency/t6-outbox.test.ts (4 tests) 1740ms
+   ✓ T6 transactional outbox publisher > publishes a late-committing event that was allocated a LOWER id than an already-published one  1048ms
+ ✓ |db| tests/security/lockout-abuse.test.ts (5 tests) 5748ms
+   ✓ lockout abuse > an attacker hammering one account from one IP cannot lock out the real user on another IP  1178ms
+   ✓ lockout abuse > a distributed attack (many IPs) slows new sources but not a source the user already logged in from  2551ms
+   ✓ lockout abuse > an admin can clear the throttles for an account (recovery path), and it is audited  721ms
+   ✓ lockout abuse > without TRUST_PROXY, X-Forwarded-For is ignored (clients cannot spoof their way out of a throttle)  497ms
+ ✓ |db| tests/security/authorization.test.ts (61 tests) 3834ms
+   ✓ RBAC × store matrix > GET /internal/status as admin → 200  435ms
+   ✓ injection probes are rejected by validation before reaching SQL > inventory invariants hold after the whole authorization suite  425ms
+ ✓ |db| tests/security/authentication.test.ts (23 tests) 3494ms
+   ✓ registration > stores passwords as Argon2id with the configured cost, never in plaintext  383ms
+   ✓ login > locks an account out after repeated failures (429 + Retry-After), even for the correct password  361ms
+   ✓ refresh rotation, reuse detection, logout, CSRF > a role change by an admin revokes the user's sessions  309ms
+ ✓ |db| tests/integration/api-orders.test.ts (10 tests) 2077ms
+   ✓ health and diagnostics > /internal/status reports pools, transaction stats and outbox backlog for admins only  322ms
+node.exe : 
+At C:\Users\komal\AppData\Roaming\npm\pnpm.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.cjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |db| tests/concurrency/t1-last-unit.test.ts > T1 last-unit race through placeOrder() > stock=1 attempts=200 → 
+exactly `stock` orders succeed, no oversell
+AssertionError: expected 36 to be 50 // Object.is equality
+
+- Expected
++ Received
+
+- 50
++ 36
+
+ ❯ tests/concurrency/t1-last-unit.test.ts:47:31
+     45| 
+     46|       await warmPool(pool, POOL);
+     47|       expect(pool.totalCount).toBe(POOL); // the race window is real: …
+       |                               ^
+     48| 
+     49|       let peakWaiting = 0;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 16 passed (17)
+      Tests  1 failed | 183 passed (184)
+   Start at  17:15:21
+   Duration  230.95s (transform 5.67s, setup 0ms, collect 25.04s, tests 204.81s, environment 3ms, prepare 4.20s)
+
+ ELIFECYCLE  Test failed. See above for more details.

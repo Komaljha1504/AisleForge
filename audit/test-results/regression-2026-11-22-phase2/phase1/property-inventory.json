@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-11-22T11:14:47.100Z",
+  "databaseKind": "embedded-postgres",
+  "seed": 20261121,
+  "numRuns": 100,
+  "runsExecuted": 100,
+  "opsExecuted": 1020,
+  "outcomeCounts": {
+    "pick:none": 73,
+    "place:201": 189,
+    "adjust:true": 80,
+    "restock:true": 73,
+    "expire:true": 41,
+    "pick:false": 51,
+    "pick:true": 47,
+    "cancel:none": 38,
+    "place:409": 125,
+    "expire:none": 77,
+    "release:true": 24,
+    "rejected:IDEMPOTENCY_KEY_REUSED": 39,
+    "release:false": 18,
+    "rejected:ADJUSTMENT_BELOW_RESERVED": 16,
+    "expire:false": 47,
+    "release:none": 38,
+    "cancel:ok": 30,
+    "rejected:INVALID_STATE_TRANSITION": 9,
+    "restock:false": 3,
+    "adjust:false": 2
+  }
+}

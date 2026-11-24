@@ -1,0 +1,104 @@
+{
+  "hypothesis": "native worker crash when starting against a broker whose group coordinator is still loading",
+  "label": "delayed20",
+  "iterations": 4,
+  "observeSeconds": 90,
+  "workerExtraEnv": null,
+  "startDelayAfterBrokerReadyS": 20,
+  "workerImage": "aisleforge/worker:dev",
+  "gdb": false,
+  "iterationsWithNativeCrash": 4,
+  "sigsegvTotal": 4,
+  "startupFailuresTotal": 0,
+  "images": {
+    "worker": "sha256:eb4252d2afdc66d6d380d5fd959a92dbd629931adffc5e14710d0936c07e0ae1",
+    "kafka": "apache/kafka:4.1.1"
+  },
+  "results": [
+    {
+      "iteration": 1,
+      "brokerReadyMs": 23648,
+      "exits": [
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 14772,
+          "afterStartMs": 61246
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 140933
+    },
+    {
+      "iteration": 2,
+      "brokerReadyMs": 34475,
+      "exits": [
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 11757,
+          "afterStartMs": 69771
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 150549
+    },
+    {
+      "iteration": 3,
+      "brokerReadyMs": 21051,
+      "exits": [
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 12969,
+          "afterStartMs": 57959
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 139398
+    },
+    {
+      "iteration": 4,
+      "brokerReadyMs": 22576,
+      "exits": [
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 12736,
+          "afterStartMs": 59119
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 140899
+    }
+  ],
+  "finishedAt": "2026-11-23T08:05:00.364Z"
+}

@@ -1,0 +1,36 @@
+{
+  "recordedAt": "2026-11-22T11:15:34.546Z",
+  "databaseKind": "embedded-postgres",
+  "singleSourceAttack": {
+    "attackerStatuses": [
+      401,
+      401,
+      401,
+      401,
+      401,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429,
+      429
+    ],
+    "victimStatus": 200
+  },
+  "distributedAttack": {
+    "attempts": 60,
+    "rejectedAs401": 40,
+    "throttled429": 20,
+    "newSourceStatus": 429,
+    "knownSourceStatus": 200
+  }
+}

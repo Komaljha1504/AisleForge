@@ -1,0 +1,68 @@
+{
+  "recordedAt": "2026-11-22T13:43:29.603Z",
+  "experiment": "E3 on Docker Compose (Linux worker container): docker compose kill -s SIGKILL worker",
+  "kills": [
+    "2026-11-22T13:40:34.381Z",
+    "2026-11-22T13:40:47.321Z",
+    "2026-11-22T13:40:59.062Z",
+    "2026-11-22T13:41:12.256Z",
+    "2026-11-22T13:41:23.092Z",
+    "2026-11-22T13:41:35.043Z",
+    "2026-11-22T13:41:47.405Z",
+    "2026-11-22T13:42:00.823Z",
+    "2026-11-22T13:42:11.718Z",
+    "2026-11-22T13:42:23.104Z"
+  ],
+  "load": {
+    "placed": 591,
+    "errors": 0
+  },
+  "drainAfterLoadMs": 57458,
+  "unconsumedAfterDrain": 0,
+  "orders": 592,
+  "tasks": 592,
+  "duplicateTasks": 0,
+  "workerDeathExitCodes": [
+    137,
+    137
+  ],
+  "unexplainedWorkerExits": [],
+  "invariants": [
+    {
+      "id": "I1",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I2",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I3",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I4",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I5",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I6",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I7",
+      "status": "PASS",
+      "violations": 0
+    }
+  ],
+  "pass": true
+}

@@ -1,0 +1,51 @@
+{
+  "recordedAt": "2026-11-22T13:56:07.407Z",
+  "profile": "A",
+  "shape": "steady",
+  "label": "pre-redis",
+  "windowMin": 3,
+  "k6ExitCode": 0,
+  "k6WallMs": 224206,
+  "backlogDrainAfterRunMs": 1317,
+  "unconsumedAfterDrain": 0,
+  "invariants": [
+    {
+      "id": "I1",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I2",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I3",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I4",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I5",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I6",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "id": "I7",
+      "status": "PASS",
+      "violations": 0
+    }
+  ],
+  "note": "Profile arrival rates preserved; window shortened to windowMin (machine/time budget). See docs/reports/PERFORMANCE_REPORT.md.",
+  "valid": true,
+  "summaryWritten": true
+}

@@ -1,0 +1,63 @@
+﻿
+> aisleforge@ test:kafka C:\Users\komal\OneDrive\Desktop\RetailFlow
+> vitest run --project kafka
+
+
+ RUN  v3.2.7 C:/Users/komal/OneDrive/Desktop/RetailFlow
+
+ ❯ |kafka| tests/kafka/k5-worker-crash.test.ts (5 tests | 1 failed) 115337ms
+   × K5 worker process crashes (E3) and outage (E1), real broker and processes > negative control: the harness detects a worker that dies on its own, a drain with no live worker, and a stall 7024ms
+     → Timed out waiting for: exit line in the self-exiting worker log
+   ✓ K5 worker process crashes (E3) and outage (E1), real broker and processes > E3: 10 hard kills of random workers under load; redeliveries deduplicated; one task per order  69421ms
+   ✓ K5 worker process crashes (E3) and outage (E1), real broker and processes > E1: all workers down for 30 s while orders are accepted; one worker drains the backlog  36060ms
+   ✓ K5 worker process crashes (E3) and outage (E1), real broker and processes > no worker process died on its own (only the test killed workers) 1ms
+   ✓ K5 worker process crashes (E3) and outage (E1), real broker and processes > invariants I1–I6 hold after the crash experiments 223ms
+ ✓ |kafka| tests/kafka/k4-broker-outage.test.ts (3 tests) 105927ms
+   ✓ K4 broker outage (E2, real docker compose stop kafka) > baseline: orders flow to pick tasks while the broker is up  2357ms
+   ✓ K4 broker outage (E2, real docker compose stop kafka) > during the outage orders are accepted, the publisher fails without marking rows, the backlog grows  65339ms
+   ✓ K4 broker outage (E2, real docker compose stop kafka) > after restart the backlog drains, every order has exactly one task, and invariants I1–I6 hold  30172ms
+ ✓ |kafka| tests/kafka/k1-producer.test.ts (2 tests) 6551ms
+   ✓ K1 Kafka producer adapter (real broker) > delivers acknowledged messages with keys and headers; each key stays on one partition, in order  1160ms
+   ✓ K1 Kafka producer adapter (real broker) > rejects (within the delivery timeout) instead of reporting success when the write cannot be acknowledged  4906ms
+ ✓ |kafka| tests/kafka/k3-poison-dlt.test.ts (5 tests) 16483ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > the partition is not stuck: the valid order behind 5 poison messages gets its pick task  6008ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > every poison message is dead-lettered once (table + DLT topic), with bounded attempts and a reason  969ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > admin API: list/inspect are admin-only; replay of a fixed failure applies it exactly once  2868ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > replaying a still-invalid message dead-letters it again as a new record; discard needs a note  2144ms
+ ✓ |kafka| tests/kafka/k2-order-workflow.test.ts (6 tests) 7553ms
+   ✓ K2 order → pick task workflow (real Kafka) > turns placed orders into pick tasks with feasible routes and propagates the correlation id  2168ms
+   ✓ K2 order → pick task workflow (real Kafka) > per-key ordering: orders cancelled right after placement never end with an active task  453ms
+   ✓ K2 order → pick task workflow (real Kafka) > a stale event (new event id, already-applied aggregate version) has no effect  457ms
+   ✓ K2 order → pick task workflow (real Kafka) > routing never blocks fulfilment: unplanned (no layout), infeasible (cold chain), fallback (optimizer failure)  1973ms
+   ✓ K2 order → pick task workflow (real Kafka) > global invariants I1–I6 hold after the workflow  394ms
+node.exe : 
+At C:\Users\komal\AppData\Roaming\npm\pnpm.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.cjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |kafka| tests/kafka/k5-worker-crash.test.ts > K5 worker process crashes (E3) and outage (E1), real broker and 
+processes > negative control: the harness detects a worker that dies on its own, a drain with no live worker, and a 
+stall
+Error: Timed out waiting for: exit line in the self-exiting worker log
+ ❯ waitFor tests/support/kafka.ts:63:9
+     61|     await sleep(opts.intervalMs ?? 250);
+     62|   }
+     63|   throw new Error(`Timed out waiting for: ${opts.what}${last ? ` (last…
+       |         ^
+     64| }
+     65| 
+ ❯ tests/kafka/k5-worker-crash.test.ts:303:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 20 passed (21)
+   Start at  16:45:51
+   Duration  269.04s (transform 1.36s, setup 0ms, collect 4.31s, tests 251.85s, environment 0ms, prepare 306ms)
+
+ ELIFECYCLE  Command failed with exit code 1.

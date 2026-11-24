@@ -1,0 +1,854 @@
+{
+  "recordedAt": "2026-11-22T11:52:13.406Z",
+  "databaseKind": "embedded-postgres",
+  "workerLogDir": "C:\\Users\\komal\\AppData\\Local\\Temp\\aisleforge-test-logs\\k5-1795348199416",
+  "negativeControl": {
+    "selfExit": {
+      "worker": "X",
+      "code": 2,
+      "signal": null,
+      "killedByTest": false,
+      "log": "X-0.log",
+      "at": "2026-11-22T11:50:03.188Z",
+      "codeHex": "0x2"
+    },
+    "noWorkerDetectedAfterMs": 15,
+    "stallDetectedAfterMs": 8332
+  },
+  "E3": {
+    "kills": [
+      {
+        "at": 6,
+        "worker": "B"
+      },
+      {
+        "at": 11,
+        "worker": "A"
+      },
+      {
+        "at": 16,
+        "worker": "A"
+      },
+      {
+        "at": 21,
+        "worker": "A"
+      },
+      {
+        "at": 26,
+        "worker": "B"
+      },
+      {
+        "at": 33,
+        "worker": "B"
+      },
+      {
+        "at": 40,
+        "worker": "A"
+      },
+      {
+        "at": 44,
+        "worker": "A"
+      },
+      {
+        "at": 50,
+        "worker": "B"
+      },
+      {
+        "at": 56,
+        "worker": "B"
+      }
+    ],
+    "ordersPlaced": 413,
+    "orderErrors": 0,
+    "orders": 414,
+    "tasks": 414,
+    "duplicateDeliveriesSkipped": 2,
+    "drainAfterLoadStopMs": 1015,
+    "offsetCommitFailuresLogged": 0
+  },
+  "failureDiagnostics": {
+    "why": "no live worker with 212 events unconsumed",
+    "exits": [
+      {
+        "worker": "X",
+        "code": 2,
+        "signal": null,
+        "killedByTest": false,
+        "log": "X-0.log",
+        "at": "2026-11-22T11:50:03.188Z",
+        "codeHex": "0x2"
+      },
+      {
+        "worker": "S",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "S-1.log",
+        "at": "2026-11-22T11:50:12.102Z",
+        "codeHex": null
+      },
+      {
+        "worker": "B",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "B-3.log",
+        "at": "2026-11-22T11:50:20.490Z",
+        "codeHex": null
+      },
+      {
+        "worker": "A",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "A-2.log",
+        "at": "2026-11-22T11:50:25.523Z",
+        "codeHex": null
+      },
+      {
+        "worker": "A",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "A-5.log",
+        "at": "2026-11-22T11:50:30.194Z",
+        "codeHex": null
+      },
+      {
+        "worker": "A",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "A-6.log",
+        "at": "2026-11-22T11:50:35.690Z",
+        "codeHex": null
+      },
+      {
+        "worker": "B",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "B-4.log",
+        "at": "2026-11-22T11:50:40.860Z",
+        "codeHex": null
+      },
+      {
+        "worker": "B",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "B-8.log",
+        "at": "2026-11-22T11:50:48.074Z",
+        "codeHex": null
+      },
+      {
+        "worker": "A",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "A-7.log",
+        "at": "2026-11-22T11:50:54.406Z",
+        "codeHex": null
+      },
+      {
+        "worker": "A",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "A-10.log",
+        "at": "2026-11-22T11:50:58.898Z",
+        "codeHex": null
+      },
+      {
+        "worker": "B",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "B-9.log",
+        "at": "2026-11-22T11:51:04.590Z",
+        "codeHex": null
+      },
+      {
+        "worker": "B",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "B-12.log",
+        "at": "2026-11-22T11:51:10.577Z",
+        "codeHex": null
+      },
+      {
+        "worker": "A",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "A-11.log",
+        "at": "2026-11-22T11:51:14.297Z",
+        "codeHex": null
+      },
+      {
+        "worker": "B",
+        "code": null,
+        "signal": "SIGKILL",
+        "killedByTest": true,
+        "log": "B-13.log",
+        "at": "2026-11-22T11:51:14.324Z",
+        "codeHex": null
+      },
+      {
+        "worker": "C",
+        "code": 3221225477,
+        "signal": null,
+        "killedByTest": false,
+        "log": "C-14.log",
+        "at": "2026-11-22T11:52:12.848Z",
+        "codeHex": "0xc0000005"
+      }
+    ],
+    "alive": [],
+    "advisoryLocks": [],
+    "sessions": [],
+    "workers": [
+      {
+        "worker_id": "S-2",
+        "updated_at": "2026-11-22T11:50:10.097Z",
+        "outbox": {
+          "leader": false,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 5,
+            "oldestAgeSeconds": 8.896509
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 0,
+          "lastPublishedAt": null,
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": false,
+          "lastAckAt": null,
+          "lastError": null,
+          "sentMessages": 0
+        }
+      },
+      {
+        "worker_id": "B-4",
+        "updated_at": "2026-11-22T11:50:19.323Z",
+        "outbox": {
+          "leader": false,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 3,
+            "oldestAgeSeconds": 0.040768
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 0,
+          "lastPublishedAt": null,
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": false,
+          "lastAckAt": null,
+          "lastError": null,
+          "sentMessages": 0
+        }
+      },
+      {
+        "worker_id": "A-3",
+        "updated_at": "2026-11-22T11:50:24.763Z",
+        "outbox": {
+          "leader": true,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 3,
+            "oldestAgeSeconds": 0.026485
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 260,
+          "lastPublishedAt": "2026-11-22T11:50:24.726Z",
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": true,
+          "lastAckAt": "2026-11-22T11:50:24.725Z",
+          "lastError": null,
+          "sentMessages": 260
+        }
+      },
+      {
+        "worker_id": "A-6",
+        "updated_at": "2026-11-22T11:50:29.961Z",
+        "outbox": {
+          "leader": false,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 3,
+            "oldestAgeSeconds": 0.068256
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 0,
+          "lastPublishedAt": null,
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": false,
+          "lastAckAt": null,
+          "lastError": null,
+          "sentMessages": 0
+        }
+      },
+      {
+        "worker_id": "A-7",
+        "updated_at": "2026-11-22T11:50:34.617Z",
+        "outbox": {
+          "leader": false,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 3,
+            "oldestAgeSeconds": 0.056387
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 0,
+          "lastPublishedAt": null,
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": false,
+          "lastAckAt": null,
+          "lastError": null,
+          "sentMessages": 0
+        }
+      },
+      {
+        "worker_id": "B-5",
+        "updated_at": "2026-11-22T11:50:40.571Z",
+        "outbox": {
+          "leader": true,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 3,
+            "oldestAgeSeconds": 0.023358
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 333,
+          "lastPublishedAt": "2026-11-22T11:50:40.515Z",
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": true,
+          "lastAckAt": "2026-11-22T11:50:40.514Z",
+          "lastError": null,
+          "sentMessages": 333
+        }
+      },
+      {
+        "worker_id": "A-11",
+        "updated_at": "2026-11-22T11:50:58.357Z",
+        "outbox": {
+          "leader": false,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 6,
+            "oldestAgeSeconds": 0.099558
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 0,
+          "lastPublishedAt": null,
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": false,
+          "lastAckAt": null,
+          "lastError": null,
+          "sentMessages": 0
+        }
+      },
+      {
+        "worker_id": "B-9",
+        "updated_at": "2026-11-22T11:50:47.524Z",
+        "outbox": {
+          "leader": false,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 0,
+            "oldestAgeSeconds": null
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 0,
+          "lastPublishedAt": null,
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": false,
+          "lastAckAt": null,
+          "lastError": null,
+          "sentMessages": 0
+        }
+      },
+      {
+        "worker_id": "A-8",
+        "updated_at": "2026-11-22T11:50:52.914Z",
+        "outbox": {
+          "leader": true,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 3,
+            "oldestAgeSeconds": 0.040414
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 222,
+          "lastPublishedAt": "2026-11-22T11:50:52.843Z",
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": true,
+          "lastAckAt": "2026-11-22T11:50:52.842Z",
+          "lastError": null,
+          "sentMessages": 222
+        }
+      },
+      {
+        "worker_id": "B-10",
+        "updated_at": "2026-11-22T11:51:02.649Z",
+        "outbox": {
+          "leader": true,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 0,
+            "oldestAgeSeconds": null
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 201,
+          "lastPublishedAt": "2026-11-22T11:51:01.554Z",
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": true,
+          "lastAckAt": "2026-11-22T11:51:01.549Z",
+          "lastError": null,
+          "sentMessages": 201
+        }
+      },
+      {
+        "worker_id": "A-12",
+        "updated_at": "2026-11-22T11:51:13.738Z",
+        "outbox": {
+          "leader": true,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 0,
+            "oldestAgeSeconds": null
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 78,
+          "lastPublishedAt": "2026-11-22T11:51:11.235Z",
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": true,
+          "lastAckAt": "2026-11-22T11:51:11.230Z",
+          "lastError": null,
+          "sentMessages": 78
+        }
+      },
+      {
+        "worker_id": "C-15",
+        "updated_at": "2026-11-22T11:52:09.654Z",
+        "outbox": {
+          "leader": true,
+          "backlog": {
+            "maxAttempts": 0,
+            "unpublished": 0,
+            "oldestAgeSeconds": null
+          },
+          "lastError": null,
+          "failedBatches": 0,
+          "publishedTotal": 813,
+          "lastPublishedAt": "2026-11-22T11:51:55.657Z",
+          "consecutiveFailures": 0
+        },
+        "producer": {
+          "connected": true,
+          "lastAckAt": "2026-11-22T11:51:55.316Z",
+          "lastError": null,
+          "sentMessages": 813
+        }
+      }
+    ],
+    "backlog": 0
+  },
+  "workerExits": [
+    {
+      "worker": "X",
+      "code": 2,
+      "signal": null,
+      "killedByTest": false,
+      "log": "X-0.log",
+      "at": "2026-11-22T11:50:03.188Z",
+      "codeHex": "0x2"
+    },
+    {
+      "worker": "S",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "S-1.log",
+      "at": "2026-11-22T11:50:12.102Z",
+      "codeHex": null
+    },
+    {
+      "worker": "B",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "B-3.log",
+      "at": "2026-11-22T11:50:20.490Z",
+      "codeHex": null
+    },
+    {
+      "worker": "A",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "A-2.log",
+      "at": "2026-11-22T11:50:25.523Z",
+      "codeHex": null
+    },
+    {
+      "worker": "A",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "A-5.log",
+      "at": "2026-11-22T11:50:30.194Z",
+      "codeHex": null
+    },
+    {
+      "worker": "A",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "A-6.log",
+      "at": "2026-11-22T11:50:35.690Z",
+      "codeHex": null
+    },
+    {
+      "worker": "B",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "B-4.log",
+      "at": "2026-11-22T11:50:40.860Z",
+      "codeHex": null
+    },
+    {
+      "worker": "B",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "B-8.log",
+      "at": "2026-11-22T11:50:48.074Z",
+      "codeHex": null
+    },
+    {
+      "worker": "A",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "A-7.log",
+      "at": "2026-11-22T11:50:54.406Z",
+      "codeHex": null
+    },
+    {
+      "worker": "A",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "A-10.log",
+      "at": "2026-11-22T11:50:58.898Z",
+      "codeHex": null
+    },
+    {
+      "worker": "B",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "B-9.log",
+      "at": "2026-11-22T11:51:04.590Z",
+      "codeHex": null
+    },
+    {
+      "worker": "B",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "B-12.log",
+      "at": "2026-11-22T11:51:10.577Z",
+      "codeHex": null
+    },
+    {
+      "worker": "A",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "A-11.log",
+      "at": "2026-11-22T11:51:14.297Z",
+      "codeHex": null
+    },
+    {
+      "worker": "B",
+      "code": null,
+      "signal": "SIGKILL",
+      "killedByTest": true,
+      "log": "B-13.log",
+      "at": "2026-11-22T11:51:14.324Z",
+      "codeHex": null
+    },
+    {
+      "worker": "C",
+      "code": 3221225477,
+      "signal": null,
+      "killedByTest": false,
+      "log": "C-14.log",
+      "at": "2026-11-22T11:52:12.848Z",
+      "codeHex": "0xc0000005"
+    }
+  ],
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:FAIL"
+  ],
+  "memorySamples": {
+    "count": 27,
+    "minFreePhysMB": 620,
+    "samples": [
+      {
+        "t": "2026-11-22T11:49:59.424Z",
+        "freePhysMB": 831,
+        "kafka": "412.2MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:05.732Z",
+        "freePhysMB": 780,
+        "kafka": "452.4MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:10.747Z",
+        "freePhysMB": 829,
+        "kafka": "412.8MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:15.747Z",
+        "freePhysMB": 788,
+        "kafka": "415.6MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:20.831Z",
+        "freePhysMB": 919,
+        "kafka": "415.1MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:25.832Z",
+        "freePhysMB": 897,
+        "kafka": "483.5MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:30.841Z",
+        "freePhysMB": 897,
+        "kafka": "415.9MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:36.019Z",
+        "freePhysMB": 885,
+        "kafka": "417.6MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:41.411Z",
+        "freePhysMB": 820,
+        "kafka": "415.8MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:46.416Z",
+        "freePhysMB": 802,
+        "kafka": "506.3MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:51.418Z",
+        "freePhysMB": 847,
+        "kafka": "415.4MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:50:56.419Z",
+        "freePhysMB": 808,
+        "kafka": "417.1MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:01.423Z",
+        "freePhysMB": 807,
+        "kafka": "417.1MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:06.434Z",
+        "freePhysMB": 624,
+        "kafka": "483.6MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:11.514Z",
+        "freePhysMB": 638,
+        "kafka": "519.8MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:16.521Z",
+        "freePhysMB": 844,
+        "kafka": "420.5MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:21.523Z",
+        "freePhysMB": 909,
+        "kafka": "416.2MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:26.526Z",
+        "freePhysMB": 840,
+        "kafka": "417.4MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:31.532Z",
+        "freePhysMB": 903,
+        "kafka": "417.4MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:36.543Z",
+        "freePhysMB": 819,
+        "kafka": "415.8MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:41.545Z",
+        "freePhysMB": 774,
+        "kafka": "417.9MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:46.556Z",
+        "freePhysMB": 729,
+        "kafka": "420.9MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:51.556Z",
+        "freePhysMB": 626,
+        "kafka": "494.5MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:51:56.565Z",
+        "freePhysMB": 620,
+        "kafka": "505.7MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:52:01.579Z",
+        "freePhysMB": 686,
+        "kafka": "417.2MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:52:06.588Z",
+        "freePhysMB": 685,
+        "kafka": "424.8MiB / 900MiB"
+      },
+      {
+        "t": "2026-11-22T11:52:11.598Z",
+        "freePhysMB": 802,
+        "kafka": "438.9MiB / 900MiB"
+      }
+    ]
+  },
+  "workerLogsEndingWithExitLine": [
+    {
+      "log": "X-0.log",
+      "killedByTest": false,
+      "exitLine": true
+    },
+    {
+      "log": "S-1.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "B-3.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "A-2.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "A-5.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "A-6.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "B-4.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "B-8.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "A-7.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "A-10.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "B-9.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "B-12.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "A-11.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "B-13.log",
+      "killedByTest": true,
+      "exitLine": false
+    },
+    {
+      "log": "C-14.log",
+      "killedByTest": false,
+      "exitLine": false
+    }
+  ]
+}

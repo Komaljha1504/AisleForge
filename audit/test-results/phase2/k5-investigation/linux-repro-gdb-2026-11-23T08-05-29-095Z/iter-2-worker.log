@@ -1,0 +1,282 @@
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff7aaf6c0 (LWP 16)]
+[New Thread 0x7ffff72a76c0 (LWP 17)]
+[New Thread 0x7ffff6aa66c0 (LWP 18)]
+[New Thread 0x7ffff62a56c0 (LWP 19)]
+[New Thread 0x7ffff5aa46c0 (LWP 20)]
+[New Thread 0x7ffff51fb6c0 (LWP 21)]
+[New Thread 0x7ffff51f26c0 (LWP 22)]
+[New Thread 0x7ffff49f16c0 (LWP 23)]
+[New Thread 0x7fffcffff6c0 (LWP 24)]
+[New Thread 0x7fffcf7fe6c0 (LWP 25)]
+[New Thread 0x7fffce4106c0 (LWP 26)]
+[New Thread 0x7fffcdc0f6c0 (LWP 27)]
+[New Thread 0x7fffcd40e6c0 (LWP 28)]
+[New Thread 0x7fffccc0d6c0 (LWP 29)]
+[New Thread 0x7ffd27fff6c0 (LWP 30)]
+[Thread 0x7fffcd40e6c0 (LWP 28) exited]
+{"level":"info","time":"2026-11-23T08:08:32.134Z","service":"aisleforge-worker","role":"worker","topics":["aisleforge.order.events","aisleforge.inventory.events","aisleforge.order.events.dlt","aisleforge.inventory.events.dlt"],"message":"created kafka topics"}
+[New Thread 0x7fffcd40e6c0 (LWP 44)]
+[New Thread 0x7ffd277fe6c0 (LWP 45)]
+[New Thread 0x7ffd26ffd6c0 (LWP 46)]
+[New Thread 0x7ffd267fc6c0 (LWP 47)]
+[New Thread 0x7ffd25ffb6c0 (LWP 48)]
+[Thread 0x7ffd267fc6c0 (LWP 47) exited]
+{"level":"info","time":"2026-11-23T08:08:33.092Z","service":"aisleforge-worker","role":"worker","workerId":"dk5-2","roles":["publisher","order-workflow","catalog-cache","sweeper","replayer"],"message":"worker started"}
+{"level":"info","time":"2026-11-23T08:08:33.330Z","service":"aisleforge-worker","role":"worker","component":"outbox-publisher","message":"outbox publisher leadership acquired"}
+
+Thread 12 "rdk:main" received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0x7fffce4106c0 (LWP 26)]
+0x00007fffce6a2141 in rd_kafka_cgrp_op () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#0  0x00007fffce6a2141 in rd_kafka_cgrp_op () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#1  0x00007fffce6cbae9 in rd_kafka_handle_OffsetFetch () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#2  0x00007fffce6293b0 in rd_kafka_ListConsumerGroupOffsetsResponse_parse () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#3  0x00007fffce65a7e7 in rd_kafka_admin_worker () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce62fedd in rd_kafka_admin_handle_response () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce6f5aa4 in rd_kafka_buf_callback () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce6eefa0 in rd_kafka_op_handle_std () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007fffce6ef048 in rd_kafka_op_handle () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#8  0x00007fffce6f225c in rd_kafka_q_serve0 () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#9  0x00007fffce6f267b in rd_kafka_q_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#10 0x00007fffce72e4ac in rd_kafka_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#11 0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#12 0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+From                To                  Syms Read   Shared Object Library
+0x00007ffff7fcc060  0x00007ffff7ff0f51  Yes (*)     /lib64/ld-linux-x86-64.so.2
+0x00007ffff7fbd040  0x00007ffff7fbd101  Yes (*)     /lib/x86_64-linux-gnu/libdl.so.2
+0x00007ffff7e3f1d0  0x00007ffff7f3b5be  Yes (*)     /lib/x86_64-linux-gnu/libstdc++.so.6
+0x00007ffff7cd3200  0x00007ffff7d45a28  Yes (*)     /lib/x86_64-linux-gnu/libm.so.6
+0x00007ffff7ca6350  0x00007ffff7cbc8c5  Yes (*)     /lib/x86_64-linux-gnu/libgcc_s.so.1
+0x00007ffff7c9f040  0x00007ffff7c9f101  Yes (*)     /lib/x86_64-linux-gnu/libpthread.so.0
+0x00007ffff7ae1380  0x00007ffff7c350ed  Yes (*)     /lib/x86_64-linux-gnu/libc.so.6
+0x00007ffff41411d0  0x00007ffff41c5451  Yes (*)     /app/node_modules/@node-rs/argon2-linux-x64-gnu/argon2.linux-x64-gnu.node
+0x00007ffff4135060  0x00007ffff4135251  Yes (*)     /lib/x86_64-linux-gnu/librt.so.1
+0x00007fffce5df280  0x00007fffced02cbe  Yes (*)     /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+(*): Shared library is missing debugging information.
+
+Thread 21 (Thread 0x7ffd25ffb6c0 (LWP 48) "rdk:broker1"):
+#0  0x00007ffff7bb71df in poll () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007fffce8128fe in rd_kafka_transport_poll () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#2  0x00007fffce814492 in rd_kafka_transport_io_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#3  0x00007fffce71ca1c in rd_kafka_broker_ops_io_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce71cfa3 in rd_kafka_broker_consumer_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce71d31a in rd_kafka_broker_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce71e26d in rd_kafka_broker_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#8  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 19 (Thread 0x7ffd26ffd6c0 (LWP 46) "rdk:broker-1"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b438bc in pthread_cond_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x00007ffff7b4c669 in cnd_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#3  0x00007fffce68cd69 in cnd_timedwait_ms () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce68cf5c in cnd_timedwait_abs () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce6f138a in rd_kafka_q_pop_serve0 () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce6f1e7b in rd_kafka_q_pop_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007fffce71c7b0 in rd_kafka_broker_ops_io_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#8  0x00007fffce71db7f in rd_kafka_broker_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#9  0x00007fffce71e2e0 in rd_kafka_broker_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#10 0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#11 0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 18 (Thread 0x7ffd277fe6c0 (LWP 45) "rdk:main"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b438bc in pthread_cond_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x00007ffff7b4c669 in cnd_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#3  0x00007fffce68cd69 in cnd_timedwait_ms () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce68cf5c in cnd_timedwait_abs () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce6f208d in rd_kafka_q_serve0 () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce6f267b in rd_kafka_q_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007fffce72e4ac in rd_kafka_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#8  0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#9  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 17 (Thread 0x7fffcd40e6c0 (LWP 44) "rdk:broker-1"):
+#0  0x00007ffff7bb71df in poll () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007fffce8128fe in rd_kafka_transport_poll () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#2  0x00007fffce814492 in rd_kafka_transport_io_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#3  0x00007fffce71ca1c in rd_kafka_broker_ops_io_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce71cfa3 in rd_kafka_broker_consumer_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce71d31a in rd_kafka_broker_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce71e26d in rd_kafka_broker_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#8  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 16 (Thread 0x7ffd27fff6c0 (LWP 30) "rdk:broker1"):
+#0  0x00007ffff7bb71df in poll () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007fffce8128fe in rd_kafka_transport_poll () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#2  0x00007fffce814492 in rd_kafka_transport_io_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#3  0x00007fffce71ca1c in rd_kafka_broker_ops_io_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce71d59f in rd_kafka_broker_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce71e26d in rd_kafka_broker_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 15 (Thread 0x7fffccc0d6c0 (LWP 29) "rdk:bg"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b438bc in pthread_cond_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x00007ffff7b4c669 in cnd_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#3  0x00007fffce68cd69 in cnd_timedwait_ms () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce68cf5c in cnd_timedwait_abs () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce6f208d in rd_kafka_q_serve0 () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce6f267b in rd_kafka_q_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007fffce7ec676 in rd_kafka_background_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#8  0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#9  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 13 (Thread 0x7fffcdc0f6c0 (LWP 27) "rdk:broker-1"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b438bc in pthread_cond_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x00007ffff7b4c669 in cnd_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#3  0x00007fffce68cd69 in cnd_timedwait_ms () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce68cf5c in cnd_timedwait_abs () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce6f138a in rd_kafka_q_pop_serve0 () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce6f1e7b in rd_kafka_q_pop_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007fffce71c7b0 in rd_kafka_broker_ops_io_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#8  0x00007fffce71da2a in rd_kafka_broker_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#9  0x00007fffce71e2e0 in rd_kafka_broker_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#10 0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#11 0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 12 (Thread 0x7fffce4106c0 (LWP 26) "rdk:main"):
+#0  0x00007fffce6a2141 in rd_kafka_cgrp_op () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#1  0x00007fffce6cbae9 in rd_kafka_handle_OffsetFetch () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#2  0x00007fffce6293b0 in rd_kafka_ListConsumerGroupOffsetsResponse_parse () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#3  0x00007fffce65a7e7 in rd_kafka_admin_worker () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce62fedd in rd_kafka_admin_handle_response () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce6f5aa4 in rd_kafka_buf_callback () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce6eefa0 in rd_kafka_op_handle_std () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007fffce6ef048 in rd_kafka_op_handle () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#8  0x00007fffce6f225c in rd_kafka_q_serve0 () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#9  0x00007fffce6f267b in rd_kafka_q_serve () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#10 0x00007fffce72e4ac in rd_kafka_thread_main () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#11 0x00007ffff7b44020 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#12 0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 11 (Thread 0x7fffcf7fe6c0 (LWP 25) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b438bc in pthread_cond_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x00007ffff7b4c669 in cnd_timedwait () from /lib/x86_64-linux-gnu/libc.so.6
+#3  0x00007fffce68cd69 in cnd_timedwait_ms () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#4  0x00007fffce68cf5c in cnd_timedwait_abs () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#5  0x00007fffce6f138a in rd_kafka_q_pop_serve0 () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#6  0x00007fffce6f1e9e in rd_kafka_q_pop_serve_maybe_consume () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#7  0x00007fffce6252e1 in NodeKafka::PollForEvent(rd_kafka_queue_s*, int, int) () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#8  0x00007fffce6269b2 in NodeKafka::AdminClient::ListConsumerGroupOffsets(rd_kafka_ListConsumerGroupOffsets_s**, unsigned long, bool, int, rd_kafka_op_s**) () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#9  0x00007fffce618397 in NodeKafka::Workers::AdminClientListConsumerGroupOffsets::Execute() () from /app/node_modules/@confluentinc/kafka-javascript/build/Release/confluent-kafka-javascript.node
+#10 0x0000000001d262e0 in worker (arg=0x0) at ../deps/uv/src/threadpool.c:122
+#11 0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#12 0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 10 (Thread 0x7fffcffff6c0 (LWP 24) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b435d8 in pthread_cond_wait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x0000000001d3a6d9 in uv_cond_wait (cond=cond@entry=0x67023a0 <cond>, mutex=mutex@entry=0x6702360 <mutex>) at ../deps/uv/src/unix/thread.c:814
+#3  0x0000000001d2637c in worker (arg=0x0) at ../deps/uv/src/threadpool.c:76
+#4  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#5  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 9 (Thread 0x7ffff49f16c0 (LWP 23) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b435d8 in pthread_cond_wait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x0000000001d3a6d9 in uv_cond_wait (cond=cond@entry=0x67023a0 <cond>, mutex=mutex@entry=0x6702360 <mutex>) at ../deps/uv/src/unix/thread.c:814
+#3  0x0000000001d2637c in worker (arg=0x0) at ../deps/uv/src/threadpool.c:76
+#4  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#5  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 8 (Thread 0x7ffff51f26c0 (LWP 22) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b435d8 in pthread_cond_wait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x0000000001d3a6d9 in uv_cond_wait (cond=cond@entry=0x67023a0 <cond>, mutex=mutex@entry=0x6702360 <mutex>) at ../deps/uv/src/unix/thread.c:814
+#3  0x0000000001d2637c in worker (arg=0x0) at ../deps/uv/src/threadpool.c:76
+#4  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#5  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 7 (Thread 0x7ffff51fb6c0 (LWP 21) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b4bd60 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x0000000001d3a50a in uv__sem_wait (sem=<optimized out>) at ../deps/uv/src/unix/thread.c:639
+#3  uv_sem_wait (sem=0x66ed5a0 <node::inspector::(anonymous namespace)::start_io_thread_semaphore>) at ../deps/uv/src/unix/thread.c:695
+#4  0x00000000010ecb05 in node::inspector::(anonymous namespace)::StartIoThreadMain(void*) ()
+#5  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#6  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 6 (Thread 0x7ffff5aa46c0 (LWP 20) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b435d8 in pthread_cond_wait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x0000000001d3a6d9 in uv_cond_wait (cond=<optimized out>, mutex=<optimized out>) at ../deps/uv/src/unix/thread.c:814
+#3  0x0000000000ffd3ab in node::(anonymous namespace)::PlatformWorkerThread(void*) ()
+#4  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#5  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 5 (Thread 0x7ffff62a56c0 (LWP 19) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b435d8 in pthread_cond_wait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x0000000001d3a6d9 in uv_cond_wait (cond=<optimized out>, mutex=<optimized out>) at ../deps/uv/src/unix/thread.c:814
+#3  0x0000000000ffd3ab in node::(anonymous namespace)::PlatformWorkerThread(void*) ()
+#4  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#5  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 4 (Thread 0x7ffff6aa66c0 (LWP 18) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b435d8 in pthread_cond_wait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x0000000001d3a6d9 in uv_cond_wait (cond=<optimized out>, mutex=<optimized out>) at ../deps/uv/src/unix/thread.c:814
+#3  0x0000000000ffd3ab in node::(anonymous namespace)::PlatformWorkerThread(void*) ()
+#4  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#5  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 3 (Thread 0x7ffff72a76c0 (LWP 17) "node"):
+#0  0x00007ffff7b40f16 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x00007ffff7b435d8 in pthread_cond_wait () from /lib/x86_64-linux-gnu/libc.so.6
+#2  0x0000000001d3a6d9 in uv_cond_wait (cond=<optimized out>, mutex=<optimized out>) at ../deps/uv/src/unix/thread.c:814
+#3  0x0000000000ffd3ab in node::(anonymous namespace)::PlatformWorkerThread(void*) ()
+#4  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#5  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 2 (Thread 0x7ffff7aaf6c0 (LWP 16) "node"):
+#0  0x00007ffff7bc3c1e in epoll_pwait () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x0000000001d3fdaa in uv__io_poll (loop=loop@entry=0x67bd3b8, timeout=14977) at ../deps/uv/src/unix/linux.c:1470
+#2  0x0000000001d2b047 in uv_run (loop=0x67bd3b8, mode=UV_RUN_DEFAULT) at ../deps/uv/src/unix/core.c:458
+#3  0x00000000010024e0 in node::WorkerThreadsTaskRunner::DelayedTaskScheduler::Start()::{lambda(void*)#1}::_FUN(void*) ()
+#4  0x00007ffff7b441c4 in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#5  0x00007ffff7bc485c in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+
+Thread 1 (Thread 0x7ffff7ab9cc0 (LWP 13) "node"):
+#0  0x00007ffff7bc3c1e in epoll_pwait () from /lib/x86_64-linux-gnu/libc.so.6
+#1  0x0000000001d3fdaa in uv__io_poll (loop=loop@entry=0x6702400 <default_loop_struct>, timeout=20) at ../deps/uv/src/unix/linux.c:1470
+#2  0x0000000001d2b047 in uv_run (loop=0x6702400 <default_loop_struct>, mode=UV_RUN_DEFAULT) at ../deps/uv/src/unix/core.c:458
+#3  0x0000000000e746d6 in node::SpinEventLoopInternal(node::Environment*) ()
+#4  0x0000000000fc9001 in node::NodeMainInstance::Run() ()
+#5  0x0000000000f2b96b in node::Start(int, char**) ()
+#6  0x00007ffff7ae224a in ?? () from /lib/x86_64-linux-gnu/libc.so.6
+#7  0x00007ffff7ae2305 in __libc_start_main () from /lib/x86_64-linux-gnu/libc.so.6
+#8  0x0000000000e71bde in _start ()
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff7aaf6c0 (LWP 28)]
+[New Thread 0x7ffff72a76c0 (LWP 29)]
+[New Thread 0x7ffff6aa66c0 (LWP 30)]
+[New Thread 0x7ffff62a56c0 (LWP 31)]
+[New Thread 0x7ffff5aa46c0 (LWP 32)]
+[New Thread 0x7ffff51fb6c0 (LWP 33)]
+[New Thread 0x7ffff51f26c0 (LWP 34)]
+[New Thread 0x7ffff49f16c0 (LWP 35)]
+[New Thread 0x7fffcffff6c0 (LWP 36)]
+[New Thread 0x7fffcf7fe6c0 (LWP 37)]
+[New Thread 0x7fffce4106c0 (LWP 38)]
+[New Thread 0x7fffcdc0f6c0 (LWP 39)]
+[New Thread 0x7fffcd40e6c0 (LWP 40)]
+[New Thread 0x7fffccc0d6c0 (LWP 41)]
+[New Thread 0x7ffd27fff6c0 (LWP 42)]
+[Thread 0x7fffcd40e6c0 (LWP 40) exited]
+[New Thread 0x7fffcd40e6c0 (LWP 43)]
+[New Thread 0x7ffd277fe6c0 (LWP 44)]
+[New Thread 0x7ffd26ffd6c0 (LWP 45)]
+[New Thread 0x7ffd267fc6c0 (LWP 46)]
+[New Thread 0x7ffd25ffb6c0 (LWP 47)]
+[Thread 0x7ffd267fc6c0 (LWP 46) exited]
+{"level":"info","time":"2026-11-23T08:08:48.040Z","service":"aisleforge-worker","role":"worker","component":"outbox-publisher","message":"outbox publisher leadership acquired"}
+{"level":"info","time":"2026-11-23T08:08:48.129Z","service":"aisleforge-worker","role":"worker","workerId":"dk5-2","roles":["publisher","order-workflow","catalog-cache","sweeper","replayer"],"message":"worker started"}
+(node:25) MaxListenersExceededWarning: Possible EventTarget memory leak detected. 11 abort listeners added to [AbortSignal]. MaxListeners is 10. Use events.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)

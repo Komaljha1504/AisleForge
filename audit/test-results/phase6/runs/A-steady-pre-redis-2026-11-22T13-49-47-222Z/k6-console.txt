@@ -1,0 +1,1 @@
+time="2026-11-22T13:50:42Z" level=error msg="could not initialize '/scripts/aisleforge.js': could not load JS test 'file:///scripts/aisleforge.js': json: cannot unmarshal number 0.16666666666666666 into Go struct field Options.scenarios of type int64"

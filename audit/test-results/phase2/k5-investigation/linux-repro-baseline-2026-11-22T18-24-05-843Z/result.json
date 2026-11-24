@@ -1,0 +1,160 @@
+{
+  "hypothesis": "native worker crash when starting against a broker whose group coordinator is still loading",
+  "label": "baseline",
+  "iterations": 6,
+  "observeSeconds": 90,
+  "workerExtraEnv": null,
+  "startDelayAfterBrokerReadyS": null,
+  "workerImage": "aisleforge/worker:dev",
+  "gdb": false,
+  "iterationsWithNativeCrash": 6,
+  "sigsegvTotal": 6,
+  "startupFailuresTotal": 2,
+  "images": {
+    "worker": "sha256:eb4252d2afdc66d6d380d5fd959a92dbd629931adffc5e14710d0936c07e0ae1",
+    "kafka": "apache/kafka:4.1.1"
+  },
+  "results": [
+    {
+      "iteration": 1,
+      "brokerReadyMs": null,
+      "exits": [
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 13555,
+          "afterStartMs": 14866
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 92755
+    },
+    {
+      "iteration": 2,
+      "brokerReadyMs": null,
+      "exits": [
+        {
+          "exitCode": 1,
+          "signal": null,
+          "oomKilled": false,
+          "livedMs": 11158,
+          "afterStartMs": 12842
+        },
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 6187,
+          "afterStartMs": 21272
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 1,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 94188
+    },
+    {
+      "iteration": 3,
+      "brokerReadyMs": null,
+      "exits": [
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 9786,
+          "afterStartMs": 11165
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 93666
+    },
+    {
+      "iteration": 4,
+      "brokerReadyMs": null,
+      "exits": [
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 12612,
+          "afterStartMs": 14978
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 94700
+    },
+    {
+      "iteration": 5,
+      "brokerReadyMs": null,
+      "exits": [
+        {
+          "exitCode": 1,
+          "signal": null,
+          "oomKilled": false,
+          "livedMs": 13343,
+          "afterStartMs": 16030
+        },
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 5260,
+          "afterStartMs": 22361
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 1,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 95698
+    },
+    {
+      "iteration": 6,
+      "brokerReadyMs": null,
+      "exits": [
+        {
+          "exitCode": 139,
+          "signal": 11,
+          "oomKilled": false,
+          "livedMs": 13735,
+          "afterStartMs": 15918
+        }
+      ],
+      "nativeCrashes": 1,
+      "sigsegv": 1,
+      "startupFailures": 0,
+      "gdbSignal": null,
+      "runningAtEnd": true,
+      "workerStartedLines": 2,
+      "coordinatorLoadWarnings": 0,
+      "observedMs": 94569
+    }
+  ],
+  "finishedAt": "2026-11-22T18:35:06.845Z"
+}

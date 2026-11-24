@@ -1,0 +1,40 @@
+{
+  "recordedAt": "2026-11-21T18:57:31.364Z",
+  "databaseKind": "embedded-postgres",
+  "publisher": {
+    "cycles": [
+      {
+        "claimed": 1,
+        "published": 1,
+        "failed": 0
+      },
+      {
+        "claimed": 1,
+        "published": 1,
+        "failed": 0
+      },
+      {
+        "claimed": 0,
+        "published": 0,
+        "failed": 0
+      }
+    ],
+    "publishedInOrder": [
+      "B_fast_tx",
+      "A_slow_tx"
+    ],
+    "backlogAfter": {
+      "unpublished": 0,
+      "oldestAgeSeconds": null,
+      "maxAttempts": 0
+    }
+  },
+  "negativeControlWatermarkPoller": {
+    "published": [
+      "B_fast_tx"
+    ],
+    "lost": [
+      "A_slow_tx"
+    ]
+  }
+}

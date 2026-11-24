@@ -1,0 +1,1 @@
+summary written to /results/k6-summary-A-steady-pre-redis.json

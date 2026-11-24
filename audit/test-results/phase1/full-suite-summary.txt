@@ -1,0 +1,12 @@
+ ✓  unit  tests/unit/events-and-shared.test.ts (7 tests) 53ms
+ ✓  unit  tests/unit/orders-normalize.test.ts (10 tests) 52ms
+ ✓  db  tests/concurrency/t4-deadlock.test.ts (2 tests) 65718ms
+ ✓  db  tests/concurrency/property-inventory.test.ts (1 test) 45732ms
+ ✓  db  tests/concurrency/t7-expiry-vs-pick.test.ts (1 test) 9741ms
+ ✓  db  tests/concurrency/t1-last-unit.test.ts (3 tests) 8078ms
+ ✓  db  tests/integration/inventory-orders.test.ts (18 tests) 6562ms
+ ✓  db  tests/concurrency/t2-idempotency.test.ts (2 tests) 5407ms
+ ✓  db  tests/concurrency/t6-outbox.test.ts (4 tests) 1788ms
+ Test Files  9 passed (9)
+      Tests  48 passed (48)
+   Duration  161.84s (transform 1.27s, setup 0ms, collect 4.65s, tests 143.13s, environment 1ms, prepare 1.19s)

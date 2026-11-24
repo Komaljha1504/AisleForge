@@ -1,0 +1,69 @@
+{
+  "recordedAt": "2026-11-21T15:46:49.267Z",
+  "pass": true,
+  "steps": [
+    {
+      "step": "refuses to start with a weak JWT_SECRET",
+      "ok": true,
+      "detail": {
+        "exitCode": 2
+      }
+    },
+    {
+      "step": "process boots and becomes ready",
+      "ok": true,
+      "detail": {
+        "bootMs": 4421
+      }
+    },
+    {
+      "step": "GET /health/live",
+      "ok": true
+    },
+    {
+      "step": "POST register",
+      "ok": true,
+      "detail": {
+        "status": 201
+      }
+    },
+    {
+      "step": "POST login",
+      "ok": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "step": "POST order (store has no stock → recorded 422 UNKNOWN_SKU)",
+      "ok": true,
+      "detail": {
+        "status": 422
+      }
+    },
+    {
+      "step": "POST refresh rotates the session",
+      "ok": true,
+      "detail": {
+        "status": 200
+      }
+    },
+    {
+      "step": "replaying the old refresh token is rejected",
+      "ok": true,
+      "detail": {
+        "status": 401
+      }
+    },
+    {
+      "step": "GET /internal/status without auth → 401",
+      "ok": true,
+      "detail": {
+        "status": 401
+      }
+    }
+  ],
+  "notVerified": [
+    "graceful SIGTERM drain (Windows cannot deliver SIGTERM to a child; verify in Linux container, Phase 8/9)"
+  ]
+}

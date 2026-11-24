@@ -1,0 +1,19 @@
+{
+  "hypothesis": "native worker crash when starting against a broker whose group coordinator is still loading",
+  "label": "delayed20",
+  "iterations": 0,
+  "observeSeconds": 90,
+  "workerExtraEnv": null,
+  "startDelayAfterBrokerReadyS": 20,
+  "workerImage": "aisleforge/worker:dev",
+  "gdb": false,
+  "iterationsWithNativeCrash": 0,
+  "sigsegvTotal": 0,
+  "startupFailuresTotal": 0,
+  "images": {
+    "worker": "failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
+    "kafka": "apache/kafka:4.1.1"
+  },
+  "results": [],
+  "finishedAt": "2026-11-23T07:52:04.935Z"
+}

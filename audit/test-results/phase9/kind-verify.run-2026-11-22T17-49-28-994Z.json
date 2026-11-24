@@ -1,0 +1,44 @@
+{
+  "recordedAt": "2026-11-22T17:49:29.058Z",
+  "cluster": "kind-aisleforge",
+  "pass": false,
+  "steps": [
+    {
+      "step": "images present in the kind node (local builds loaded, public images pulled by the node)",
+      "ok": true,
+      "ms": 9383,
+      "detail": {
+        "localImages": {
+          "aisleforge/api:dev": {
+            "local": "sha256:b42a777085e027a64de5a0632f75a810bffc793c0cbf88448e8b933bc68008c5",
+            "nodeBefore": "sha256:b42a777085e027a64de5a0632f75a810bffc793c0cbf88448e8b933bc68008c5",
+            "imported": false
+          },
+          "aisleforge/worker:dev": {
+            "local": "sha256:eb4252d2afdc66d6d380d5fd959a92dbd629931adffc5e14710d0936c07e0ae1",
+            "nodeBefore": "sha256:eb4252d2afdc66d6d380d5fd959a92dbd629931adffc5e14710d0936c07e0ae1",
+            "imported": false
+          },
+          "aisleforge/web:dev": {
+            "local": "sha256:8cd4faf86a936355388fb6cb0b78e329fdc7fa584cd40fbc49f1f3d4484e9b89",
+            "nodeBefore": "sha256:8cd4faf86a936355388fb6cb0b78e329fdc7fa584cd40fbc49f1f3d4484e9b89",
+            "imported": false
+          }
+        },
+        "pulled": []
+      }
+    },
+    {
+      "step": "helm install (local values, in-cluster dependencies with PVCs, generated secrets)",
+      "ok": true,
+      "ms": 133097,
+      "detail": "Release \"af\" does not exist. Installing it now. | NAME: af | LAST DEPLOYED: Sun Nov 22 23:17:47 2026 | NAMESPACE: aisleforge | STATUS: deployed | REVISION: 1"
+    },
+    {
+      "step": "all workloads rolled out and ready (startup/readiness probes passed)",
+      "ok": false,
+      "ms": 1821,
+      "detail": "Error: Command failed: kubectl --context kind-aisleforge -n aisleforge get pods -o jsonpath={range .items[*]}{.metadata.name}{\" init=\"}{.status.initContainerStatuses[*].lastState.terminated.exitCode}{\" main=\"}{.status.containerStatuses[*].lastState.terminated.exitCode}{\" \"}{.status.containerStatuses[*].lastState.terminated.reason}{\"\n\"}{end}\nerror: error parsing jsonpath {range .items[*]}{.metadata.name}{\" init=\"}{.status.initContainerStatuses[*].lastState.terminated.exitCode}{\" main=\"}{.status.containerStatuses[*].lastState.terminated.exitCode}{\" \"}{.status.containerStatuses[*].lastState.terminated.reason}{\"\n\"}{end}, unterminated quoted string\n"
+    }
+  ]
+}

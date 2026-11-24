@@ -1,0 +1,119 @@
+﻿
+> aisleforge@ test:kafka C:\Users\komal\OneDrive\Desktop\RetailFlow
+> vitest run --project kafka
+
+
+ RUN  v3.2.7 C:/Users/komal/OneDrive/Desktop/RetailFlow
+
+ ✓ |kafka| tests/kafka/k3-poison-dlt.test.ts (5 tests) 16227ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > the partition is not stuck: the valid order behind 5 poison messages gets its pick task  5731ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > every poison message is dead-lettered once (table + DLT topic), with bounded attempts and a reason  464ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > admin API: list/inspect are admin-only; replay of a fixed failure applies it exactly once  3723ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > replaying a still-invalid message dead-letters it again as a new record; discard needs a note  2212ms
+   ✓ K3 poison messages, dead letters and replay (real Kafka) > global invariants I1–I6 hold  452ms
+ ❯ |kafka| tests/kafka/k5-worker-crash.test.ts (5 tests | 3 failed) 133986ms
+   ✓ K5 worker process crashes (E3) and outage (E1), real broker and processes > negative control: the harness detects a worker that dies on its own, a drain with no live worker, and a stall  10883ms
+   ✓ K5 worker process crashes (E3) and outage (E1), real broker and processes > E3: 10 hard kills of random workers under load; redeliveries deduplicated; one task per order  62152ms
+   × K5 worker process crashes (E3) and outage (E1), real broker and processes > E1: all workers down for 30 s while orders are accepted; one worker drains the backlog 58611ms
+     → backlog drained by one worker: no live worker with 212 events unconsumed
+   × K5 worker process crashes (E3) and outage (E1), real broker and processes > no worker process died on its own (only the test killed workers) 7ms
+     → expected [ { worker: 'C', …(6) } ] to deeply equal []
+   × K5 worker process crashes (E3) and outage (E1), real broker and processes > invariants I1–I6 hold after the crash experiments 220ms
+     → I6 [{"problem":"not_consumed","event_id":"01a20318-e605-75a9-98bf-1ae43e3c5273","event_type":"order.placed","aggregate_id":"01a20318-e601-717a-8809-4a11f3717995"},{"problem":"not_consumed","event_id":"01a20318-fa24-739e-827c-031993a48fba","event_type":"order.placed","aggregate_id":"01a20318-fa1f-7542-9ae4-168ac0091468"},{"problem":"not_consumed","event_id":"01a20318-eb35-75c6-967f-bbc41b6b2a81","event_type":"order.placed","aggregate_id":"01a20318-eb2e-777a-8a3f-c92dd90c6669"},{"problem":"not_consumed","event_id":"01a20318-c564-747c-8bf7-3fd96f55f600","event_type":"order.placed","aggregate_id":"01a20318-c561-73bf-bdee-8cd47adaa624"},{"problem":"not_consumed","event_id":"01a20318-f0aa-72ae-8cb7-51f0b81d7bab","event_type":"order.placed","aggregate_id":"01a20318-f0a5-7798-a3dc-7bb3a4831a1f"}]: expected 'FAIL' to be 'PASS' // Object.is equality
+ ✓ |kafka| tests/kafka/k4-broker-outage.test.ts (3 tests) 95835ms
+   ✓ K4 broker outage (E2, real docker compose stop kafka) > baseline: orders flow to pick tasks while the broker is up  1477ms
+   ✓ K4 broker outage (E2, real docker compose stop kafka) > during the outage orders are accepted, the publisher fails without marking rows, the backlog grows  65002ms
+   ✓ K4 broker outage (E2, real docker compose stop kafka) > after restart the backlog drains, every order has exactly one task, and invariants I1–I6 hold  23903ms
+ ✓ |kafka| tests/kafka/k2-order-workflow.test.ts (6 tests) 9301ms
+   ✓ K2 order → pick task workflow (real Kafka) > turns placed orders into pick tasks with feasible routes and propagates the correlation id  2457ms
+   ✓ K2 order → pick task workflow (real Kafka) > per-key ordering: orders cancelled right after placement never end with an active task  454ms
+   ✓ K2 order → pick task workflow (real Kafka) > a stale event (new event id, already-applied aggregate version) has no effect  441ms
+   ✓ K2 order → pick task workflow (real Kafka) > routing never blocks fulfilment: unplanned (no layout), infeasible (cold chain), fallback (optimizer failure)  3133ms
+ ✓ |kafka| tests/kafka/k1-producer.test.ts (2 tests) 5361ms
+   ✓ K1 Kafka producer adapter (real broker) > delivers acknowledged messages with keys and headers; each key stays on one partition, in order  711ms
+   ✓ K1 Kafka producer adapter (real broker) > rejects (within the delivery timeout) instead of reporting success when the write cannot be acknowledged  4352ms
+node.exe : 
+At C:\Users\komal\AppData\Roaming\npm\pnpm.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.cjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |kafka| tests/kafka/k5-worker-crash.test.ts > K5 worker process crashes (E3) and outage (E1), real broker and 
+processes > E1: all workers down for 30 s while orders are accepted; one worker drains the backlog
+Error: backlog drained by one worker: no live worker with 212 events unconsumed
+ ❯ fail tests/kafka/k5-worker-crash.test.ts:204:11
+    202|       ...((await diagnostics()) as object),
+    203|     };
+    204|     throw new Error(`${what}: ${why}`);
+       |           ^
+    205|   };
+    206|   for (;;) {
+ ❯ waitForDrain tests/kafka/k5-worker-crash.test.ts:213:31
+ ❯ tests/kafka/k5-worker-crash.test.ts:397:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |kafka| tests/kafka/k5-worker-crash.test.ts > K5 worker process crashes (E3) and outage (E1), real broker and 
+processes > no worker process died on its own (only the test killed workers)
+AssertionError: expected [ { worker: 'C', …(6) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "at": "2026-11-22T11:52:12.848Z",
++     "code": 3221225477,
++     "codeHex": "0xc0000005",
++     "killedByTest": false,
++     "log": "C-14.log",
++     "signal": null,
++     "worker": "C",
++   },
++ ]
+
+ ❯ tests/kafka/k5-worker-crash.test.ts:421:85
+    419|       [...procs.values()].filter((p) => expectedDeaths.has(p.child)).m…
+    420|     );
+    421|     expect(exits.filter((e) => !e.killedByTest && !negativeControlLogs…
+       |                                                                                     ^
+    422|     expect(
+    423|       alive()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |kafka| tests/kafka/k5-worker-crash.test.ts > K5 worker process crashes (E3) and outage (E1), real broker and 
+processes > invariants I1–I6 hold after the crash experiments
+AssertionError: I6 [{"problem":"not_consumed","event_id":"01a20318-e605-75a9-98bf-1ae43e3c5273","event_type":"order.pla
+ced","aggregate_id":"01a20318-e601-717a-8809-4a11f3717995"},{"problem":"not_consumed","event_id":"01a20318-fa24-739e-82
+7c-031993a48fba","event_type":"order.placed","aggregate_id":"01a20318-fa1f-7542-9ae4-168ac0091468"},{"problem":"not_con
+sumed","event_id":"01a20318-eb35-75c6-967f-bbc41b6b2a81","event_type":"order.placed","aggregate_id":"01a20318-eb2e-777a
+-8a3f-c92dd90c6669"},{"problem":"not_consumed","event_id":"01a20318-c564-747c-8bf7-3fd96f55f600","event_type":"order.pl
+aced","aggregate_id":"01a20318-c561-73bf-bdee-8cd47adaa624"},{"problem":"not_consumed","event_id":"01a20318-f0aa-72ae-8
+cb7-51f0b81d7bab","event_type":"order.placed","aggregate_id":"01a20318-f0a5-7798-a3dc-7bb3a4831a1f"}]: expected 'FAIL' 
+to be 'PASS' // Object.is equality
+
+Expected: "PASS"
+Received: "FAIL"
+
+ ❯ tests/kafka/k5-worker-crash.test.ts:435:90
+    433|     });
+    434|     evidence.invariants = rows.map((r) => `${r.invariant}:${r.status}`…
+    435|     for (const r of rows) expect(r.status, `${r.invariant} ${JSON.stri…
+       |                                                                                          ^
+    436|   });
+    437| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  3 failed | 18 passed (21)
+   Start at  17:19:22
+   Duration  282.89s (transform 1.69s, setup 0ms, collect 6.69s, tests 260.71s, environment 1ms, prepare 958ms)
+
+ ELIFECYCLE  Command failed with exit code 1.

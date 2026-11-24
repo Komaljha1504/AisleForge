@@ -1,0 +1,15 @@
+Negative control for tests/integration/seed-concurrency.test.ts (2026-11-22, embedded PostgreSQL 18).
+
+The advisory lock in tools/seed/seed.ts (pg_advisory_lock(SEED_LOCK_KEY)) was temporarily commented out, then
+restored after each run (verified: 1 occurrence of pg_advisory_lock after restore).
+
+phase9/seed-concurrency.json
+  First version of the test: ONE round of 4 in-process seeders. It PASSED without the lock, i.e. it did not
+  reproduce the race and was too weak to serve as a regression test. Kept as evidence of that.
+
+phase9/seed-concurrency.run-2026-11-22T17-31-41-222Z.json
+  Strengthened test: 5 rounds x 6 concurrent seeders, database reset between rounds. WITHOUT the lock it FAILED
+  with "AppError: Balance already exists for store 2 / RICE-2KG", the same failure the kind deployment showed
+  ("... store 1 / MILK-1L"). This is the version kept in the suite.
+
+With the lock restored, the strengthened test PASSED (audit/test-results/phase9/seed-concurrency.json).

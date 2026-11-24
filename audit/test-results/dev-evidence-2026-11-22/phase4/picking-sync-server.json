@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-11-22T12:04:31.446Z",
+  "databaseKind": "embedded-postgres",
+  "invariants": [
+    "I1:PASS",
+    "I2:PASS",
+    "I3:PASS",
+    "I4:PASS",
+    "I5:PASS",
+    "I6:PASS",
+    "I7:PASS"
+  ]
+}
