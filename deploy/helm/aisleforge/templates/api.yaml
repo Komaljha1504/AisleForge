@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "af.name" . }}-api
+  labels: {{- include "af.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
+spec:
+  replicas: {{ .Values.api.replicas }}
+  revisionHistoryLimit: 5
+  strategy: { type: RollingUpdate, rollingUpdate: { maxUnavailable: 0, maxSurge: 1 } }
+  selector: { matchLabels: { app.kubernetes.io/instance: {{ .Release.Name }}, app.kubernetes.io/component: api } }
+  template:
+    metadata:
+      labels: {{- include "af.labels" . | nindent 8 }}
+        app.kubernetes.io/component: api
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      securityContext: {{- include "af.podSecurity" (dict "uid" 1000) | nindent 8 }}
+      terminationGracePeriodSeconds: 30
+      {{- include "af.migrateInit" (dict "root" . "component" "api") | nindent 6 }}
+      containers:
+        - name: api
+          image: {{ include "af.image" (dict "root" . "component" "api") }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports: [{ name: http, containerPort: 8080 }]
+          envFrom:
+            - configMapRef: { name: {{ include "af.name" . }}-config }
+            - secretRef: { name: {{ .Values.secrets.existingSecret }} }
+          # Liveness = process only (never a dependency); readiness = PostgreSQL reachable and not draining.
+          startupProbe: { httpGet: { path: /health/live, port: http }, periodSeconds: 2, failureThreshold: 30 }
+          livenessProbe: { httpGet: { path: /health/live, port: http }, periodSeconds: 10, failureThreshold: 3 }
+          readinessProbe: { httpGet: { path: /health/ready, port: http }, periodSeconds: 5, failureThreshold: 2 }
+          # On SIGTERM the API starts draining at once (readiness 503, listener closed), but endpoint removal reaches
+          # kube-proxy asynchronously, so a few requests could still be routed to it (1 × 503 in 235 requests during a
+          # rolling update on kind). Wait first, then let the app drain. Native sleep action: Kubernetes >= 1.30.
+          lifecycle: { preStop: { sleep: { seconds: {{ .Values.api.preStopSleepSeconds | default 10 }} } } }
+          resources: {{- toYaml .Values.api.resources | nindent 12 }}
+          securityContext: {{- include "af.containerSecurity" . | nindent 12 }}
+            readOnlyRootFilesystem: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "af.name" . }}-api
+  labels: {{- include "af.labels" . | nindent 4 }}
+spec:
+  selector: { app.kubernetes.io/instance: {{ .Release.Name }}, app.kubernetes.io/component: api }
+  ports: [{ name: http, port: 8080, targetPort: http }]
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "af.name" . }}-api
+spec:
+  minAvailable: {{ .Values.api.pdbMinAvailable | default 1 }}
+  selector: { matchLabels: { app.kubernetes.io/instance: {{ .Release.Name }}, app.kubernetes.io/component: api } }

@@ -1,0 +1,67 @@
+# Production-oriented defaults. Stateful dependencies are EXTERNAL (managed PostgreSQL, Kafka, Redis): this chart
+# deploys only the stateless application tier. Connection strings and secrets come from an existing Secret.
+image:
+  registry: ghcr.io/your-org
+  tag: '' # immutable tag (commit SHA) — required
+  pullPolicy: IfNotPresent
+
+secrets:
+  # Secret with keys: DATABASE_URL, JWT_SECRET, (optional) REDIS_URL, (optional) SEED_PASSWORD
+  existingSecret: aisleforge-secrets
+  create: false # only for local clusters (values-local.yaml)
+  values: {}
+
+config:
+  KAFKA_BROKERS: kafka:9092
+  LOG_LEVEL: info
+  PUBLIC_ORIGIN: https://aisleforge.example.com
+  TRUST_PROXY: 'true'
+  COOKIE_SECURE: 'true'
+
+api:
+  replicas: 2
+  resources:
+    requests: { cpu: 250m, memory: 192Mi }
+    limits: { cpu: '1', memory: 384Mi }
+  pdbMinAvailable: 1
+  # Delay before SIGTERM so Service endpoints drop the pod before it drains (needs Kubernetes >= 1.30). 5 s still let
+  # 1 of 137 requests reach a draining pod on a loaded single-node kind cluster (Phase 10); 10 s.
+  preStopSleepSeconds: 10
+worker:
+  # Consumers scale out (partitions are shared); exactly one replica holds the outbox-publisher leadership.
+  replicas: 1
+  resources:
+    requests: { cpu: 200m, memory: 192Mi }
+    limits: { cpu: '1', memory: 384Mi }
+web:
+  replicas: 2
+  resources:
+    requests: { cpu: 50m, memory: 32Mi }
+    limits: { cpu: 500m, memory: 64Mi }
+
+migrations:
+  # Runs as an initContainer (`node init-db.mjs`) in every api/worker pod: forward-only migrations under an advisory
+  # lock, so concurrent pods are safe; waits a bounded time for PostgreSQL. (A pre-install hook Job cannot be used
+  # with the in-cluster local dependencies, which are created by the same release.)
+  enabled: true
+  seed: false # demo data — never in production (concurrency-safe: advisory lock)
+
+ingress:
+  enabled: true
+  className: nginx
+  host: aisleforge.example.com
+  tls:
+    enabled: true
+    secretName: aisleforge-tls
+
+# Local-only in-cluster dependencies (kind/k3d). NOT a production data tier: single replica, no HA, no backups
+# beyond the documented pg_dump procedure. Disabled by default.
+localDependencies:
+  enabled: false
+  storageClass: ''
+  postgres: { image: postgres:18.1-alpine, storage: 2Gi }
+  kafka: { image: apache/kafka:4.1.1, storage: 2Gi }
+  redis: { enabled: true, image: redis:7.4.1-alpine }
+
+# Kubernetes cluster DNS domain (used for the fully qualified API upstream in the web nginx config).
+clusterDomain: cluster.local

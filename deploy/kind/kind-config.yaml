@@ -1,0 +1,7 @@
+# Single-node local cluster for AisleForge (fits the 4 GiB Docker Desktop VM with the app + local dependencies).
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: aisleforge
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.31.2

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: aisleforge
+description: AisleForge retail fulfilment platform (API, worker, PWA) — modular monolith on PostgreSQL + Kafka (+ Redis cache)
+type: application
+version: 0.1.0
+appVersion: '0.1.0'

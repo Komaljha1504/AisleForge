@@ -1,0 +1,22 @@
+# kind / k3d: locally built images (imported into the node by tools/k8s/verify-kind.ts), in-cluster dependencies,
+# generated local secrets.
+# Service names below assume the release name "af" (helm install af …), see docs/deployment/KUBERNETES.md.
+image:
+  registry: aisleforge
+  tag: dev
+  pullPolicy: IfNotPresent
+secrets:
+  create: true
+  existingSecret: aisleforge-secrets
+  # values are passed with --set-file / --set at install time (never committed)
+config:
+  KAFKA_BROKERS: af-kafka:9092
+  PUBLIC_ORIGIN: http://localhost:8090
+  COOKIE_SECURE: 'true'
+api: { replicas: 2 }
+worker: { replicas: 1 }
+web: { replicas: 1 }
+migrations: { enabled: true, seed: true }
+ingress: { enabled: false }
+localDependencies:
+  enabled: true

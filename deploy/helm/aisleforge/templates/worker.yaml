@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "af.name" . }}-worker
+  labels: {{- include "af.labels" . | nindent 4 }}
+    app.kubernetes.io/component: worker
+spec:
+  replicas: {{ .Values.worker.replicas }}
+  revisionHistoryLimit: 5
+  strategy: { type: RollingUpdate, rollingUpdate: { maxUnavailable: 0, maxSurge: 1 } }
+  selector: { matchLabels: { app.kubernetes.io/instance: {{ .Release.Name }}, app.kubernetes.io/component: worker } }
+  template:
+    metadata:
+      labels: {{- include "af.labels" . | nindent 8 }}
+        app.kubernetes.io/component: worker
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      securityContext: {{- include "af.podSecurity" (dict "uid" 1000) | nindent 8 }}
+      # SIGTERM → graceful stop (verified in Linux containers); offsets of finished messages are already committed.
+      terminationGracePeriodSeconds: 30
+      {{- include "af.migrateInit" (dict "root" . "component" "worker") | nindent 6 }}
+      containers:
+        - name: worker
+          image: {{ include "af.image" (dict "root" . "component" "worker") }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports: [{ name: status, containerPort: 8081 }]
+          envFrom:
+            - configMapRef: { name: {{ include "af.name" . }}-config }
+            - secretRef: { name: {{ .Values.secrets.existingSecret }} }
+          startupProbe: { httpGet: { path: /health/live, port: status }, periodSeconds: 2, failureThreshold: 60 }
+          livenessProbe: { httpGet: { path: /health/live, port: status }, periodSeconds: 10, failureThreshold: 3 }
+          readinessProbe: { httpGet: { path: /health/ready, port: status }, periodSeconds: 10, failureThreshold: 3 }
+          resources: {{- toYaml .Values.worker.resources | nindent 12 }}
+          securityContext: {{- include "af.containerSecurity" . | nindent 12 }}
+            readOnlyRootFilesystem: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "af.name" . }}-worker-status
+  labels: {{- include "af.labels" . | nindent 4 }}
+spec:
+  selector: { app.kubernetes.io/instance: {{ .Release.Name }}, app.kubernetes.io/component: worker }
+  ports: [{ name: status, port: 8081, targetPort: status }]
